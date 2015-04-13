@@ -77,6 +77,28 @@ int main(int argc, char**argv)
 			commands_calls.push_back(first_token);
 		}
 		cout << commands_calls[0] << endl;
+		int pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			return 0;
+		}
+		else if(pid == 0)
+		{
+			cout << "This is the child process" << endl;
+			return 0;
+		}
+		else if(pid > 0)
+		{
+			if(wait(0) == -1)
+			{
+				perror("wait(0)");
+			}
+		}
+
+
+
+
 /*
 for(int i = 0; i < command_input.size(); i++)
 		{
