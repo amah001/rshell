@@ -40,15 +40,7 @@ bool exitCheck(char* exitCommand)
 		return false;
 	}
 }
-/*
-void commandList(*char input, vector<vector<string> > commands)
-{
-	while(input != NULL)
-	{
-		commands.push_back(input);
-	}
-	return;
-} */ int main(int argc, char**argv) { 
+ int main(int argc, char**argv) { 
 	//connectors 
 	string executeNext = ";";	//execute next command no matter what
 	string ifWorkExecute = "&&";	//execute next command if previous command succeeds
@@ -61,51 +53,24 @@ void commandList(*char input, vector<vector<string> > commands)
 		string  command_input;
 		vector<char*> commands_calls;
 		getline(cin,command_input);	//takes in input
-		char* first_token;
-		char* command_char = (char*)command_input.c_str();
-		//strcpy(command_charz,command_input.c_str());;
+		char* command_char = new char[command_input.size()];
+		strcpy(command_char,command_input.c_str());
 		cout << command_char << endl;
-		command_char = strtok(command_char," ");	
-		//char* test = (char*)command_char;
-		char* temp_token;
-		size_t s_find = command_input.find(executeNext);
-		size_t a_find = command_input.find(ifWorkExecute);
-		size_t o_find = command_input.find(ifFailExecute);
-		while(command_char != NULL)
+		char *iterator_token = strtok(command_char," ");
+		int commentLocater = command_input.find("#");
+		if(commentLocater != -1)
 		{
-			cout << command_char << endl;
-			command_char = strtok(NULL," ");
+			command_input = command_input.substr(commentLocater);
 		}
-
-		int pid = fork();
-		if (pid == -1)
+		while(iterator_token !=0)
 		{
-			perror("fork");
-			_exit(1);
-		}
-		else if(pid == 0)
-		{
-			cout << "This is the child process" << endl;
-			
-			if(-1 == execvp(argv[0], argv))		//if execvp fails
+			cout << iterator_token << endl;
+			iterator_token = strtok(NULL," ");
+			if(exitCheck(iterator_token));
 			{
-			       perror("execvp");
-			}
-			
-			exit(1);
-		}
-		else if(pid > 0)
-		{
-			if(wait(0) == -1)
-			{
-				perror("wait(0)");
+				exit(1);
 			}
 		}
-
-		//break;
-}
-
-	
-
-return 0;
+	}
+	return 0;
 }
