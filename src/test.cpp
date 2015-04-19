@@ -68,9 +68,12 @@ bool exitCheck(char* exitCommand)
 			iterator_token = strtok(NULL," ");
 			if(exitCheck(iterator_token));
 			{
+				cout << iterator_token << endl;
+				
 				exit(1);
 			}
 		}
+		//hello
 	}
 	return 0;
 }
