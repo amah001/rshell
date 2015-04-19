@@ -71,6 +71,7 @@ bool exitCheck(char* exitCommand)
 				exit(1);
 			}
 		}
+		//check
 	}
 	return 0;
 }
