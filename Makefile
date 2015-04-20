@@ -4,8 +4,8 @@ CXXFLAGS = -Wall -Werror -ansi -pedantic
 all: rshell
 	 
 rshell:
-	mkdir -p ./bin
-	$(CXX) $(CXXFLAGS) ./src/test.cpp -o src/bin/rshell
+	mkdir bin
+	$(CXX) $(CXXFLAGS) ./src/test.cpp -o ./bin/rshell
 
 clean:
-	rm -rf ./bin
+	rm -rf bin
