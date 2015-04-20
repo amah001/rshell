@@ -18,4 +18,4 @@ Empty commands with connectors will give fatal error or segmentation fault.
 Edge cases do not work.
 ```
 ##License
-[License is in this link.]{/LICENSE}
+[License is in this link.](/LICENSE)
