@@ -9,7 +9,9 @@
 #include <cstring>
 #include <string.h>
 #include <errno.h>
+
 using namespace std;
+
 void displayPrompt()
 {   
     // shows username and hostname
@@ -30,6 +32,7 @@ void displayPrompt()
 	cout << getlogin() << "@" << host  << ":~$";
 	return;
 }
+
 bool exit_check(char** exitCommand)
 {
     string tempz = exitCommand[0];
@@ -43,6 +46,7 @@ bool exit_check(char** exitCommand)
 		return false;
 	}
 }
+
 void commentRemover(string &string_input)
 {
     //removes comments from the input
@@ -51,7 +55,9 @@ void commentRemover(string &string_input)
     {
         string_input = string_input.substr(0,commentLocater);
     }
+    return;
 }
+
 void separator_parser(string &string_input)
 {
     commentRemover(string_input);
@@ -109,9 +115,10 @@ void separator_parser(string &string_input)
             my_iterator = string_input.begin() + string_input.find("||")+2;
             position = string_input.find("||", position)+2;
         }
-            //cout << string_input << endl;
     }
+    return;
 }
+
 string connector_parse(char**& command_lists, char*& current_token)
 {
     // parses connectors such that they are separated by connectors only
@@ -141,7 +148,7 @@ string connector_parse(char**& command_lists, char*& current_token)
         else if(containsConnectors == false)
         {
             command_lists[counter] = current_token;
-            //if no connector,  push token with 
+            //if no connector,  push token with arguments
         }
         
         counter++;
@@ -150,13 +157,15 @@ string connector_parse(char**& command_lists, char*& current_token)
     if(containsConnectors == false)
     {
         command_lists[counter] = NULL;
+        //adds NULL so that execvp works correctly
     }
     return currentConnector;
-    
 
 }
+
 void run_command(char** command_list)
-{   
+{ 
+    //runs commaands    
     pid_t pid = fork();
     
     if(pid ==-1)
@@ -166,11 +175,8 @@ void run_command(char** command_list)
     }
     else if(pid == 0)
     {
-        cout << "Childrenz" << endl;
         if(execvp(command_list[0],command_list) == -1)
         {
-            cout << "wtaer" << endl;
-
             perror("execvp");
         }
         _exit(1);
@@ -181,9 +187,73 @@ void run_command(char** command_list)
         {
             perror("wait()");
         }
-    }	
+    }
+    return;
 }
- int main(int argc, char**argv) { 
+
+void run_command_with_connectors(char**& final_command,char* command_chara)
+{
+        
+        char* tempa_token = strtok(command_chara," ");
+        bool did_it_work = false;// checks if last command succeeded 
+        while(tempa_token != NULL)
+        {
+           string current_connect = connector_parse(final_command,tempa_token);
+           //parses input
+           int nextExecute = current_connect.find(";");
+           int WorkExecute = current_connect.find("&&");
+           int failExecute = current_connect.find("||");
+           if(exit_check(final_command) == true)
+           {
+                exit(1);
+           }
+           //next if statement chain checks for the earliest connector
+           if(nextExecute < WorkExecute && nextExecute < failExecute)
+           {
+               // ; is earliest connector
+               if(did_it_work == true)
+               {
+                    run_command(final_command);
+               }
+               did_it_work == true;
+           }
+           else if(WorkExecute < nextExecute && WorkExecute < failExecute)
+           {
+               //&& is earliest connector
+               if(did_it_work == false)
+               {
+                   did_it_work = false;
+               }
+               else
+               {
+                    run_command(final_command);
+                    did_it_work = true;
+               }
+           }
+           else if (failExecute < nextExecute && failExecute < WorkExecute)
+           {
+               //|| is earliest connector
+                if(did_it_work == true)
+                {
+                    //do nothing
+                }
+                else
+                {
+                    run_command(final_command);
+                    did_it_work = true;
+                }
+           }
+           else
+           {
+                run_command(final_command);
+                //runs command
+           }
+        }
+        return;
+	
+}
+
+int main(int argc, char**argv) { 
 
 	while(1)//endless loop so that it mimics terminal
 	{
@@ -194,55 +264,11 @@ void run_command(char** command_list)
 
 		char* command_char = new char[command_input.size()];
 		strcpy(command_char,command_input.c_str());
-        char** final_command = (char**)malloc(BUFSIZ);
-        char* tempa_token = strtok(command_char," ");
-        bool did_it_work = false;
-        while(tempa_token != NULL)
-        {
-            string current_connect = connector_parse(final_command,tempa_token);
-           int nextExecute = current_connect.find(";");
-           int WorkExecute = current_connect.find("&&");
-           int failExecute = current_connect.find("||");
-           if(exit_check(final_command) == true)
-           {
-                exit(1);
-           }
-           if(nextExecute < WorkExecute && nextExecute < failExecute)
-           {
-               if(did_it_work == true)
-               {
-                    run_command(final_command);
-               }
-               did_it_work == true;
-           }
-           else if(WorkExecute < nextExecute && WorkExecute < failExecute)
-           {
-               if(did_it_work == false)
-               {
-                   did_it_work = true;
-               }
-               else
-               {
-                    run_command(final_command);
-                    did_it_work = true;
-               }
-           }
-           else if (failExecute < nextExecute && failExecute < WorkExecute)
-           {
-                if(did_it_work == true)
-                {
-                }
-                else
-                {
-                    run_command(final_command);
-                    did_it_work = false;
-                }
-           }
-           else
-           {
-                run_command(final_command);
-           }
-        }
-	}
+        //converts strings into chars
+        char** finalist_command = (char**)malloc(BUFSIZ);
+        run_command_with_connectors(finalist_command,command_char);
+        //attempts to run commands with connectors but is broken right now
+        //it runs everything, ignoring connectors
+    }
 	return 0;
 }
