@@ -9,11 +9,11 @@
 #include <cstring>
 #include <string.h>
 #include <errno.h>
-//#include <boost/tokenizer.hpp>
 using namespace std;
-//using namespace boost;
 void displayPrompt()
-{
+{   
+    // shows username and hostname
+    // BUFSIZ = BUFFERSIZE
 	if(getlogin() == NULL)
 	{
 		perror("getlogin");
@@ -26,15 +26,15 @@ void displayPrompt()
 		perror("getlogin");
 		_exit(1);
 	}
-
+    
 	cout << getlogin() << "@" << host  << ":~$";
 	return;
 }
 bool exit_check(char** exitCommand)
 {
     string tempz = exitCommand[0];
-
-    if(tempz.find("exit") != -1)
+    size_t notExit = -1;
+    if(tempz.find("exit") != notExit)
 	{
 		return true;
 	}
@@ -43,13 +43,18 @@ bool exit_check(char** exitCommand)
 		return false;
 	}
 }
-void separator_parser(string &string_input)
+void commentRemover(string &string_input)
 {
+    //removes comments from the input
     int commentLocater = string_input.find("#");
     if(commentLocater != -1)
     {
         string_input = string_input.substr(0,commentLocater);
     }
+}
+void separator_parser(string &string_input)
+{
+    commentRemover(string_input);
     //cout << string_input << endl;
     string::iterator my_iterator;
     int position = 0;
@@ -107,158 +112,137 @@ void separator_parser(string &string_input)
             //cout << string_input << endl;
     }
 }
-bool run_command(char** command_list)
+string connector_parse(char**& command_lists, char*& current_token)
 {
-        
-        pid_t pid = fork();
-        
-        if(pid ==-1)
+    // parses connectors such that they are separated by connectors only
+    // this allows uses of arguments with commands 
+    bool containsConnectors = false;
+    size_t notFound = -1;
+    string currentConnector;//connector used right before this command
+    int counter = 0;
+    while(current_token != NULL && containsConnectors == false)
+    {
+        string tempString = current_token;
+        if(tempString.find(";") != notFound
+            || tempString.find("&&") != notFound
+            || tempString.find("||") != notFound)
         {
-            perror("fork");
-            exit(1);
+            //if there is a connector detected
+            containsConnectors = true;
         }
-        else if(pid == 0)
+        if(containsConnectors == true)
         {
-            cout << "Childrenz" << endl;
-            if(execvp(command_list[0],command_list) == -1)
-            {
-                cout << "wtaer" << endl;
+            command_lists[counter] = NULL;
+            //puts a null at the end of a command so that it wouldn't give 
+            //a "no such file or directory" error
+            currentConnector = tempString; //says which connector it is
 
-                perror("execvp");
-            }
-            _exit(1);
         }
-        else if(pid > 0)
+        else if(containsConnectors == false)
         {
-            if(wait(0) == -1)
-            {
-                perror("wait()");
-            }
+            command_lists[counter] = current_token;
+            //if no connector,  push token with 
         }
         
-	
+        counter++;
+        current_token = strtok(NULL," "); // goes to next token
+    } 
+    if(containsConnectors == false)
+    {
+        command_lists[counter] = NULL;
+    }
+    return currentConnector;
+    
+
+}
+void run_command(char** command_list)
+{   
+    pid_t pid = fork();
+    
+    if(pid ==-1)
+    {
+        perror("fork");
+        exit(1);
+    }
+    else if(pid == 0)
+    {
+        cout << "Childrenz" << endl;
+        if(execvp(command_list[0],command_list) == -1)
+        {
+            cout << "wtaer" << endl;
+
+            perror("execvp");
+        }
+        _exit(1);
+    }
+    else if(pid > 0)
+    {
+        if(wait(0) == -1)
+        {
+            perror("wait()");
+        }
+    }	
 }
  int main(int argc, char**argv) { 
-	//connectors 
-    /*
-    string spaces = " ";
-	string RunNext = ";";	    //run next command no matter what
-	string ifWorkRun = "&&";	//run next command if previous command works
-	string ifFailRun = "||";	//run next command if previous command fails
-*/
 
-	while(1)
+	while(1)//endless loop so that it mimics terminal
 	{
 		displayPrompt();
 		string command_input;
-		//vector<char*> commands_calls;
 		getline(cin,command_input);	//takes in input
         separator_parser(command_input);  //puts spaces between everything
 
 		char* command_char = new char[command_input.size()];
 		strcpy(command_char,command_input.c_str());
-		//char **iterator_token = (char**)malloc(BUFSIZ);
         char** final_command = (char**)malloc(BUFSIZ);
-        char* iterator_token = strtok(command_char," ");
-        //iterator_token[0] = temp_token;
-        //iterator_token[1] = NULL;
-        string currentConnector;
-        bool containsArgument = false;
-        bool containsConnectors = false;
-        while(iterator_token != NULL)
+        char* tempa_token = strtok(command_char," ");
+        bool did_it_work = false;
+        while(tempa_token != NULL)
         {
-            cout << "one" << endl;
-            int counter = 0;
-            char** temp_char = (char**)malloc(BUFSIZ);
-            bool lastRun = false;
-            while(iterator_token != NULL && containsConnectors == false)
-            {
-                cout << "two" << endl;
-                string tempString = iterator_token;
-                if(tempString.find(";") != -1
-                    || tempString.find( "&&") != -1
-                    || tempString.find("||") != -1)
-                {
-                    //checks if there is a connector
-                    containsConnectors == true;
-                }
-                if(containsConnectors == true)
-                {
-                    temp_char[counter] = NULL;
-                    //puts NULL at the end of each char** so execvp works
-                    currentConnector = tempString;
-                    //keeps track of connector
-                }
-                else
-                {
-                    temp_char[counter] = iterator_token;
-                }
-                iterator_token = strtok(NULL," ");
-                counter++;
-            }
-            if(containsConnectors == false)
-            {
-               cout << "three" << endl;
-               temp_char[counter] = NULL;
-            }
-            iterator_token = strtok(NULL," ");
-            if(exit_check(temp_char) == true)
-            {
+            string current_connect = connector_parse(final_command,tempa_token);
+           int nextExecute = current_connect.find(";");
+           int WorkExecute = current_connect.find("&&");
+           int failExecute = current_connect.find("||");
+           if(exit_check(final_command) == true)
+           {
                 exit(1);
-            }
-            if(currentConnector.find(";") != -1)
-            {
-                cout << "four" << endl;
-                iterator_token = strtok(NULL," ");
-                if(exit_check(temp_char) == true)
+           }
+           if(nextExecute < WorkExecute && nextExecute < failExecute)
+           {
+               if(did_it_work == true)
+               {
+                    run_command(final_command);
+               }
+               did_it_work == true;
+           }
+           else if(WorkExecute < nextExecute && WorkExecute < failExecute)
+           {
+               if(did_it_work == false)
+               {
+                   did_it_work = true;
+               }
+               else
+               {
+                    run_command(final_command);
+                    did_it_work = true;
+               }
+           }
+           else if (failExecute < nextExecute && failExecute < WorkExecute)
+           {
+                if(did_it_work == true)
                 {
-                    exit(1);
-                }
-                else    
-                    run_command(temp_char);
-            }
-            else if(currentConnector.find("&&") != -1)
-            {
-                cout << "five" << endl;
-                iterator_token = strtok(NULL," ");
-                if(lastRun == true)
-                {
-                    if(exit_check(temp_char) == true)
-                    {
-                        exit(1);
-                    }
-                    else
-                        run_command(temp_char);
-                }
-            }
-            else if(currentConnector.find( "||") != -1)
-            {
-                cout << "six" <<endl;
-                iterator_token = strtok(NULL," ");
-                if(lastRun == false)
-                {
-                    if(exit_check(temp_char) == true)
-                    {
-                        exit(1);
-                    }
-                    else
-                        run_command(temp_char);
-                }
-            }
-            else
-            {
-                cout << "seven" <<endl;
-                cout << temp_char[0] << endl;
-                if(exit_check(temp_char) == true)
-                {
-                    cout << temp_char[0] << endl;
-                    exit(1);
                 }
                 else
-                    run_command(temp_char);
-            }
+                {
+                    run_command(final_command);
+                    did_it_work = false;
+                }
+           }
+           else
+           {
+                run_command(final_command);
+           }
         }
-
 	}
 	return 0;
 }
