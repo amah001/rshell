@@ -30,9 +30,11 @@ void displayPrompt()
 	cout << getlogin() << "@" << host  << ":~$";
 	return;
 }
-bool exitCheck(char** exitCommand)
+bool exit_check(char** exitCommand)
 {
-	if(*exitCommand == "exit")
+    string tempz = exitCommand[0];
+
+    if(tempz.find("exit") != -1)
 	{
 		return true;
 	}
@@ -109,6 +111,7 @@ bool run_command(char** command_list)
 {
         
         pid_t pid = fork();
+        
         if(pid ==-1)
         {
             perror("fork");
@@ -116,9 +119,11 @@ bool run_command(char** command_list)
         }
         else if(pid == 0)
         {
-            cout << "Children" << endl;
+            cout << "Childrenz" << endl;
             if(execvp(command_list[0],command_list) == -1)
             {
+                cout << "wtaer" << endl;
+
                 perror("execvp");
             }
             _exit(1);
@@ -132,7 +137,6 @@ bool run_command(char** command_list)
         }
         
 	
-
 }
  int main(int argc, char**argv) { 
 	//connectors 
@@ -158,99 +162,103 @@ bool run_command(char** command_list)
         char* iterator_token = strtok(command_char," ");
         //iterator_token[0] = temp_token;
         //iterator_token[1] = NULL;
-        final_command[0] = iterator_token;
-        final_command[1] = NULL;
-
-
-        char** temp_char = (char**)malloc(BUFSIZ);
         string currentConnector;
-        bool workRun = true;
-        bool FailRun = false;
         bool containsArgument = false;
         bool containsConnectors = false;
-             
-        int counter = 0;
-        /*
         while(iterator_token != NULL)
         {
-            char** temporary_token;
-
+            cout << "one" << endl;
+            int counter = 0;
+            char** temp_char = (char**)malloc(BUFSIZ);
+            bool lastRun = false;
             while(iterator_token != NULL && containsConnectors == false)
-            {     
+            {
+                cout << "two" << endl;
                 string tempString = iterator_token;
-                cout << tempString << endl;
-                if((tempString == ";")
-                    ||(tempString == "&&") 
-                    || (tempString == ";"))
+                if(tempString.find(";") != -1
+                    || tempString.find( "&&") != -1
+                    || tempString.find("||") != -1)
                 {
                     //checks if there is a connector
-                    containsConnectors = true;
+                    containsConnectors == true;
                 }
-                if(containsConnectors = true)
+                if(containsConnectors == true)
                 {
                     temp_char[counter] = NULL;
-                    //NULL after each command in order to work in execvp
+                    //puts NULL at the end of each char** so execvp works
                     currentConnector = tempString;
+                    //keeps track of connector
                 }
                 else
                 {
                     temp_char[counter] = iterator_token;
                 }
-                
-                //if(exitCheck(iterator_token));
-                //{
-                //    exit(1);
-                //}
-                //
+                iterator_token = strtok(NULL," ");
                 counter++;
-                iterator_token = strtok(NULL, " ");
-                if(currentConnector == ";")
+            }
+            if(containsConnectors == false)
+            {
+               cout << "three" << endl;
+               temp_char[counter] = NULL;
+            }
+            iterator_token = strtok(NULL," ");
+            if(exit_check(temp_char) == true)
+            {
+                exit(1);
+            }
+            if(currentConnector.find(";") != -1)
+            {
+                cout << "four" << endl;
+                iterator_token = strtok(NULL," ");
+                if(exit_check(temp_char) == true)
                 {
-
+                    exit(1);
                 }
-                else if(currentConnector == "&&")
+                else    
+                    run_command(temp_char);
+            }
+            else if(currentConnector.find("&&") != -1)
+            {
+                cout << "five" << endl;
+                iterator_token = strtok(NULL," ");
+                if(lastRun == true)
                 {
-
+                    if(exit_check(temp_char) == true)
+                    {
+                        exit(1);
+                    }
+                    else
+                        run_command(temp_char);
                 }
-                else if(currentConnector == "||")
+            }
+            else if(currentConnector.find( "||") != -1)
+            {
+                cout << "six" <<endl;
+                iterator_token = strtok(NULL," ");
+                if(lastRun == false)
                 {
-
+                    if(exit_check(temp_char) == true)
+                    {
+                        exit(1);
+                    }
+                    else
+                        run_command(temp_char);
+                }
+            }
+            else
+            {
+                cout << "seven" <<endl;
+                cout << temp_char[0] << endl;
+                if(exit_check(temp_char) == true)
+                {
+                    cout << temp_char[0] << endl;
+                    exit(1);
                 }
                 else
-                {
-                    //run_command()
-                }
-                //iterator_token = strtok(NULL," ");
-              
-            }
-        final_command = temp_char;
-        */
-        //char
-        run_command(final_command);
-        /*
-        pid_t pid = fork();
-        if(pid ==-1)
-        {
-            perror("fork");
-            exit(1);
-        }
-        else if(pid == 0)
-        {
-            cout << "Children" << endl;
-            if(execvp(iterator_token[0],iterator_token) == -1)
-            {
-                perror("execvp");
-            }
-            _exit(1);
-        }
-        else if(pid > 0)
-        {
-            if(wait(0) == -1)
-            {
-                perror("wait()");
+                    run_command(temp_char);
             }
         }
-        */
+
 	}
 	return 0;
 }
