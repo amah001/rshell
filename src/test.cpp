@@ -215,7 +215,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
                {
                     run_command(final_command);
                }
-               did_it_work == true;
+               did_it_work = true;
            }
            else if(WorkExecute < nextExecute && WorkExecute < failExecute)
            {
