@@ -13,5 +13,9 @@ $bin/rshell
 ##Bugs
 ```
 Commands will run regardless of connectors
+connector cases do not work.
+Empty commands with connectors will give fatal error or segmentation fault.
+Edge cases do not work.
 ```
 ##License
+[License is in this link.]{/LICENSE}
