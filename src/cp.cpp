@@ -16,7 +16,7 @@ void  methodOne(char *argv[3])
 	t.start();
 	ifstream is(argv[1]);
 	ofstream outfile(argv[2]);
-	char c;
+
 	if(is.is_open())
 	{
 		char c = is.get();
