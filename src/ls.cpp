@@ -170,7 +170,7 @@ void printLong(char* argv[])
 		cout << info.st_nlink << " ";	//prints # of links
 		cout << pwd->pw_name << " ";	//prints user
 		cout << grp->gr_name << " ";	//prints group
-		cout << info.st_blksize << " "; //prints size
+		cout << info.st_size << " "; //prints size
 		cout << shortTime << " ";	//prints time last modified
 		cout << files[i] << endl;	//prints file
 	}
