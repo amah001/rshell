@@ -91,31 +91,24 @@ void printLong(char* argv[])
 	struct stat info;
 	struct passwd *pwd;
 	struct group *grp;
-	string owner;
-	string group;
+	string shortTime;
 	int links;
-	cout << "1h" << endl;
 	string dot = ".";
 	if(stat(dot.c_str(),&info) == -1)
 	{
 		perror("stat");
 		_exit(1);
 	}
-	cout << "2h" << endl;
 	if((pwd = getpwuid(info.st_uid)) == NULL)
 	{
 		perror("getpwuid()");
 		_exit(1);
 	}
-	cout << "3h" << endl;
-	owner = pwd->pw_name;
 	if((grp = getgrgid(info.st_gid)) == NULL)
 	{
 		perror("getgrgid()");
 		_exit(1);
 	}
-	cout << "4h" << endl;
-	group = grp->gr_name;
 	if(S_ISREG(info.st_mode))
 		cout << "-";
 	else if(S_ISDIR(info.st_mode))
@@ -171,12 +164,14 @@ void printLong(char* argv[])
 		cout << "- ";
 	//*************************************************
 	// do some alignment thingy
+	shortTime = ctime(&info.st_mtime);
+	shortTime = shortTime.substr(4,12);
 	cout << info.st_nlink << " ";	//prints # of links
 	cout << pwd->pw_name << " ";	//prints user
 	cout << grp->gr_name << " ";	//prints group
 	cout << info.st_blksize << " "; //prints size
-	cout << ctime(&info.st_mtime) << " ";
-	cout << files[0] << endl;
+	cout << shortTime << " ";	//prints time last modified
+	cout << files[0] << endl;	//prints file
 	return;
 }
 void printRecursive()
