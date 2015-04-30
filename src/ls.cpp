@@ -86,97 +86,99 @@ void printLong(char* argv[])
 {
 	vector<string> files;
 	string directoryz = "l";
-	cout << "h" << endl;
 	directoryRunthrough(files,argv,directoryz);
-	struct stat info;
-	struct passwd *pwd;
-	struct group *grp;
-	string shortTime;
-	int links;
-	string dot = ".";
-	if(stat(dot.c_str(),&info) == -1)
+	for(unsigned int i = 0; i < files.size(); i++)
 	{
-		perror("stat");
+		struct stat info;
+		struct passwd *pwd;
+		struct group *grp;
+		string shortTime;
+		int links;
+		string dot = ".";
+		if(stat(files[i].c_str(),&info) == -1)
+		{
+			perror("stat");
+			_exit(1);
+		}
+		if((pwd = getpwuid(info.st_uid)) == NULL)
+		{
+			perror("getpwuid()");
+			_exit(1);
+		}
+		if((grp = getgrgid(info.st_gid)) == NULL)
+		{
+			perror("getgrgid()");
 		_exit(1);
-	}
-	if((pwd = getpwuid(info.st_uid)) == NULL)
-	{
-		perror("getpwuid()");
-		_exit(1);
-	}
-	if((grp = getgrgid(info.st_gid)) == NULL)
-	{
-		perror("getgrgid()");
-		_exit(1);
-	}
-	if(S_ISREG(info.st_mode))
-		cout << "-";
-	else if(S_ISDIR(info.st_mode))
-		cout << "d";
-	else if(S_ISCHR(info.st_mode))
-		cout << "c";
-	else if(S_ISBLK(info.st_mode))
-		cout << "b";
-	else if(S_ISFIFO(info.st_mode))
-		cout << "p";
-	else if(S_ISLNK(info.st_mode))
-		cout << "l";
-	else if(S_ISSOCK(info.st_mode))
-		cout << "s";
+		}
+		if(S_ISREG(info.st_mode))
+			cout << "-";
+		else if(S_ISDIR(info.st_mode))
+			cout << "d";
+		else if(S_ISCHR(info.st_mode))
+			cout << "c";
+		else if(S_ISBLK(info.st_mode))
+			cout << "b";
+		else if(S_ISFIFO(info.st_mode))
+			cout << "p";
+		else if(S_ISLNK(info.st_mode))
+			cout << "l";
+		else if(S_ISSOCK(info.st_mode))
+			cout << "s";
 
-	if(S_IRUSR & info.st_mode)
-		cout << "r";
-	else
-		cout << "-";
-	if(S_IWUSR & info.st_mode)
-		cout << "w";
-	else
-		cout << "-";
-	if(S_IXUSR & info.st_mode)
-		cout << "x";
-	else
-		cout << "-";
+		if(S_IRUSR & info.st_mode)
+			cout << "r";
+		else
+			cout << "-";
+		if(S_IWUSR & info.st_mode)
+			cout << "w";
+		else
+			cout << "-";
+		if(S_IXUSR & info.st_mode)
+			cout << "x";
+		else
+			cout << "-";
 
-	if(S_IRGRP & info.st_mode)
+		if(S_IRGRP & info.st_mode)
 		cout << "r";
-	else
-		cout << "-";
-	if(S_IWGRP & info.st_mode)
-		cout << "w";
-	else
-		cout << "-";
-	if(S_IXGRP & info.st_mode)
-		cout << "x";
-	else
-		cout << "-";
+		else
+			cout << "-";
+		if(S_IWGRP & info.st_mode)
+			cout << "w";
+		else
+			cout << "-";
+		if(S_IXGRP & info.st_mode)
+			cout << "x";
+		else
+			cout << "-";
 
-	if(S_IROTH & info.st_mode)
-		cout << "r";
-	else
-		cout << "-";
-	if(S_IWOTH & info.st_mode)
-		cout << "w";
-	else
-		cout << "-";
-	if(S_IXOTH & info.st_mode)
-		cout << "x ";
-	else
-		cout << "- ";
-	//*************************************************
-	// do some alignment thingy
-	shortTime = ctime(&info.st_mtime);
-	shortTime = shortTime.substr(4,12);
-	cout << info.st_nlink << " ";	//prints # of links
-	cout << pwd->pw_name << " ";	//prints user
-	cout << grp->gr_name << " ";	//prints group
-	cout << info.st_blksize << " "; //prints size
-	cout << shortTime << " ";	//prints time last modified
-	cout << files[0] << endl;	//prints file
+		if(S_IROTH & info.st_mode)
+			cout << "r";
+		else
+			cout << "-";
+		if(S_IWOTH & info.st_mode)
+			cout << "w";
+		else
+			cout << "-";
+		if(S_IXOTH & info.st_mode)
+			cout << "x ";
+		else
+			cout << "- ";
+		//*************************************************
+		// do some alignment thingy
+		shortTime = ctime(&info.st_mtime);
+		shortTime = shortTime.substr(4,12);
+		cout << info.st_nlink << " ";	//prints # of links
+		cout << pwd->pw_name << " ";	//prints user
+		cout << grp->gr_name << " ";	//prints group
+		cout << info.st_blksize << " "; //prints size
+		cout << shortTime << " ";	//prints time last modified
+		cout << files[i] << endl;	//prints file
+	}
 	return;
 }
 void printRecursive()
 {
-
+	return;
 }
 
 int main(int argc, char* argv[])
