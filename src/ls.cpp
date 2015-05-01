@@ -130,14 +130,13 @@ void printLong(char* argv[])
 	string directoryz = "l";
 	vector<string> permissions;
 	directoryRunthrough(files,argv,directoryz);
-	//int width = findWidth(files);
 	for(unsigned int i = 0; i < files.size(); i++)
 	{
 		struct stat info;
 		struct passwd *pwd;
 		struct group *grp;
 		string shortTime;
-		int links;
+		//int links;
 		string dot = ".";
 		if(stat(files[i].c_str(),&info) == -1)
 		{
@@ -231,13 +230,14 @@ int main(int argc, char* argv[])
 	bool runAll = false;
 	bool runLong = false;
 	bool runRecursive = false;
+	int lastFlagLocation = 0;
 	for(int i = 1; i < argc; i++)
 	{
 		string argument;
 		argument = argv[i];
 		if(argument.find("-") == 0)
 		{
-			for(int j = 1; j < argument.size(); j++)
+			for(unsigned int j = 1; j < argument.size(); j++)
 			{
 				if(argument.find("a"))
 				{
@@ -252,48 +252,67 @@ int main(int argc, char* argv[])
 					runRecursive = true;
 				}
 			}
+			lastFlagLocation = i;
 		}
 	}
-	if(!runAll && !runLong && !runRecursive)
+	//path finder
+	char** path = (char**)malloc(BUFSIZ);
+	size_t i = lastFlagLocation + 1;
+	size_t j = 0;
+	size_t currentPath = 0;
+	for(; i < (unsigned)argc; i++, j++)
 	{
-		//no flags
-		print(argv);
+		//each j is a different path
+		path[j] = argv[i];
 	}
-	else if(runAll && !runLong && !runRecursive)
+	path[j] = NULL;		//so that the syscall thing works
+	cout << "1 "<<path[0] << endl;
+	cout << "3 "<<path[1] << endl;
+	cout << "4" <<path[2] << endl;
+	//none of them work
+	do
 	{
-		// only -a
-		printAll(argv);
-	}
-	else if(!runAll && runLong && !runRecursive)
-	{
-		// only -l
-		printAll(argv);
-	}
-	else if(!runAll && !runLong && runRecursive)
-	{
-		//only -R
-		printAll(argv);
-	}
-	else if(runAll && runLong && !runRecursive)
-	{
-		// -la or -al
-		printAll(argv);
-	}
-	else if(runAll && !runLong && runRecursive)
-	{
-		//-ar or -ra
-		printAll(argv);
-	}
-	else if(runAll && !runLong && !runRecursive)
-	{
-		// -lr or rl
-		printAll(argv);
-	}
-	else if(runAll && runLong && runRecursive)
-	{
-		// -lra or -rla or etc etc 
-		printAll(argv);
-	}
-
+		if(!runAll && !runLong && !runRecursive)
+		{
+			//no flags
+			print(argv);
+		}
+		else if(runAll && !runLong && !runRecursive)
+		{
+			// only -a
+			printAll(argv);
+		}
+		else if(!runAll && runLong && !runRecursive)
+		{
+			// only -l
+			printAll(argv);
+		}
+		else if(!runAll && !runLong && runRecursive)
+		{
+			//only -R
+			printAll(argv);
+		}
+		else if(runAll && runLong && !runRecursive)
+		{
+			// -la or -al
+			printAll(argv);
+		}
+		else if(runAll && !runLong && runRecursive)
+		{
+			//-ar or -ra
+			printAll(argv);
+		}
+		else if(runAll && !runLong && !runRecursive)
+		{
+			// -lr or rl
+			printAll(argv);
+		}
+		else if(runAll && runLong && runRecursive)
+		{
+			// -lra or -rla or etc etc 
+			printAll(argv);
+		}
+		currentPath++;
+	}while(currentPath < j);
 	return 0;
 }
