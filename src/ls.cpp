@@ -16,7 +16,50 @@
 #include <pwd.h>
 #include <grp.h>
 #include <sys/stat.h>
+#include <iomanip>
+#include <string>
+#include <strings.h>
+#include <cctype>
+
 using namespace std;
+/*
+int findWidth(vector<string> files)
+{
+	int width = 0;
+	string size = 0;
+	for(unsigned int i = 0; i < files.size();i++)
+	{
+		struct stat info;
+		if(stat(files[i].c_str(),&info) == -1)
+		{
+			perror("stat");
+			_exit(1);
+		}
+		
+		if(width < info.st_size)
+		{
+			cout << info.st_size;
+			width = info.st_size;
+		}
+	}
+	return width;
+}
+*/
+
+bool comparision(char  a,char b)
+{
+	return tolower(a)<tolower(b);
+}
+
+bool compararer(string A, string B)
+{
+	
+	//strcpy(arrayA,A.c_str());
+	//char arrayB[B.size()];
+	//strcpy(arrayB,B.c_str());
+	return lexicographical_compare(A.c_str(),A.c_str() + A.size(),B.c_str(),B.c_str() + B.size(),comparision);
+	//return false;
+}
 
 void directoryRunthrough(vector<string>& files, char* argv[], string function)
 {
@@ -57,7 +100,7 @@ void directoryRunthrough(vector<string>& files, char* argv[], string function)
 		perror("closedir()");
 		_exit(1);
 	}
-	sort(files.begin(),files.end());
+	sort(files.begin(),files.end(),compararer);
 
 	return;
 }
@@ -86,7 +129,9 @@ void printLong(char* argv[])
 {
 	vector<string> files;
 	string directoryz = "l";
+	vector<string> permissions;
 	directoryRunthrough(files,argv,directoryz);
+	//int width = findWidth(files);
 	for(unsigned int i = 0; i < files.size(); i++)
 	{
 		struct stat info;
@@ -108,7 +153,7 @@ void printLong(char* argv[])
 		if((grp = getgrgid(info.st_gid)) == NULL)
 		{
 			perror("getgrgid()");
-		_exit(1);
+			_exit(1);
 		}
 		if(S_ISREG(info.st_mode))
 			cout << "-";
@@ -170,7 +215,7 @@ void printLong(char* argv[])
 		cout << info.st_nlink << " ";	//prints # of links
 		cout << pwd->pw_name << " ";	//prints user
 		cout << grp->gr_name << " ";	//prints group
-		cout << info.st_size << " "; //prints size
+		cout << setw(7) << right << info.st_size << " "; //prints size
 		cout << shortTime << " ";	//prints time last modified
 		cout << files[i] << endl;	//prints file
 	}
@@ -183,6 +228,7 @@ void printRecursive()
 
 int main(int argc, char* argv[])
 {
+	map<string,void(*)()>functions;
 	vector<string> lists;
 	if(argc == 1)
 	{
