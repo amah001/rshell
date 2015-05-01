@@ -53,12 +53,7 @@ bool comparision(char  a,char b)
 
 bool compararer(string A, string B)
 {
-	
-	//strcpy(arrayA,A.c_str());
-	//char arrayB[B.size()];
-	//strcpy(arrayB,B.c_str());
 	return lexicographical_compare(A.c_str(),A.c_str() + A.size(),B.c_str(),B.c_str() + B.size(),comparision);
-	//return false;
 }
 
 void directoryRunthrough(vector<string>& files, char* argv[], string function)
@@ -123,6 +118,10 @@ void printAll(char* argv[])
 	vector<string> files;
 	string directoryz = "a";
 	directoryRunthrough(files,argv,directoryz);
+	for(unsigned int i = 0; i < files.size();i++)
+	{
+		cout << files[i] << endl;
+	}
 	return;
 }
 void printLong(char* argv[])
@@ -228,18 +227,73 @@ void printRecursive()
 
 int main(int argc, char* argv[])
 {
-	map<string,void(*)()>functions;
 	vector<string> lists;
-	if(argc == 1)
+	bool runAll = false;
+	bool runLong = false;
+	bool runRecursive = false;
+	for(int i = 1; i < argc; i++)
 	{
+		string argument;
+		argument = argv[i];
+		if(argument.find("-") == 0)
+		{
+			for(int j = 1; j < argument.size(); j++)
+			{
+				if(argument.find("a"))
+				{
+					runAll = true;
+				}
+				if(argument.find("l"))
+				{
+					runLong = true;
+				}
+				if(argument.find("R"))
+				{
+					runRecursive = true;
+				}
+			}
+		}
+	}
+	if(!runAll && !runLong && !runRecursive)
+	{
+		//no flags
 		print(argv);
 	}
-	printLong(argv);
-	/*
-	for(int i = 0; i < lists.size(); i++)
+	else if(runAll && !runLong && !runRecursive)
 	{
-		cout << lists[i] << endl;
+		// only -a
+		printAll(argv);
 	}
-	*/
+	else if(!runAll && runLong && !runRecursive)
+	{
+		// only -l
+		printAll(argv);
+	}
+	else if(!runAll && !runLong && runRecursive)
+	{
+		//only -R
+		printAll(argv);
+	}
+	else if(runAll && runLong && !runRecursive)
+	{
+		// -la or -al
+		printAll(argv);
+	}
+	else if(runAll && !runLong && runRecursive)
+	{
+		//-ar or -ra
+		printAll(argv);
+	}
+	else if(runAll && !runLong && !runRecursive)
+	{
+		// -lr or rl
+		printAll(argv);
+	}
+	else if(runAll && runLong && runRecursive)
+	{
+		// -lra or -rla or etc etc 
+		printAll(argv);
+	}
+
 	return 0;
 }
