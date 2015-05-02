@@ -59,7 +59,7 @@ bool compararer(string A, string B)
 void directoryRunthrough(vector<string>& files, char* argv[], string function, const char* path)
 {
 	DIR *dirp;
-	if((dirp = opendir(".")) == NULL)
+	if((dirp = opendir(path)) == NULL)
 	{
 		perror("opendir()");
 		_exit(1);
@@ -84,12 +84,15 @@ void directoryRunthrough(vector<string>& files, char* argv[], string function, c
 
 	return;
 }
-void print(char*argv[],char** path,int numPath)
+void print(char*argv[],char** path,int numPath,const char* pathing)
 {
+	//cout << "wsdff" << endl;
 	vector<string> files;
 	string directoryz = "ls";
 	string dota = ".";
-	directoryRunthrough(files,argv,directoryz,path[numPath]);
+	//cout << path[numPath] << endl;
+	//cout << "hgeadf" << endl;
+	directoryRunthrough(files,argv,directoryz,pathing);
 	for(unsigned int i = 0; i < files.size();i++)
 	{
 		if(files[i][0] != '.')
@@ -294,68 +297,71 @@ int main(int argc, char* argv[])
 	size_t i = lastFlagLocation + 1;
 	size_t j = 0;
 	size_t currentPath = 0;
+	const char* pathing;
 	for(; i < (unsigned)argc; i++, j++)
 	{
 		//each j is a different path
 		path[j] = argv[i];
 	}
 	path[j] = NULL;		//so that the syscall thing works
-	if (argc == 1)
+	if(path[0] == NULL)
 	{
-		print(argv,path,0);
+		pathing = ".";
 	}
 	else
 	{
-		//none of them work
-		do
-		{
-			if(!runAll && !runLong && !runRecursive)
-			{
-				//no flags
-				cout << "non" << endl;
-				print(argv,path,currentPath);
-			}
-			else if(runAll && !runLong && !runRecursive)
-			{
-				// only -a
-				printAll(argv,path,currentPath);
-			}
-			else if(!runAll && runLong && !runRecursive)
-			{
-				cout << "lead" << endl;
-				// only -l
-				printLong(argv,path,currentPath, runAll);
-			}
-			else if(!runAll && !runLong && runRecursive)
-			{
-				//only -R
-				//printAll(argv);
-			}
-			else if(runAll && runLong && !runRecursive)
-			{
-				// -la or -al
-				printLong(argv,path,currentPath,runAll);
-			}
-			else if(runAll && !runLong && runRecursive)
-			{
-				//-ar or -ra
-				//printAll(argv);
-			}
-			else if(runAll && !runLong && !runRecursive)
-			{
-				// -lr or rl
-				//printAll(argv);
-			}
-			else if(runAll && runLong && runRecursive)
-			{
-				// -lra or -rla or etc etc 
-				//printAll(argv);
-			}
-			currentPath++;
-			//cout << currentPath << endl;
-			//cout << j << endl;
-			
-		}while(currentPath < j);
+		pathing = path[0];
 	}
+	do
+	{
+		
+		if(!runAll && !runLong && !runRecursive)
+		{
+			//no flags
+		//	cout << "non" << endl;
+			print(argv,path,0, pathing);
+		}
+		else if(runAll && !runLong && !runRecursive)
+		{
+			// only -a
+			printAll(argv,path,currentPath);
+		}
+		else if(!runAll && runLong && !runRecursive)
+		{
+			//cout << "lead" << endl;
+			// only -l
+			printLong(argv,path,currentPath, runAll);
+		}
+		else if(!runAll && !runLong && runRecursive)
+		{
+			//only -R
+			//printAll(argv);
+		}
+		else if(runAll && runLong && !runRecursive)
+		{
+			// -la or -al
+			printLong(argv,path,currentPath,runAll);
+		}
+		else if(runAll && !runLong && runRecursive)
+		{
+			//-ar or -ra
+			//printAll(argv);
+		}
+		else if(runAll && !runLong && !runRecursive)
+		{
+			// -lr or rl
+			//printAll(argv);
+		}
+		else if(runAll && runLong && runRecursive)
+		{
+			// -lra or -rla or etc etc 
+			//printAll(argv);
+		}
+		currentPath++;
+		//cout << currentPath << endl;
+		//cout << j << endl;
+		
+	}while(currentPath < j);
+	free(path);
 	return 0;
 }
