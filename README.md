@@ -28,10 +28,12 @@ Empty commands with connectors will give fatal error or segmentation fault.
 Edge cases do not work.
 ```
 ##Bugs/Limitations for ls
+```
 -R doesn't work at all.
 There is no color coding.
 Output is one vertical column.
 Edge cases do not work.
 only works on -l and -a flags
+```
 ##License
 [License is in this link.](/LICENSE)
