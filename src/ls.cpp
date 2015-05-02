@@ -102,23 +102,23 @@ void print(char*argv[],char** path,int numPath,const char* pathing)
 	}
 	return;
 }
-void printAll(char* argv[],char** path,int numPath)
+void printAll(char* argv[],char** path,int numPath,const char* pathing)
 {
 	vector<string> files;
 	string directoryz = "a";
-	directoryRunthrough(files,argv,directoryz,path[numPath]);
+	directoryRunthrough(files,argv,directoryz,pathing);
 	for(unsigned int i = 0; i < files.size();i++)
 	{
 		cout << files[i] << endl;
 	}
 	return;
 }
-void printLong(char* argv[],char** path,int numPath,bool printAll)
+void printLong(char* argv[],char** path,int numPath,bool printAll,const char* pathing)
 {
 	vector<string> files;
 	string directoryz = "l";
 	vector<string> permissions;
-	directoryRunthrough(files,argv,directoryz,path[numPath]);
+	directoryRunthrough(files,argv,directoryz,pathing);
 	if(!printAll)
 	{
 		vector<string>::iterator my_it = files.begin();
@@ -324,13 +324,13 @@ int main(int argc, char* argv[])
 		else if(runAll && !runLong && !runRecursive)
 		{
 			// only -a
-			printAll(argv,path,currentPath);
+			printAll(argv,path,currentPath, pathing);
 		}
 		else if(!runAll && runLong && !runRecursive)
 		{
 			//cout << "lead" << endl;
 			// only -l
-			printLong(argv,path,currentPath, runAll);
+			printLong(argv,path,currentPath, runAll,pathing);
 		}
 		else if(!runAll && !runLong && runRecursive)
 		{
@@ -340,7 +340,7 @@ int main(int argc, char* argv[])
 		else if(runAll && runLong && !runRecursive)
 		{
 			// -la or -al
-			printLong(argv,path,currentPath,runAll);
+			printLong(argv,path,currentPath,runAll,pathing);
 		}
 		else if(runAll && !runLong && runRecursive)
 		{
@@ -358,6 +358,7 @@ int main(int argc, char* argv[])
 			//printAll(argv);
 		}
 		currentPath++;
+		pathing = path[currentPath];
 		//cout << currentPath << endl;
 		//cout << j << endl;
 		
