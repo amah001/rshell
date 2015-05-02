@@ -56,29 +56,14 @@ bool compararer(string A, string B)
 	return lexicographical_compare(A.c_str(),A.c_str() + A.size(),B.c_str(),B.c_str() + B.size(),comparision);
 }
 
-void directoryRunthrough(vector<string>& files, char* argv[], string function)
+void directoryRunthrough(vector<string>& files, char* argv[], string function, const char* path)
 {
 	DIR *dirp;
-	//if(function == "ls")
-	//{
-	//	cout << "run"<< endl;
-		if((dirp = opendir(".")) == NULL)
-		{
-			perror("opendir()");
-			_exit(1);
-		}
-		
-	//}
-	/*
-	else
+	if((dirp = opendir(".")) == NULL)
 	{
-		if((dirp = opendir(argv[1])) == NULL)
-		{
-			perror("opendir()");
-			_exit(1);
-		}
+		perror("opendir()");
+		_exit(1);
 	}
-	*/
 	struct dirent *filespecs;
 	errno = 0;
 	while ((filespecs = readdir(dirp)) != NULL)
@@ -99,11 +84,12 @@ void directoryRunthrough(vector<string>& files, char* argv[], string function)
 
 	return;
 }
-void print(char*argv[])
+void print(char*argv[],char** path,int numPath)
 {
 	vector<string> files;
 	string directoryz = "ls";
-	directoryRunthrough(files,argv,directoryz);
+	string dota = ".";
+	directoryRunthrough(files,argv,directoryz,path[numPath]);
 	for(unsigned int i = 0; i < files.size();i++)
 	{
 		if(files[i][0] != '.')
@@ -113,31 +99,46 @@ void print(char*argv[])
 	}
 	return;
 }
-void printAll(char* argv[])
+void printAll(char* argv[],char** path,int numPath)
 {
 	vector<string> files;
 	string directoryz = "a";
-	directoryRunthrough(files,argv,directoryz);
+	directoryRunthrough(files,argv,directoryz,path[numPath]);
 	for(unsigned int i = 0; i < files.size();i++)
 	{
 		cout << files[i] << endl;
 	}
 	return;
 }
-void printLong(char* argv[])
+void printLong(char* argv[],char** path,int numPath,bool printAll)
 {
 	vector<string> files;
 	string directoryz = "l";
 	vector<string> permissions;
-	directoryRunthrough(files,argv,directoryz);
+	directoryRunthrough(files,argv,directoryz,path[numPath]);
+	if(!printAll)
+	{
+		vector<string>::iterator my_it = files.begin();
+		for(unsigned int i = 0; i < files.size();i++)
+		{
+				
+			if(files[i][0] == '.')
+			{
+				files.erase(my_it);
+				i--;
+				my_it--;
+			}
+			my_it++;
+		}
+	}
+	//cout << "doge" << endl;
 	for(unsigned int i = 0; i < files.size(); i++)
 	{
+		
 		struct stat info;
 		struct passwd *pwd;
 		struct group *grp;
 		string shortTime;
-		//int links;
-		string dot = ".";
 		if(stat(files[i].c_str(),&info) == -1)
 		{
 			perror("stat");
@@ -219,8 +220,33 @@ void printLong(char* argv[])
 	}
 	return;
 }
-void printRecursive()
+void printRecursive(char* argv[],char** path,int numPath, bool runAll, bool runLong)
 {
+	vector<string> files;
+	string directoryz = "R";
+	vector<string> my_directorys;
+	directoryRunthrough(files,argv,directoryz,path[numPath]);
+	unsigned int index = 0;
+	if(runAll)
+	{
+		index = 2;	//so it doesn't do . and ..
+	}
+	if(files.size() > 0)
+	{
+		cout << path[numPath] << ":" << endl;
+
+	}
+	for(unsigned int i = index; i < files.size(); i++)
+	{
+		string the_path_taken;
+		the_path_taken = path[numPath] + '/' + files[i];
+		directoryRunthrough(files,argv,directoryz,path[numPath]);
+	}
+	for(unsigned int i = 0; i < my_directorys.size(); i++)
+	{
+		//printRecursive(argv,my_directorys[i].c_str(),runAll,runLong);
+	}
+	
 	return;
 }
 
@@ -230,6 +256,7 @@ int main(int argc, char* argv[])
 	bool runAll = false;
 	bool runLong = false;
 	bool runRecursive = false;
+	bool supported = true; 	//checks to see if there is a bad flag
 	int lastFlagLocation = 0;
 	for(int i = 1; i < argc; i++)
 	{
@@ -239,22 +266,29 @@ int main(int argc, char* argv[])
 		{
 			for(unsigned int j = 1; j < argument.size(); j++)
 			{
-				if(argument.find("a"))
+				if(argument.at(j) == 'a')
 				{
 					runAll = true;
 				}
-				if(argument.find("l"))
+				else if(argument.at(j) == 'l')
 				{
 					runLong = true;
 				}
-				if(argument.find("R"))
+				else if(argument.at(j) == 'R')
 				{
 					runRecursive = true;
 				}
+				else
+				{
+					supported = false;
+				}
+
 			}
 			lastFlagLocation = i;
 		}
 	}
+	if(!supported)
+		return 0;
 	//path finder
 	char** path = (char**)malloc(BUFSIZ);
 	size_t i = lastFlagLocation + 1;
@@ -266,53 +300,62 @@ int main(int argc, char* argv[])
 		path[j] = argv[i];
 	}
 	path[j] = NULL;		//so that the syscall thing works
-	cout << "1 "<<path[0] << endl;
-	cout << "3 "<<path[1] << endl;
-	cout << "4" <<path[2] << endl;
-	//none of them work
-	do
+	if (argc == 1)
 	{
-		if(!runAll && !runLong && !runRecursive)
+		print(argv,path,0);
+	}
+	else
+	{
+		//none of them work
+		do
 		{
-			//no flags
-			print(argv);
-		}
-		else if(runAll && !runLong && !runRecursive)
-		{
-			// only -a
-			printAll(argv);
-		}
-		else if(!runAll && runLong && !runRecursive)
-		{
-			// only -l
-			printAll(argv);
-		}
-		else if(!runAll && !runLong && runRecursive)
-		{
-			//only -R
-			printAll(argv);
-		}
-		else if(runAll && runLong && !runRecursive)
-		{
-			// -la or -al
-			printAll(argv);
-		}
-		else if(runAll && !runLong && runRecursive)
-		{
-			//-ar or -ra
-			printAll(argv);
-		}
-		else if(runAll && !runLong && !runRecursive)
-		{
-			// -lr or rl
-			printAll(argv);
-		}
-		else if(runAll && runLong && runRecursive)
-		{
-			// -lra or -rla or etc etc 
-			printAll(argv);
-		}
-		currentPath++;
-	}while(currentPath < j);
+			if(!runAll && !runLong && !runRecursive)
+			{
+				//no flags
+				cout << "non" << endl;
+				print(argv,path,currentPath);
+			}
+			else if(runAll && !runLong && !runRecursive)
+			{
+				// only -a
+				printAll(argv,path,currentPath);
+			}
+			else if(!runAll && runLong && !runRecursive)
+			{
+				cout << "lead" << endl;
+				// only -l
+				printLong(argv,path,currentPath, runAll);
+			}
+			else if(!runAll && !runLong && runRecursive)
+			{
+				//only -R
+				//printAll(argv);
+			}
+			else if(runAll && runLong && !runRecursive)
+			{
+				// -la or -al
+				printLong(argv,path,currentPath,runAll);
+			}
+			else if(runAll && !runLong && runRecursive)
+			{
+				//-ar or -ra
+				//printAll(argv);
+			}
+			else if(runAll && !runLong && !runRecursive)
+			{
+				// -lr or rl
+				//printAll(argv);
+			}
+			else if(runAll && runLong && runRecursive)
+			{
+				// -lra or -rla or etc etc 
+				//printAll(argv);
+			}
+			currentPath++;
+			//cout << currentPath << endl;
+			//cout << j << endl;
+			
+		}while(currentPath < j);
+	}
 	return 0;
 }
