@@ -303,7 +303,10 @@ int main(int argc, char* argv[])
 		}
 	}
 	if(!supported)
+	{
+		cout << "not supported" << endl;
 		return 0;
+	}
 	//path finder
 	char** path = (char**)malloc(BUFSIZ);
 	size_t i = lastFlagLocation + 1;
@@ -348,6 +351,7 @@ int main(int argc, char* argv[])
 		{
 			//only -R
 			//printAll(argv);
+			cout << "not supported" << endl;
 		}
 		else if(runAll && runLong && !runRecursive)
 		{
@@ -358,16 +362,19 @@ int main(int argc, char* argv[])
 		{
 			//-ar or -ra
 			//printAll(argv);
+			cout << "not supported" << endl;
 		}
 		else if(runAll && !runLong && !runRecursive)
 		{
 			// -lr or rl
 			//printAll(argv);
+			cout << "not supported" << endl;
 		}
 		else if(runAll && runLong && runRecursive)
 		{
 			// -lra or -rla or etc etc 
 			//printAll(argv);
+			cout << "not supported" << endl;
 		}
 		currentPath++;
 		pathing = path[currentPath];
