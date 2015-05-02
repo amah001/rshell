@@ -1,0 +1,159 @@
+Script started on Mon 20 Apr 2015 12:07:03 AM PDT
+~
+amah001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m (master) [0;36m$[0m cd cs100stuff/rs/rshell/
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100stuff/rs/rshell[0;95m (exec) [0;36m$[0m ls
+exec.script  LICENSE  Makefile	README.md  src	test.cpp
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100stuff/rs/rshell[0;95m (exec) [0;36m$[0m make
+mkdir bin
+g++ -Wall -Werror -ansi -pedantic ./src/test.cpp -o ./bin/rshell
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100stuff/rs/rshell[0;95m (exec) [0;36m$[0m binr[K/rshell
+amah001@hammer.cs.ucr.edu:~$#hello
+amah001@hammer.cs.ucr.edu:~$#myc  c o   comments work
+amah001@hammer.cs.ucr.edu:~$ls    #l h yes they do work
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$# ls#$ t comments tn  nec xt to ls  commands work
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$ls 0 -a
+.  ..  bin  exec.script  .git  LICENSE	Makefile  README.md  src  test.cpp
+amah001@hammer.cs.ucr.edu:~$ls -a - \  l -b -c -d -m -n
+drwx------ 5 36695 950 4096 Apr 20 00:01 .
+amah001@hammer.cs.ucr.edu:~$l echo you are a nicep  person  , pls give me good grade
+you are a nice person, pls give me good grade
+amah001@hammer.cs.ucr.edu:~$#  D  =D
+\amah001@hammer.cs.ucr.edu:~$ls;ls;ls;lsl ;ls
+execvp: No such file or directory
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$ls;         ls;      ls ;    ls ;
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$ls  ;   pwd
+/home/csmajs/amah001/cs100stuff/rs/rshell
+amah001@hammer.cs.ucr.edu:~$pwd   pwd || ls || ls
+/home/csmajs/amah001/cs100stuff/rs/rshell
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$#cpmm   onnector logic n not done correclt  tly soz
+amah001@hammer.cs.ucr.edu:~$l;s    s && ls && ls
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$ls && ls || ls
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$# ;;;;
+terminate called after throwing an instance of 'std::logic_error'
+  what():  basic_string::_S_construct NULL not valid
+Aborted
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100stuff/rs/rshell[0;95m (exec) [0;36m$[0m bin/rshell[6Pmakebin/rshell
+amah001@hammer.cs.ucr.edu:~$#forgot to have an error                       no error output for nukl    empty stat tements
+amah001@hammer.cs.ucr.edu:~$#s0rry7 
+amah001@hammer.cs.ucr.edu:~$# ls;; ||
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+terminate called after throwing an instance of 'std::logic_error'
+  what():  basic_string::_S_construct NULL not valid
+Aborted
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100stuff/rs/rshell[0;95m (exec) [0;36m$[0m bin/rshell[6Pmakebin/rshell[Kbin/rshell[6Pmakebin/rshell[6Pmakebin/rshell[6Pmakebin/rshell
+amah001@hammer.cs.ucr.edu:~$bin/rsje  hell
+amah001@hammer.cs.ucr.edu:~$bin/rsjje;;     hell
+amah001@hammer.cs.ucr.edu:~$ps
+  PID TTY          TIME CMD
+18714 pts/13   00:00:00 bash
+19488 pts/13   00:00:00 rshell
+19542 pts/13   00:00:00 rshell
+19545 pts/13   00:00:00 rshell
+19546 pts/13   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~$#at least i got into multiple rshells
+amah001@hammer.cs.ucr.edu:~$exot
+execvp: No such file or directory
+amah001@hammer.cs.ucr.edu:~$exit
+amah001@hammer.cs.ucr.edu:~$ps
+  PID TTY          TIME CMD
+18714 pts/13   00:00:00 bash
+19488 pts/13   00:00:00 rshell
+19542 pts/13   00:00:00 rshell
+19571 pts/13   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~$exit
+amah001@hammer.cs.ucr.edu:~$p[s  s
+  PID TTY          TIME CMD
+18714 pts/13   00:00:00 bash
+19488 pts/13   00:00:00 rshell
+19576 pts/13   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~$#nacl    back to the future babe   y anb  by
+amah001@hammer.cs.ucr.edu:~$ls                        -a';  ;
+.  ..  bin  exec.script  .git  LICENSE	Makefile  README.md  src  test.cpp
+amah001@hammer.cs.ucr.edu:~$                      ls -l exit
+ls: cannot access exit: No such file or directory
+amah001@hammer.cs.ucr.edu:~$ls        -l         ;
+Segmentation fault
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100stuff/rs/rshell[0;95m (exec) [0;36m$[0m bin/rshell
+amah001@hammer.cs.ucr.edu:~$#f[   do  #domt lmpw      know j what happened there
+amah001@hammer.cs.ucr.edu:~$#ehhhhhhhhh
+amah001@hammer.cs.ucr.edu:~$
+amah001@hammer.cs.ucr.edu:~$
+amah001@hammer.cs.ucr.edu:~$
+amah001@hammer.cs.ucr.edu:~$
+amah001@hammer.cs.ucr.edu:~$
+amah001@hammer.cs.ucr.edu:~$xcat    cat e README.md
+#rshell
+
+Rshell is a custom basic command shell used to mimic the BASH terminal. Rshell is able to run single commands. Rshell is supposed to be able to run commands that use connectors such as ";" which executes the next command always,"&&" which executes the next command if the previous command succeeded, and "||" which executes the next command if the previous command failed.
+
+##Installation
+```
+$git clone https://github.com/amah001/rshell.git
+$cd rshell
+$git checkout hw0
+$make
+$bin/rshell
+```
+##Bugs
+```
+Commands will run regardless of connectors
+```
+##License
+amah001@hammer.cs.ucr.edu:~$cat /     ls||ls||ls
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$#if o commands touching connectors.,  , still work
+amah001@hammer.cs.ucr.edu:~$$\ #  #not exactly how i wanted though
+amah001@hammer.cs.ucr.edu:~$l ls                        #hello
+bin  exec.script  LICENSE  Makefile  README.md	src  test.cpp
+amah001@hammer.cs.ucr.edu:~$#pls give me good c grade =D
+amah001@hammer.cs.ucr.edu:~$#jk, m,,   , i know i failed
+amah001@hammer.cs.ucr.edu:~$# : try so hard  , go so far       t so far
+amah001@hammer.cs.ucr.edu:~$#in    on     in the end  , it does' m't   n't evem ,at   mattttterrr
+amah001@hammer.cs.ucr.edu:~$exit
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100stuff/rs/rshell[0;95m (exec) [0;36m$[0m exit
+exit
+~
+amah001@hammer $ exit
+exit
+
+Script done on Mon 20 Apr 2015 12:18:48 AM PDT
