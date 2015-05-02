@@ -34,6 +34,8 @@ There is no color coding.
 Output is one vertical column.
 Edge cases do not work.
 only works on -l and -a flags
+doesn't work for individual files eg. "ls a.out"
+
 ```
 ##License
 [License is in this link.](/LICENSE)
