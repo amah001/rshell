@@ -118,6 +118,8 @@ void printLong(char* argv[],char** path,int numPath,bool printAll,const char* pa
 	vector<string> files;
 	string directoryz = "l";
 	vector<string> permissions;
+	size_t total = 0;
+	struct stat infa;
 	directoryRunthrough(files,argv,directoryz,pathing);
 	if(!printAll)
 	{
@@ -134,6 +136,17 @@ void printLong(char* argv[],char** path,int numPath,bool printAll,const char* pa
 			my_it++;
 		}
 	}
+	for(size_t tempa = 0; tempa < files.size();tempa++)
+	{
+		//adds total
+		if(stat(files[tempa].c_str(),&infa) == -1)
+		{
+			perror("stat");
+			_exit(1);
+		}
+		total += infa.st_blocks;
+	}
+	cout << "total " << total/2 << endl;
 	//cout << "doge" << endl;
 	for(unsigned int i = 0; i < files.size(); i++)
 	{
@@ -214,9 +227,9 @@ void printLong(char* argv[],char** path,int numPath,bool printAll,const char* pa
 		// do some alignment thingy
 		shortTime = ctime(&info.st_mtime);
 		shortTime = shortTime.substr(4,12);
-		cout << info.st_nlink << " ";	//prints # of links
-		cout << pwd->pw_name << " ";	//prints user
-		cout << grp->gr_name << " ";	//prints group
+		cout << info.st_nlink << " ";			//prints # of links
+		cout << setw(7) << left <<pwd->pw_name << " ";		//prints user
+		cout << setw(7) << left << grp->gr_name << " ";	//prints group
 		cout << setw(7) << right << info.st_size << " "; //prints size
 		cout << shortTime << " ";	//prints time last modified
 		cout << files[i] << endl;	//prints file
@@ -252,7 +265,6 @@ void printRecursive(char* argv[],char** path,int numPath, bool runAll, bool runL
 	
 	return;
 }
-
 int main(int argc, char* argv[])
 {
 	vector<string> lists;
