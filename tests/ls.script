@@ -1,0 +1,308 @@
+Script started on Fri 01 May 2015 11:36:22 PM PDT
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ make
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/test.cpp -o ./bin/rshell
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/cp.cpp -o ./bin/cp
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/ls.cpp -o ./bin/ls
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ make[Kbin/ls
+a.out
+bin
+LICENSE
+ls.script
+Makefile
+README.md
+src
+tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -a
+.
+..
+.git
+.test.cpp.swp
+a.out
+bin
+LICENSE
+ls.script
+Makefile
+README.md
+src
+tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -a[Kl
+total 56
+-rwxrwxr-x 1 alex    alex      16369 Apr 16 16:56 a.out
+drwxrwxr-x 2 alex    alex       4096 May  1 23:36 bin
+-rw-rw-r-- 1 alex    alex      18047 Apr  6 11:40 LICENSE
+-rw-rw-r-- 1 alex    alex          0 May  1 23:36 ls.script
+-rw-rw-r-- 1 alex    alex        298 May  1 22:43 Makefile
+-rw-rw-r-- 1 alex    alex       1252 May  1 22:58 README.md
+drwxrwxr-x 4 alex    alex       4096 May  1 23:35 src
+drwxrwxr-x 2 alex    alex       4096 May  1 21:40 tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -lalaa[Kl
+total 80
+drwxrwxr-x 6 alex    alex       4096 May  1 23:36 .
+drwxrwxr-x 6 alex    alex       4096 Apr 30 01:06 ..
+drwxrwxr-x 8 alex    alex       4096 May  1 23:25 .git
+-rw-r--r-- 1 alex    alex      12288 Apr 16 16:58 .test.cpp.swp
+-rwxrwxr-x 1 alex    alex      16369 Apr 16 16:56 a.out
+drwxrwxr-x 2 alex    alex       4096 May  1 23:36 bin
+-rw-rw-r-- 1 alex    alex      18047 Apr  6 11:40 LICENSE
+-rw-rw-r-- 1 alex    alex          0 May  1 23:36 ls.script
+-rw-rw-r-- 1 alex    alex        298 May  1 22:43 Makefile
+-rw-rw-r-- 1 alex    alex       1252 May  1 22:58 README.md
+drwxrwxr-x 4 alex    alex       4096 May  1 23:35 src
+drwxrwxr-x 2 alex    alex       4096 May  1 21:40 tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -ala[K[Kaaaaaaaaaaaaaaaaa
+.
+..
+.git
+.test.cpp.swp
+a.out
+bin
+LICENSE
+ls.script
+Makefile
+README.md
+src
+tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -aaaaaaaaaaaaaaaaaa[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Klllalal
+total 80
+drwxrwxr-x 6 alex    alex       4096 May  1 23:36 .
+drwxrwxr-x 6 alex    alex       4096 Apr 30 01:06 ..
+drwxrwxr-x 8 alex    alex       4096 May  1 23:25 .git
+-rw-r--r-- 1 alex    alex      12288 Apr 16 16:58 .test.cpp.swp
+-rwxrwxr-x 1 alex    alex      16369 Apr 16 16:56 a.out
+drwxrwxr-x 2 alex    alex       4096 May  1 23:36 bin
+-rw-rw-r-- 1 alex    alex      18047 Apr  6 11:40 LICENSE
+-rw-rw-r-- 1 alex    alex          0 May  1 23:36 ls.script
+-rw-rw-r-- 1 alex    alex        298 May  1 22:43 Makefile
+-rw-rw-r-- 1 alex    alex       1252 May  1 22:58 README.md
+drwxrwxr-x 4 alex    alex       4096 May  1 23:35 src
+drwxrwxr-x 2 alex    alex       4096 May  1 21:40 tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -aalllalalaaaaaaaaaaaaaaaa[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kdsafdsa
+not supported
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -aadsafdsa[C[C[C[C[C[K[K[K[K[K[K[K[K[Ka a[K-l -a
+total 80
+drwxrwxr-x 6 alex    alex       4096 May  1 23:36 .
+drwxrwxr-x 6 alex    alex       4096 Apr 30 01:06 ..
+drwxrwxr-x 8 alex    alex       4096 May  1 23:25 .git
+-rw-r--r-- 1 alex    alex      12288 Apr 16 16:58 .test.cpp.swp
+-rwxrwxr-x 1 alex    alex      16369 Apr 16 16:56 a.out
+drwxrwxr-x 2 alex    alex       4096 May  1 23:36 bin
+-rw-rw-r-- 1 alex    alex      18047 Apr  6 11:40 LICENSE
+-rw-rw-r-- 1 alex    alex          0 May  1 23:36 ls.script
+-rw-rw-r-- 1 alex    alex        298 May  1 22:43 Makefile
+-rw-rw-r-- 1 alex    alex       1252 May  1 22:58 README.md
+drwxrwxr-x 4 alex    alex       4096 May  1 23:35 src
+drwxrwxr-x 2 alex    alex       4096 May  1 21:40 tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -a -l -a[C[K[K[K[K[K[K ..
+.
+..
+copier
+cs
+firstrepo
+README.md
+rshell
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -a ../../..[K[K[K[K[K[K[K[K[Kds[K[K[Kfds
+not supported
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ ls [K -l                           [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K l - a
+ls: cannot access -: No such file or directory
+ls: cannot access l: No such file or directory
+ls: cannot access -: No such file or directory
+ls: cannot access a: No such file or directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ la [K[Ks -l [K -a -df
+.
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ ls -l -a -df[2P l - abin/ls -fds
+not supported
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -fds[K[K[Kl        - a
+opendir(): No such file or directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -l        - a[K[K[K[K[K[K[K[K[K[K[Kaaaaaaal -aaaaaaal
+total 84
+drwxrwxr-x 6 alex    alex       4096 May  1 23:36 .
+drwxrwxr-x 6 alex    alex       4096 Apr 30 01:06 ..
+drwxrwxr-x 8 alex    alex       4096 May  1 23:25 .git
+-rw-r--r-- 1 alex    alex      12288 Apr 16 16:58 .test.cpp.swp
+-rwxrwxr-x 1 alex    alex      16369 Apr 16 16:56 a.out
+drwxrwxr-x 2 alex    alex       4096 May  1 23:36 bin
+-rw-rw-r-- 1 alex    alex      18047 Apr  6 11:40 LICENSE
+-rw-rw-r-- 1 alex    alex       4096 May  1 23:37 ls.script
+-rw-rw-r-- 1 alex    alex        298 May  1 22:43 Makefile
+-rw-rw-r-- 1 alex    alex       1252 May  1 22:58 README.md
+drwxrwxr-x 4 alex    alex       4096 May  1 23:35 src
+drwxrwxr-x 2 alex    alex       4096 May  1 21:40 tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -laaaaaaal -aaaaaaal[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KR
+not supported
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -RRRRRRr[K[K[K[K[K[Kak[K[Kala
+not supported
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ ..[K[Kbin/ls -Rala[K[K[K[K[K..
+copier
+cs
+firstrepo
+README.md
+rshell
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls ..[K
+a.out
+bin
+LICENSE
+ls.script
+Makefile
+README.md
+src
+tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls ..[K[K~
+cs
+cs100
+Desktop
+Documents
+Downloads
+examples.desktop
+Music
+Pictures
+PlayOnLinux's virtual drives
+Public
+Templates
+Videos
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls ~[K../../..
+alex
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ ..[K[Kbin/ls ../../..[K[K[K
+cs
+cs100
+Desktop
+Documents
+Downloads
+examples.desktop
+Music
+Pictures
+PlayOnLinux's virtual drives
+Public
+Templates
+Videos
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls ../..[K[K[K/.//././../.././../..///.
+bin
+boot
+cdrom
+dev
+etc
+home
+initrd.img
+initrd.img.old
+lib
+lib64
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+vmlinuz
+vmlinuz.old
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls .././/././../.././../..///.[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K.i[Kgit[K[K[K./.git
+opendir(): No such file or directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls ../.git[K[K[K[K[K[K[K-a
+.
+..
+.git
+.test.cpp.swp
+a.out
+bin
+LICENSE
+ls.script
+Makefile
+README.md
+src
+tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -a[K[K.git
+branches
+COMMIT_EDITMSG
+config
+description
+FETCH_HEAD
+HEAD
+hooks
+index
+info
+logs
+MERGE_MSG.save
+MERGE_MSG.save.1
+MERGE_MSG.save.2
+objects
+ORIG_HEAD
+packed-refs
+refs
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls .git[K[K[K[Kdsaf
+opendir(): No such file or directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls dsaf.git[K[K[K[K../hello[K[K[K[K[Ksrc/hello
+opendir(): No such file or directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls ../src/hello[K[K[K[K[K[K[K[K[K
+copier
+cs
+firstrepo
+README.md
+rshell
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls ../[K[K[Khello
+opendir(): No such file or directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls hello[K[K[K[K[K[K
+a.out
+bin
+LICENSE
+ls.script
+Makefile
+README.md
+src
+tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls[K[Kls src
+a.out
+check.cpp
+cp.cpp
+dog.txt
+hello
+ls
+ls.cpp
+test.cpp
+Timer.h
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls src/hello
+dog.txt
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls src/hello[K-srcasrc src[C[C[C/[K
+.
+..
+.hidden
+.ls.cpp
+a.out
+check.cpp
+cp.cpp
+dog.txt
+hello
+ls
+ls.cpp
+test.cpp
+Timer.h
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -a src[K[K[K
+.
+..
+.git
+.test.cpp.swp
+a.out
+bin
+LICENSE
+ls.script
+Makefile
+README.md
+src
+tests
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ bin/ls -a [K[K[KLICENSE 
+opendir(): Not a directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ #doesnop[K[K[Knot[K[K[K not do files[K[K[K[K[K[Kin[K[K indivial [K[K[Kdial[K[K[Kual files
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ #does not do individual files[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kbin/ls LICENSE [K[K[K[K[K[K[K[Ka.out
+opendir(): Not a directory
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ exit[K[K[K[K#R doesn;t[K[K't work
+]0;alex@alex-Satellite-S55-A: ~/cs100/rshellalex@alex-Satellite-S55-A:~/cs100/rshell$ ./[K[Kexit
+exit
+
+Script done on Fri 01 May 2015 11:44:48 PM PDT
