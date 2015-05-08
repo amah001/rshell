@@ -16,7 +16,8 @@ void displayPrompt()
 {   
     // shows username and hostname
     // BUFSIZ = BUFFERSIZE
-	if(getlogin() == NULL)
+	char login[BUFSIZ];
+	if((getlogin_r(login,BUFSIZ)) != 0)
 	{
 		perror("getlogin");
 		_exit(1);
@@ -29,7 +30,7 @@ void displayPrompt()
 		_exit(1);
 	}
     
-	cout << getlogin() << "@" << host  << ":~$";
+	cout << login << "@" << host  << ":~$";
 	return;
 }
 
@@ -156,6 +157,7 @@ string connector_parse(char**& command_lists, char*& current_token)
     } 
     if(containsConnectors == false)
     {
+    	currentConnector = ";";
         command_lists[counter] = NULL;
         //adds NULL so that execvp works correctly
     }
@@ -163,11 +165,11 @@ string connector_parse(char**& command_lists, char*& current_token)
 
 }
 
-void run_command(char** command_list)
+void run_command(char** command_list, bool &works)
 { 
-    //runs commaands    
+    //runs commands    
     pid_t pid = fork();
-    
+    int worked = 0;
     if(pid ==-1)
     {
         perror("fork");
@@ -175,79 +177,136 @@ void run_command(char** command_list)
     }
     else if(pid == 0)
     {
-        if(execvp(command_list[0],command_list) == -1)
+    	worked = execvp(command_list[0],command_list);
+        if(worked == -1)
         {
-            perror("execvp");
+	    perror("execvp");
         }
         _exit(1);
     }
     else if(pid > 0)
     {
-        if(wait(0) == -1)
+    	int a = waitpid(pid, &worked,0);
+        if(a == -1)
         {
-            perror("wait()");
+	    perror("wait()");
         }
+	if(worked > 0)
+	{
+		works = false;
+	}
+	else
+	{
+		works = true;
+	}
     }
     return;
 }
 
 void run_command_with_connectors(char**& final_command,char* command_chara)
 {
-        
+        string nextGo = ";";
+	string workGo = "&&";
+	string failGo = "||";
         char* tempa_token = strtok(command_chara," ");
-        bool did_it_work = false;// checks if last command succeeded 
-        while(tempa_token != NULL)
+        bool did_it_work = true;//checks if last command succeeded 
+	
+	//true if not supposed to run through the chain
+	bool chained_or = false;
+	bool chained_and = false;
+
+	string current_connect = ";";
+	while(tempa_token != NULL)
         {
-           string current_connect = connector_parse(final_command,tempa_token);
-           //parses input
-           int nextExecute = current_connect.find(";");
-           int WorkExecute = current_connect.find("&&");
-           int failExecute = current_connect.find("||");
-           if(exit_check(final_command) == true)
-           {
-                exit(1);
-           }
-           //next if statement chain checks for the earliest connector
-           if(nextExecute < WorkExecute && nextExecute < failExecute)
-           {
-               // ; is earliest connector
-               if(did_it_work == true)
-               {
-                    run_command(final_command);
-               }
-               did_it_work = true;
-           }
-           else if(WorkExecute < nextExecute && WorkExecute < failExecute)
-           {
-               //&& is earliest connector
-               if(did_it_work == false)
-               {
-                   did_it_work = false;
-               }
-               else
-               {
-                    run_command(final_command);
-                    did_it_work = true;
-               }
-           }
-           else if (failExecute < nextExecute && failExecute < WorkExecute)
-           {
-               //|| is earliest connector
-                if(did_it_work == true)
-                {
-                    //do nothing
-                }
-                else
-                {
-                    run_command(final_command);
-                    did_it_work = true;
-                }
-           }
-           else
-           {
-                run_command(final_command);
-                //runs command
-           }
+	//	cout << "current:" << current_connect << endl;
+		current_connect = connector_parse(final_command,tempa_token);
+		//parses input
+		int nextExecute = current_connect.compare(nextGo);
+		int workExecute = current_connect.compare(workGo);
+		int failExecute = current_connect.compare(failGo);
+		if(exit_check(final_command) == true)
+		{
+		     exit(1);
+		}
+		//next if statement chain checks for the earliest connector
+		if(nextExecute == 0)
+		{
+			//cout << "kilo" << endl;
+		// ; is earliest connector
+			if(chained_or || chained_and)
+			{
+				//do nothing
+			}
+			else 
+			{
+				run_command(final_command,did_it_work);
+			}
+			chained_or = false;
+			chained_and = false;
+
+		}
+		else if(workExecute == 0)
+		{
+		//	cout << "world" << endl;
+			//&& is earliest connector
+			if(chained_and == true)
+			{
+			//	cout << "a" << endl;
+				chained_and = true;
+				//do nothing
+			}
+			else if(chained_or == true)
+			{
+			//	cout << "b" << endl;
+				chained_or = false;
+				chained_and = false;
+			}
+			else
+			{	    
+			//	cout << "c" << endl;
+				run_command(final_command,did_it_work);
+				if(did_it_work == false)
+				{
+					//cout << "d" << endl;
+					chained_and = true;
+				}
+			}
+		}
+		else if (failExecute == 0)
+		{
+			//cout << "rito" << endl;
+			//|| is earliest connector
+			if (chained_or == true)
+			{
+			//	cout << "z" << endl;
+				chained_or = true;
+			    //do nothing
+			}
+			else if(chained_and == true)
+			{
+			//	cout << "g" << endl;
+				chained_or = false;
+				chained_and = false;
+			}
+			else
+			{
+			//cout << "m" << endl;
+			    run_command(final_command,did_it_work);
+			    if(did_it_work == true)
+			    {
+		//	    	cout << "f" << endl;
+				chained_or = true;
+			    }
+			}
+		}
+
+		else
+		{
+			cout << "doge" << endl;
+		}
+
+	//	current_connect = connector_parse(final_command,tempa_token);
+		   
         }
         return;
 	
@@ -260,15 +319,17 @@ int main(int argc, char**argv) {
 		displayPrompt();
 		string command_input;
 		getline(cin,command_input);	//takes in input
-        separator_parser(command_input);  //puts spaces between everything
+	        //command_input = ';' + command_input;
+		//cout << command_input << endl;
+		separator_parser(command_input);  //puts spaces between everything
 
 		char* command_char = new char[command_input.size()];
 		strcpy(command_char,command_input.c_str());
-        //converts strings into chars
-        char** finalist_command = (char**)malloc(BUFSIZ);
-        run_command_with_connectors(finalist_command,command_char);
-        //attempts to run commands with connectors but is broken right now
-        //it runs everything, ignoring connectors
-    }
+        	//converts strings into chars
+        	char** finalist_command = (char**)malloc(BUFSIZ);
+		run_command_with_connectors(finalist_command,command_char);
+        	//attempts to run commands with connectors but is broken right now
+        	//it runs everything, ignoring connectors
+    	}
 	return 0;
 }
