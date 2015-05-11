@@ -9,6 +9,7 @@
 #include <cstring>
 #include <string.h>
 #include <errno.h>
+#include <fcntl.h>
 
 using namespace std;
 
@@ -328,7 +329,8 @@ int main(int argc, char**argv) {
         	//converts strings into chars
         	char** finalist_command = (char**)malloc(BUFSIZ);
 		run_command_with_connectors(finalist_command,command_char);
-        	//attempts to run commands with connectors but is broken right now
+        	free(finalist_command);
+		//attempts to run commands with connectors but is broken right now
         	//it runs everything, ignoring connectors
     	}
 	return 0;
