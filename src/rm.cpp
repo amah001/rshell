@@ -38,7 +38,7 @@ void removeDir(const char* directory)
 		perror("There was an error with closedir(). ");
 		exit(1);
 	}
-	for(int i = 2; i < input.size(); i++)
+	for(unsigned int i = 2; i < input.size(); i++)
 	{
 		
 		struct stat s;
@@ -52,11 +52,11 @@ void removeDir(const char* directory)
 		else if(S_ISDIR(s.st_mode)) dir.push_back(tmp);
 	}
 	//Remove files
-	for(int i = 0; i < files.size(); i++)
+	for(unsigned int i = 0; i < files.size(); i++)
 	{
 		if((unlink(files.at(i).c_str()))==-1) perror("unlink");
 	}
-	for(int i = 0; i < dir.size(); i++)
+	for(unsigned int i = 0; i < dir.size(); i++)
 	{
 		if(dir.at(i).at(dir.at(i).size()-1)!='/')
 		{
@@ -90,11 +90,11 @@ int main(int argc, char** argv)
 			//if(dashR) cout << ": dashR" << endl; 
 		}
 		//Remove files
-		for(int i = 0; i < files.size(); i++)
+		for(unsigned int i = 0; i < files.size(); i++)
 		{
 			if((unlink(files.at(i).c_str()))==-1) perror("unlink");
 		}
-		for(int i = 0; i < directory.size(); i++)
+		for(unsigned int i = 0; i < directory.size(); i++)
 		{
 			if(!dashR){
 				if(-1==rmdir(directory.at(i).c_str())) cout << "Directory not empty" << endl;
