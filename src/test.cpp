@@ -324,14 +324,17 @@ int main(int argc, char**argv) {
 		//cout << command_input << endl;
 		separator_parser(command_input);  //puts spaces between everything
 
-		char* command_char = new char[command_input.size()];
+		char* command_char = new char[command_input.size()+1];
 		strcpy(command_char,command_input.c_str());
         	//converts strings into chars
-        	char** finalist_command = (char**)malloc(BUFSIZ);
+        char** finalist_command = (char**)malloc(BUFSIZ);
+
 		run_command_with_connectors(finalist_command,command_char);
-        	free(finalist_command);
+        delete[] command_char;
+        free(finalist_command);
 		//attempts to run commands with connectors but is broken right now
         	//it runs everything, ignoring connectors
-    	}
+           
+    }
 	return 0;
 }
