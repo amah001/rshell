@@ -86,11 +86,18 @@ void separator_parser(string &string_input)
 		//looks for >
 	int pipeFind = string_input.find("|",position);
 		//looks for |
+	//cout << "position: " << position <<endl;
+	// << ";" << NextFind << endl;
+	//cout << "&&" << ifWorkFind << endl;
+	//cout << "arrow: " << outputFind << "      " << appendFind << endl;
+	//cout << "stick: " << pipeFind << "      " << ifFailFind << endl;
 	if(NextFind != -1 
 	&& (NextFind < ifWorkFind || ifWorkFind == -1 ) 
 	&& (NextFind < ifFailFind || ifFailFind == -1) 
 	&& (NextFind < appendFind || appendFind == -1) 
-	&& (NextFind < inputFind || inputFind == -1))
+	&& (NextFind < inputFind || inputFind == -1)
+	&& (NextFind < outputFind || outputFind == -1) 
+	&& (NextFind < pipeFind || pipeFind == -1) )
             {
                 
                 //adds spaces around ; connector
@@ -103,22 +110,27 @@ void separator_parser(string &string_input)
 	    && (inputFind < ifWorkFind || ifWorkFind == -1 ) 
 	    && (inputFind < ifFailFind || ifFailFind == -1) 
 	    && (inputFind < appendFind || appendFind == -1) 
-	    && (inputFind < NextFind || NextFind == -1))
+	    && (inputFind < NextFind || NextFind == -1)
+	    && (inputFind < outputFind || outputFind == -1) 
+	    && (inputFind < pipeFind || pipeFind == -1) )
             {
-                
+          //     cout << ":<" << endl; 
                 //adds spaces around > connector
                 string_input.insert(inputFind, " ");
                 string_input.insert(string_input.find("<",position)+1," ");
                 my_iterator = string_input.begin() + string_input.find("<")+1;
                 position = string_input.find("<", position)+1;
+	//	cout << "pos: " << position << endl;
             }
         else if(ifWorkFind != -1 
 	    && (ifWorkFind < NextFind || NextFind == -1 ) 
 	    && (ifWorkFind < ifFailFind || ifFailFind == -1) 
 	    && (ifWorkFind < appendFind || appendFind == -1) 
-	    && (ifWorkFind < inputFind || inputFind == -1))
+	    && (ifWorkFind < inputFind || inputFind == -1)
+	    && (ifWorkFind < outputFind || outputFind == -1) 
+	    && (ifWorkFind < pipeFind || pipeFind == -1) )
         {
-            cout << "welp" << endl;
+            //cout << ":&&" << endl;
             //adds spaces around && connector
             string_input.insert(ifWorkFind, " ");
             string_input.insert(string_input.find("&&",position)+2," ");
@@ -129,9 +141,11 @@ void separator_parser(string &string_input)
 	    && (appendFind < NextFind || NextFind == -1 ) 
 	    && (appendFind < ifFailFind || ifFailFind == -1) 
 	    && (appendFind < ifWorkFind || ifWorkFind == -1) 
-	    && (appendFind < inputFind || inputFind == -1)	   )
+	    && (appendFind < inputFind || inputFind == -1)
+	    && (appendFind <= outputFind || outputFind == -1) 
+	    && (appendFind < pipeFind || pipeFind == -1))
         {
-            cout << "obi" << endl;
+          //  cout << ":>>" << endl;
             //adds spaces around >>
             string_input.insert(appendFind, " ");
             string_input.insert(string_input.find(">>",position)+2," ");
@@ -142,17 +156,56 @@ void separator_parser(string &string_input)
 	    && (ifFailFind < NextFind || NextFind == -1 ) 
 	    && (ifFailFind < appendFind || appendFind == -1) 
 	    && (ifFailFind < ifWorkFind || ifWorkFind == -1) 
-	    && (ifFailFind < inputFind || inputFind == -1))
+	    && (ifFailFind < inputFind || inputFind == -1)
+	    && (ifFailFind < outputFind || outputFind == -1) 
+	    && (ifFailFind <= pipeFind || pipeFind == -1))
         {
-        	cout << "heads" << endl;
+        //	cout << position << ":||" << endl;
             //adds spaces around || connector
             string_input.insert(ifFailFind, " ");
             string_input.insert(string_input.find("||",position)+2," ");
             my_iterator = string_input.begin() + string_input.find("||")+2;
             position = string_input.find("||", position)+2;
+	    //cout << "pos2: " << position << endl;
         }
-	counter++;
-	cout << counter << endl;
+	else if(outputFind != -1 
+	    && (outputFind < NextFind || NextFind == -1 ) 
+	    && (outputFind <= appendFind || appendFind == -1) 
+	    && (outputFind < ifWorkFind || ifWorkFind == -1) 
+	    && (outputFind < inputFind || inputFind == -1)
+	    && (outputFind < ifFailFind || ifFailFind == -1) 
+	    && (outputFind < pipeFind || pipeFind == -1))
+        {
+        //	cout << ":>" << endl;
+            //adds spaces around || connector
+            string_input.insert(outputFind, " ");
+            string_input.insert(string_input.find(">",position)+1," ");
+            my_iterator = string_input.begin() + string_input.find(">",position)+1;
+            position = string_input.find(">", position)+1;
+        }
+	else if(pipeFind != -1 
+	    && (pipeFind < NextFind || NextFind == -1 ) 
+	    && (pipeFind < appendFind || appendFind == -1) 
+	    && (pipeFind < ifWorkFind || ifWorkFind == -1) 
+	    && (pipeFind < inputFind || inputFind == -1)
+	    && (pipeFind <= ifFailFind || ifFailFind == -1) 
+	    && (pipeFind < outputFind || outputFind == -1))
+        {
+        //	cout << ":|" << endl;
+            //adds spaces around | connector
+            string_input.insert(pipeFind, " ");
+            string_input.insert(string_input.find("|",position)+1," ");
+            my_iterator = string_input.begin() + string_input.find("|",position)+1;
+            position = string_input.find("|", position)+1;
+        }
+	//counter++;
+	//cout << string_input << endl;
+	//cout << "position2: " << position <<endl;
+	//cout << ";" << NextFind << endl;
+	//cout << "&&" << ifWorkFind << endl;
+	//cout << "arrow2: " << outputFind << "      " << appendFind << endl;
+	//cout << "stick2: " << pipeFind << "      " << ifFailFind << endl;
+	//cout << counter << endl;
     }
     return;
 }
@@ -321,68 +374,12 @@ void piping()
 
 	return;
 }
-void redirection_separator(string& string_input)
-{
-/*
-	string::iterator my_iterator;
-	int position = 0;
- 	for( my_iterator = string_input.begin();
-    	my_iterator < string_input.end();
-    	my_iterator++, position++)
-    	{
- 		int inputFind = string_input.find("<", position);
-		int outputFind = string_input.find(">", position);
-		int appendFind = string_input.find("> >", position);
-		int pipeFind = string_input.find(" | ", position);
-        	if(((NextFind < ifWorkFind && NextFind < ifFailFind) 
-            || (ifWorkFind == -1 && ifFailFind ==-1)
-            || (NextFind < ifWorkFind && ifFailFind ==-1)
-            || (NextFind < ifFailFind && ifWorkFind ==-1))
-            && (NextFind != -1))
-            {
-                
-                //adds spaces around ; connector
-                string_input.insert(NextFind, " ");
-                string_input.insert(string_input.find(";",position)+1," ");
-                my_iterator = string_input.begin() + string_input.find(";")+1;
-                position = string_input.find(";", position)+1;
-            }
-        else if(((ifWorkFind < NextFind && ifWorkFind < ifFailFind) 
-            || (NextFind == -1 && ifFailFind ==-1)
-            || (ifWorkFind < NextFind && ifFailFind ==-1)
-            || (ifWorkFind < ifFailFind && NextFind ==-1))
-            && (ifWorkFind != -1))
-        {
-            
-            //adds spaces around && connector
-            string_input.insert(ifWorkFind, " ");
-            string_input.insert(string_input.find("&&",position)+2," ");
-            my_iterator = string_input.begin() + string_input.find("&&")+2;
-            position = string_input.find("&&", position)+2;
-        }
-        else if(((ifFailFind < ifWorkFind && ifFailFind < NextFind) 
-            || (ifWorkFind == -1 && NextFind ==-1)
-            || (ifFailFind < ifWorkFind && NextFind ==-1)
-            || (ifFailFind < NextFind && ifWorkFind ==-1))
-            && (ifFailFind != -1))
-        {
-        
-            //adds spaces around || connector
-            string_input.insert(ifFailFind, " ");
-            string_input.insert(string_input.find("||",position)+2," ");
-            my_iterator = string_input.begin() + string_input.find("||")+2;
-            position = string_input.find("||", position)+2;
-        }
-    }
-   */
-	return;
-}
 void run_command_with_connectors(char**& final_command,char* command_chara)
 {
         string nextGo = ";";
 	string workGo = "&&";
 	string failGo = "||";
-	cout << command_chara << endl;
+	//cout << command_chara << endl;
 	/*
 	int findSemi = command_chara.strch(";");
 	int findAnd = command_chara.strch("&&");
@@ -461,8 +458,8 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			else
 			{	    
 			//	cout << "c" << endl;
-				cout << "ayy :";
-				cout << redirection_parse(final_command) << endl;
+	//			cout << "ayy :";
+	//			cout << redirection_parse(final_command) << endl;
 
 				run_command(final_command,did_it_work);
 				if(did_it_work == false)
@@ -491,8 +488,8 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			else
 			{
 			//cout << "m" << endl;;
-				cout << "ayy :";
-				cout << redirection_parse(final_command)<< endl;
+				//cout << "ayy :";
+				//cout << redirection_parse(final_command)<< endl;
 
 
 			    run_command(final_command,did_it_work);
@@ -534,8 +531,6 @@ int main(int argc, char**argv) {
 		run_command_with_connectors(finalist_command,command_char);
         	delete[] command_char;
         	free(finalist_command);
-		//attempts to run commands with connectors but is broken right now
-        	//it runs everything, ignoring connectors
            
     }
 	return 0;
