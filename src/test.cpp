@@ -66,7 +66,7 @@ void separator_parser(string &string_input)
     //cout << string_input << endl;
     string::iterator my_iterator;
     int position = 0;
-    int counter = 0;
+    //int counter = 0;
     for( my_iterator = string_input.begin();
     my_iterator < string_input.end();
     my_iterator++, position++)
@@ -292,12 +292,13 @@ void run_command(char** command_list, bool &works)
     }
     return;
 }
+/*
 string redirection_parse(char** command)
 {
 	string current_redirect = command[0];
 	char** redirectiongroup = (char**)malloc(BUFSIZ);
 	
-	/*
+	
 	bool containRedirection = false;
 	string append = ">>";
 	string output_redirect = ">";
@@ -327,14 +328,15 @@ string redirection_parse(char** command)
 	{
 		//return;
 	}
-	*/
+	
 	return current_redirect;
 }
+*/
 void input_redirection()
 {
-	int pid;
-	int id;
-	int fd;
+//	int pid;
+//	int id;
+//	int fd;
 	/*
 	pid = fork();
 	if(pid == -1)
@@ -379,27 +381,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
         string nextGo = ";";
 	string workGo = "&&";
 	string failGo = "||";
-	//cout << command_chara << endl;
-	/*
-	int findSemi = command_chara.strch(";");
-	int findAnd = command_chara.strch("&&");
-	int findOr  = command_chara.strch("||");
-	*/
 	char* tempa_token = strtok(command_chara," ");
-	/*
-	if(findSemi < findAnd && findSemi < findOr)
-	{
-		tempa_token = strtok(command_chara,";");
-	}
-	else if(findAnd < findSemi && findAnd < findOr)
-	{
-		tempa_token = strtok(command_chara,"&&");
-	}
-	else if(findOr < findSemi && findOr < findAnd)
-	{
-		tempa_token = strtok(command_chara,"||");
-	}
-	*/
         bool did_it_work = true;//checks if last command succeeded 
 	//true if not supposed to run through the chain
 	bool chained_or = false;
@@ -432,7 +414,6 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			{
 				//cout << "ayy :";
 				//const char** false_command = final_command;
-				//cout << redirection_parse(final_command) << endl;
 				run_command(final_command,did_it_work);
 			}
 			chained_or = false;
