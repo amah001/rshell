@@ -257,9 +257,12 @@ string connector_parse(char**& command_lists, char*& current_token)
 
 void run_command(char** command_list, bool &works)
 { 
-    //runs commands    
+    //runs commands   
+    //cout << "ran: " << command_list[0] << endl;
+    //cout << command_list[1] << endl;
     pid_t pid = fork();
     int worked = 0;
+    //cout << "running" << endl;
     if(pid ==-1)
     {
         perror("fork");
@@ -268,7 +271,8 @@ void run_command(char** command_list, bool &works)
     else if(pid == 0)
     {
     	worked = execvp(command_list[0],command_list);
-        if(worked == -1)
+        //cout << "command:  " << command_list[0] << endl;
+	if(worked == -1)
         {
 	    perror("execvp");
         }
@@ -332,12 +336,61 @@ string redirection_parse(char** command)
 	return current_redirect;
 }
 */
-void input_redirection()
+bool input_redirection(char** command, int sizer)
 {
-//	int pid;
-//	int id;
+	int i = 0;
+	//cout << "af: " << command << endl;
+	string temp;
+	string filed;
+	bool input_redirect = false;
+	int last_input = 0;
+	int find_append = -1;
+	int find_output = -1;
+	while(command[i] != NULL)
+	{
+		string tempurary = command[i];
+		if(tempurary == ">>")
+		{
+			find_append = i;
+		}
+		else if(tempurary == ">")
+		{
+			find_output = i;
+		}
+		i++;
+	}
+	i = 0;
+	while(command[i] != NULL)
+	{
+		//cout << command[i] << endl;
+		if(temp == "<"
+		&& (i < find_append || find_append == -1)
+		&& (i < find_output || find_append == -1))
+		{
+			last_input = i;
+			//finale[1] = command[i];
+			input_redirect = true;
+		}
+		temp = command[i];
+		i++;
+	}
+	if(input_redirect == false)
+	{
+		return false;
+	}
+       	char** finale = (char**)malloc(BUFSIZ);
+
+	finale[0] = command[0];
+	finale[1] = command[last_input];
+	finale[2] = NULL;
+	//cout << command[i-1];
+	int pid;
+	int FileID;
+	FileID = open(temp.c_str(), O_RDONLY);
+	//int IDhold;
+	
 //	int fd;
-	/*
+	
 	pid = fork();
 	if(pid == -1)
 	{
@@ -346,7 +399,9 @@ void input_redirection()
 	}
 	else if(pid == 0)
 	{
-		if((execvp(argv[0],argv) == -1)
+		close(0);
+		dup(FileID);
+		if((execvp(finale[0],finale)) == -1)
 		{
 			perror("execvp()");
 		}
@@ -355,14 +410,16 @@ void input_redirection()
 	}
 	else if(pid > 0)
 	{
+		
 		if(wait(0) == -1)
 		{
 			perror("wait()");
 			_exit(1);
 		}
+		close(FileID);
 	}
-	*/
-	return;
+	free(finale);
+	return true;
 	
 }
 
@@ -390,16 +447,21 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 	string current_connect = ";";
 	while(tempa_token != NULL)
         {
-		//cout << tempa_token << endl;
-	//	cout << "current:" << current_connect << endl;
+		//cout << "toucan: " << tempa_token << endl;
+		//cout << "current :" << current_connect << endl;
 		current_connect = connector_parse(final_command,tempa_token);
 		//parses input
 		int nextExecute = current_connect.compare(nextGo);
 		int workExecute = current_connect.compare(workGo);
 		int failExecute = current_connect.compare(failGo);
+		int sized = 0;
 		if(exit_check(final_command) == true)
 		{
 		     exit(1);
+		}
+		for(int i = 0; final_command[i] != NULL; i++)
+		{
+			sized = i;
 		}
 		//next if statement chain checks for the earliest connector
 		if(nextExecute == 0)
@@ -414,8 +476,12 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			{
 				//cout << "ayy :";
 				//const char** false_command = final_command;
-				run_command(final_command,did_it_work);
+				if(input_redirection(final_command,sized) == false)
+				{
+					run_command(final_command,did_it_work);
+				}
 			}
+
 			chained_or = false;
 			chained_and = false;
 
@@ -471,8 +537,6 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			//cout << "m" << endl;;
 				//cout << "ayy :";
 				//cout << redirection_parse(final_command)<< endl;
-
-
 			    run_command(final_command,did_it_work);
 			    if(did_it_work == true)
 			    {
@@ -507,7 +571,8 @@ int main(int argc, char**argv) {
 
 		char* command_char = new char[command_input.size()+1];
 		strcpy(command_char,command_input.c_str());
-        	//converts strings into chars
+        	//cout << command_char << endl;
+		//converts strings into chars
        		 char** finalist_command = (char**)malloc(BUFSIZ);
 		run_command_with_connectors(finalist_command,command_char);
         	delete[] command_char;
