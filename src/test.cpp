@@ -381,6 +381,8 @@ dup2(std_in, 0);
 	string last_out;
 	int i = 0;
 	int id;
+	bool first = true;
+	int end = 0;
 	char** finale = (char**)malloc(BUFSIZ);
 	while(command[i] != NULL)
 	{
@@ -390,6 +392,11 @@ dup2(std_in, 0);
 //		&& (i < find_output || find_append == -1)
 )
 		{
+			if(first)
+			{
+				end = i;
+				first = false;
+			}
 			last_output = i;
 			//finale[1] = command[i];
 			output_redirect = true;
@@ -399,6 +406,11 @@ dup2(std_in, 0);
 	//	&& (i < find_output || find_output == -1)
 		)
 		{
+			if(first)
+			{
+				end = i;
+				first = false;
+			}
 			last_output = i;
 			output_redirect = true;
 			last_out = ">>";
@@ -420,8 +432,16 @@ dup2(std_in, 0);
 	}
 	temp = command[last_output];
 	//cout << temp << endl;
-	finale[last_output -1] = NULL;
-	id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	finale[end -1] = NULL;
+	if(last_out == ">")
+	{
+		id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	}
+	else if(last_out == ">>")
+	{
+
+		id = open(temp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664);
+	}
 	int pid = fork();
 	if(pid == 0)
 	{
