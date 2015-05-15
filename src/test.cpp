@@ -12,6 +12,8 @@
 #include <fcntl.h>
 
 using namespace std;
+int std_in;
+int std_out;
 
 void displayPrompt()
 {   
@@ -336,7 +338,106 @@ string redirection_parse(char** command)
 	return current_redirect;
 }
 */
-bool input_redirection(char** command, int sizer)
+
+string redirection_parse(char** command_list, char* current_token)
+{
+	bool containsRedirection = false;
+	size_t notFound = -1;
+	int counter = 0;
+	int input_redirect;
+	int output_redirect;
+	int append_redierct;
+	while(current_token != NULL && containsRedirection == false)
+	{
+		string tempString = current_token;
+		if(tempString.compare(">>") == 0
+		|| tempString.compare(">") == 0
+//		|| tempString.compare("|") == 0
+		|| tempString.compare("<") == 0)
+		{
+			containsRedirection = true;
+		}
+		if(containsRedirection = true)
+		{
+
+		}
+		
+	}
+}
+bool output_redirection(char** command)
+{
+/*
+dup2(std_in, 0);
+	cout << std_in << "    " << std_out << endl;
+	dup2(std_out,1);
+	int fd[2];
+	pipe(fd);
+	int id = -1;
+	int i = 0;
+	*/
+	bool output_redirect = false;
+	string temp = command[0];
+	int last_output = 0;
+	string last_out;
+	int i = 0;
+	int id;
+	char** finale = (char**)malloc(BUFSIZ);
+	while(command[i] != NULL)
+	{
+		//cout << command[i] << endl;
+		if(temp == ">"
+	//	&& (i < find_append || find_append == -1)
+//		&& (i < find_output || find_append == -1)
+)
+		{
+			last_output = i;
+			//finale[1] = command[i];
+			output_redirect = true;
+			last_out = ">";
+		}
+		else if(temp == ">>"
+	//	&& (i < find_output || find_output == -1)
+		)
+		{
+			last_output = i;
+			output_redirect = true;
+			last_out = ">>";
+		}
+		else
+		{
+		//	cout << i << endl;
+			finale[i] = command[i];
+		}
+		//cout << i + 100 << endl;
+		//cout << command[i] << endl;
+		
+		temp = command[i];
+		i++;
+	}
+	if(output_redirect == false)
+	{
+		return false;
+	}
+	temp = command[last_output];
+	//cout << temp << endl;
+	finale[last_output -1] = NULL;
+	id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	int pid = fork();
+	if(pid == 0)
+	{
+		close(1);
+		dup(id);
+		execvp(finale[0],finale);
+	}
+	else if(pid > 0)
+	{
+		wait(0);
+		close(id);
+	}
+
+	return true;
+}
+bool input_redirection(char** command)
 {
 	int i = 0;
 	//cout << "af: " << command << endl;
@@ -344,18 +445,19 @@ bool input_redirection(char** command, int sizer)
 	string filed;
 	bool input_redirect = false;
 	int last_input = 0;
-	int find_append = -1;
-	int find_output = -1;
+	bool chained_input = false;
+	bool chained_append = false;
+	bool chained_output = false;
 	while(command[i] != NULL)
 	{
 		string tempurary = command[i];
 		if(tempurary == ">>")
 		{
-			find_append = i;
+//			find_append = i;
 		}
 		else if(tempurary == ">")
 		{
-			find_output = i;
+//			find_output = i;
 		}
 		i++;
 	}
@@ -364,8 +466,9 @@ bool input_redirection(char** command, int sizer)
 	{
 		//cout << command[i] << endl;
 		if(temp == "<"
-		&& (i < find_append || find_append == -1)
-		&& (i < find_output || find_append == -1))
+//		&& (i < find_append || find_append == -1)
+//		&& (i < find_output || find_append == -1)
+)
 		{
 			last_input = i;
 			//finale[1] = command[i];
@@ -378,6 +481,8 @@ bool input_redirection(char** command, int sizer)
 	{
 		return false;
 	}
+	
+	
        	char** finale = (char**)malloc(BUFSIZ);
 
 	finale[0] = command[0];
@@ -423,11 +528,6 @@ bool input_redirection(char** command, int sizer)
 	
 }
 
-void output_redirection()
-{
-
-	return;
-}
 void piping()
 {
 
@@ -447,7 +547,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 	string current_connect = ";";
 	while(tempa_token != NULL)
         {
-		//cout << "toucan: " << tempa_token << endl;
+		cout << "toucan: " << tempa_token << endl;
 		//cout << "current :" << current_connect << endl;
 		current_connect = connector_parse(final_command,tempa_token);
 		//parses input
@@ -458,10 +558,6 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 		if(exit_check(final_command) == true)
 		{
 		     exit(1);
-		}
-		for(int i = 0; final_command[i] != NULL; i++)
-		{
-			sized = i;
 		}
 		//next if statement chain checks for the earliest connector
 		if(nextExecute == 0)
@@ -476,7 +572,16 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			{
 				//cout << "ayy :";
 				//const char** false_command = final_command;
-				if(input_redirection(final_command,sized) == false)
+				
+				if(input_redirection(final_command) == true)
+				{
+					
+				}
+				else if(output_redirection(final_command) == true)
+				{
+
+				}
+				else
 				{
 					run_command(final_command,did_it_work);
 				}
@@ -554,12 +659,16 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 	//	current_connect = connector_parse(final_command,tempa_token);
 		   
         }
+	
         return;
 	
 }
 
 int main(int argc, char**argv) { 
 
+	std_in = dup(0);
+	std_out = dup(1);
+	//cout << std_in << "    " << std_out << endl;
 	while(1)//endless loop so that it mimics terminal
 	{
 		displayPrompt();
@@ -577,7 +686,8 @@ int main(int argc, char**argv) {
 		run_command_with_connectors(finalist_command,command_char);
         	delete[] command_char;
         	free(finalist_command);
-           
-    }
+		dup2(std_in, 0);
+		dup2(std_out,1);
+    	}
 	return 0;
 }
