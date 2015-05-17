@@ -333,6 +333,13 @@ string redirection(char** command)
 		i++;
 
 	}
+	if(temp == ">>" 
+	|| temp == "<"
+	|| temp == ">")
+	{
+	//	cout << "fail" << endl;
+		return fail;
+	}
 	//cout << "hmm" << endl;
 	if(input == true && output == true)
 	{
@@ -811,8 +818,8 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				//cout << "blue" << endl;
 				if(red == "fail")
 				{
-					cerr << "error: passed in io as first argument" << endl;
-					_exit(1);
+					cerr << "error: passed in io as first/last argument" << endl;
+					//_exit(1);
 				}
 				else if(red == "in")	
 				{ 
