@@ -316,7 +316,7 @@ string redirection(char** command)
 		{
 			input = true;
 		}
-		else if(temp == ">" || temp == "<<")
+		else if(temp == ">" || temp == ">>")
 		{
 			output = true;
 		}
@@ -381,6 +381,7 @@ bool input_output(char** command)
 		}
 		else if(temp == ">")
 		{
+			//cout << "1" << endl;
 			if(first)
 			{
 				end = i;
@@ -400,6 +401,7 @@ bool input_output(char** command)
 		}
 		else if(temp == ">>")
 		{
+			//cout << "2" << endl;
 			if(first)
 			{
 				end = i;
@@ -592,7 +594,6 @@ dup2(std_in, 0);
 	finale[end -1] = NULL;
 	if(last_out == ">")
 	{
-		cout <<"1" << endl;
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
 		{
 			perror("open");
@@ -601,7 +602,7 @@ dup2(std_in, 0);
 	}
 	else if(last_out == ">>")
 	{
-		cout << "1" << endl;
+
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664)) == -1)
 		{
 			perror("open");
@@ -805,18 +806,18 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				}
 				else if(red == "out")
 				{
-				//	cerr << "out" << endl;
+					//cerr << "out" << endl;
 					output_redirection(final_command);
 
 				}
 				else if(red == "both")
 				{
-				//	cerr << " both"  << endl;
+					//cerr << " both"  << endl;
 					input_output(final_command);
 				}
 				else if(red == "none")
 				{
-				//	cerr << "none" << endl;
+					//cerr << "none" << endl;
 					run_command(final_command,did_it_work);
 				}
 				
