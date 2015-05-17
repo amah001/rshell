@@ -338,7 +338,7 @@ string redirection_parse(char** command)
 	return current_redirect;
 }
 */
-
+/*
 string redirection_parse(char** command_list, char* current_token)
 {
 	bool containsRedirection = false;
@@ -347,22 +347,242 @@ string redirection_parse(char** command_list, char* current_token)
 	int input_redirect;
 	int output_redirect;
 	int append_redierct;
+	bool inputFind = false;
+	bool outputFind = false;
+	string tempString;
 	while(current_token != NULL && containsRedirection == false)
 	{
-		string tempString = current_token;
-		if(tempString.compare(">>") == 0
-		|| tempString.compare(">") == 0
-//		|| tempString.compare("|") == 0
-		|| tempString.compare("<") == 0)
+		tempString = current_token;
+		if((append_redirect = tempString.compare(">>")) == 0
+		|| (output_redirect = tempString.compare(">")) == 0
+//		|| (tempString.compare("|") == 0)
+		|| (input_redirect = tempString.compare("<")) == 0)
 		{
 			containsRedirection = true;
+			if(append_redirect == 0 || output_redirect == 0)
+			{
+				output_Find = true;
+			}
+			if(input_redirect == 0)
+			{
+				inputFind = true;
+			}
 		}
-		if(containsRedirection = true)
+		if(containsRedirection == true)
 		{
 
 		}
 		
 	}
+	if(inputFind == true && outputFind == false)
+	{
+		input_redirection(command_list);
+	}
+	else if(inputFind == false && outputFind == true)
+	{
+		output_redirection(command_list);
+	}
+	else
+	{
+		input_output(command_list);
+	}
+	return tempString;
+}
+*/
+string redirection(char** command)
+{
+	int i = 0;
+	string temp;
+	string both = "both";
+	string out = "out";
+	string in = "in";
+	string none = "none";
+	bool input = false;
+	bool output = false;
+	//cout << "lose " << endl;
+	while(command[i] != NULL)
+	{
+		temp = command[i];
+		if(temp == "<")
+		{
+			input = true;
+		}
+		else if(temp == ">" || temp == "<<")
+		{
+			output = true;
+		}
+		i++;
+
+	}
+	//cout << "hmm" << endl;
+	if(input == true && output == true)
+	{
+	//	cout << "a" << endl;
+		return both;
+	}
+	else if(input == false && output == true)
+	{
+	//	cout << "b" << endl;
+		return out;
+	}
+	else if(input == true && output == false)
+	{
+	//	cout << "c" << endl;
+		return in;
+	}
+	else
+	{
+	//	cout << "d" << endl;
+		return none;
+	}
+}
+bool input_output(char** command)
+{
+	string temp;
+	string inputTemp;
+	string outputTemp;
+	string last_out;
+	bool stop;
+	int end = 0;
+	
+	bool first = true;
+	int i = 0;
+	int last_input = 0;
+	int last_output = 0;
+	string last_redirect;
+	int finale_position = 1;
+       	char** finale = (char**)malloc(BUFSIZ);
+	while(command[i] != NULL)
+	{
+		//cout << command[i] << endl;
+		temp = command[i];
+		if(temp == "<"
+//		&& (i < find_append || find_append == -1)
+//		&& (i < find_output || find_append == -1)
+)
+		{
+			last_redirect = "<";
+			last_input = i;
+			//finale[1] = command[i];
+			//input_redirect = true;
+			if(command[i+1] != NULL)
+			{
+				inputTemp = command[i+1];
+			}
+		}
+		else if(temp == ">")
+		{
+			if(first)
+			{
+				end = i;
+				first = false;
+			}
+			last_out = temp;	
+			last_output = i;
+			if(command[i+1] != NULL)
+			{
+				outputTemp = command[i+1];
+			}
+			if(last_redirect == "<")
+			{
+				break;
+			}
+		}
+		else if(temp == ">>")
+		{
+			if(first)
+			{
+				end = i;
+				first = false;
+			}
+			last_out = temp;
+			last_output = i;
+			if(command[i+1] != NULL)
+			{
+				outputTemp = command[i+1];
+			}
+		}
+		else
+		{
+			cout << i << ": " << command[i];
+			if(i != 0)
+			{
+				finale[finale_position] = command[i];
+			finale_position++;
+			}
+			//finale_position++;
+			cout << endl;
+			//cout << "fin" << finale[finale_position] << endl;
+		}
+		//cout << "end: " << end << endl;
+		//temp = command[i];
+		i++;
+	}
+	/*
+	if(input_redirect == false)
+	{
+		return false;
+	}
+	*/
+	
+
+	finale[0] = command[0];
+	//finale[1] = command[last_input ];
+	//cout << "last: " << last_input << endl;
+	finale[last_input+1] = NULL;
+	//cout << "input: " << inputTemp << endl;	
+	//cout << finale[1] << endl;
+	//cout << "output: " << outputTemp << endl;	
+	int ID;
+	int READ;
+	if((READ = open(inputTemp.c_str(),O_RDONLY)) == -1)
+	{
+		perror("open");
+	}
+	if(last_out == ">")
+	{
+		if((ID = open(outputTemp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
+		{
+			perror("open");
+		}
+	}
+	else if(last_out == ">>")
+	{
+
+		if((ID = open(outputTemp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664)) == -1)
+		{
+			perror("open");
+		}
+	}
+	dup2(READ,0);
+	dup2(ID,1);
+	pid_t pid = fork();
+	if(pid == -1)
+	{
+		perror("fork");
+		_exit(1);
+	}
+	else if(pid == 0)
+	{
+		if((execvp(finale[0],finale)) == -1)
+		{
+			perror("execvp");
+		}
+		_exit(1);
+	}
+	else if(pid > 0)
+	{
+		close(READ);
+		close(ID);
+		if(wait(0) == -1)
+		{
+			perror("wait");
+		}
+		dup2(std_in,0);
+		dup2(std_out,1);
+	}
+	free(finale);
+	return true;
 }
 bool output_redirection(char** command)
 {
@@ -445,16 +665,30 @@ dup2(std_in, 0);
 	int pid = fork();
 	if(pid == 0)
 	{
-		close(1);
+		
+		if(close(1) == -1)
+		{
+			perror("close");
+		}
 		dup(id);
-		execvp(finale[0],finale);
+		if(execvp(finale[0],finale) == -1)
+		{
+			perror("execvp");
+		}
+		_exit(1);
 	}
 	else if(pid > 0)
 	{
-		wait(0);
-		close(id);
+		if(wait(0) == -1)
+		{
+			perror("wait");
+		}
+		if(close(id) == -1)
+		{
+			perror("close");
+		}
 	}
-
+	free(finale);
 	return true;
 }
 bool input_redirection(char** command)
@@ -567,7 +801,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 	string current_connect = ";";
 	while(tempa_token != NULL)
         {
-		cout << "toucan: " << tempa_token << endl;
+		//cout << "toucan: " << tempa_token << endl;
 		//cout << "current :" << current_connect << endl;
 		current_connect = connector_parse(final_command,tempa_token);
 		//parses input
@@ -592,19 +826,32 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			{
 				//cout << "ayy :";
 				//const char** false_command = final_command;
-				
-				if(input_redirection(final_command) == true)
-				{
-					
+				//cout << "red" << endl;
+				string red  = redirection(final_command);
+				//cout << red << endl;
+				//cout << "blue" << endl;
+				if(red == "in")	
+				{ 
+					//cerr << "in" << endl;
+					input_redirection(final_command);
 				}
-				else if(output_redirection(final_command) == true)
+				else if(red == "out")
 				{
+				//	cerr << "out" << endl;
+					output_redirection(final_command);
 
 				}
-				else
+				else if(red == "both")
 				{
+				//	cerr << " both"  << endl;
+					input_output(final_command);
+				}
+				else if(red == "none")
+				{
+				//	cerr << "none" << endl;
 					run_command(final_command,did_it_work);
 				}
+				
 			}
 
 			chained_or = false;
@@ -683,7 +930,11 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
         return;
 	
 }
-
+/*
+fix command execution ( if statements on when to run)
+piping
+readme
+*/
 int main(int argc, char**argv) { 
 
 	std_in = dup(0);
