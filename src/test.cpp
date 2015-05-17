@@ -441,7 +441,7 @@ bool input_output(char** command)
 	string temp;
 	string inputTemp;
 	string outputTemp;
-	string last_out;
+	string last_out;;
 	bool stop;
 	int end = 0;
 	
@@ -482,11 +482,12 @@ bool input_output(char** command)
 			if(command[i+1] != NULL)
 			{
 				outputTemp = command[i+1];
+			//	cout << outputTemp << endl;
 			}
-			if(last_redirect == "<")
-			{
-				break;
-			}
+			//if(last_redirect == "<")
+			//{
+			//	break;
+			//}
 		}
 		else if(temp == ">>")
 		{
@@ -500,21 +501,23 @@ bool input_output(char** command)
 			if(command[i+1] != NULL)
 			{
 				outputTemp = command[i+1];
+			//	cout << "2" << outputTemp << endl;
 			}
 		}
 		else
 		{
-			cout << i << ": " << command[i];
+			//cout << i << ": " << command[i] << endl;
 			if(i != 0)
 			{
 				finale[finale_position] = command[i];
 			finale_position++;
 			}
 			//finale_position++;
-			cout << endl;
 			//cout << "fin" << finale[finale_position] << endl;
 		}
-		//cout << "end: " << end << endl;
+		//outputTemp = "penis.txt";
+		//cout << "lat: " << outputTemp.c_str() << endl;
+		//cout << "end: " << outputTemp.size() << endl;
 		//temp = command[i];
 		i++;
 	}
