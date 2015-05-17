@@ -309,12 +309,17 @@ string redirection(char** command)
 	string fail = "fail";
 	bool input = false;
 	bool output = false;
+	bool pipe = false;
+	bool first = true;
+	int first_output = -1;
+	int last_input = -1;
 	//cout << "lose " << endl;
 	//cout << "lost: " << command[0] << endl;
 	temp = command[0];
 	if(temp == ">>" 
 	|| temp == "<"
-	|| temp == ">")
+	|| temp == ">"
+	|| temp == "|")
 	{
 	//	cout << "fail" << endl;
 		return fail;
@@ -324,11 +329,21 @@ string redirection(char** command)
 		temp = command[i];
 		if(temp == "<")
 		{
+			last_input = i;
 			input = true;
 		}
 		else if(temp == ">" || temp == ">>")
 		{
+			if(first == true)
+			{
+				first_output = i;
+				first = false;
+			}
 			output = true;
+		}
+		else if(temp == "|")
+		{
+			pipe = true;
 		}
 		i++;
 
@@ -340,21 +355,41 @@ string redirection(char** command)
 	//	cout << "fail" << endl;
 		return fail;
 	}
+	if(last_input > first_output)
+	{
+		return "inputfail";
+	}
 	//cout << "hmm" << endl;
-	if(input == true && output == true)
+	if(input = true && output == true && pipe == true)
+	{
+		return "triple";
+	}
+	else if(input == true && output == true && pipe == false)
 	{
 	//	cout << "a" << endl;
 		return both;
 	}
-	else if(input == false && output == true)
+	else if(input == false && output == true && pipe == true)
+	{
+		return "outpipe";
+	}
+	else if(input = true && output == false && pipe == true)
+	{
+		return "inpipe";
+	}
+	else if(input == false && output == true && pipe == false)
 	{
 	//	cout << "b" << endl;
 		return out;
 	}
-	else if(input == true && output == false)
+	else if(input == true && output == false && pipe == false)
 	{
 	//	cout << "c" << endl;
 		return in;
+	}
+	else if(input == false && output == false && pipe == true)
+	{
+		return "pipe";
 	}
 	else
 	{
@@ -759,7 +794,7 @@ bool input_redirection(char** command)
 		}
 		if(close(FileID) == -1)
 		{
-			perror("wait");
+			perror("close");
 			_exit(1);
 		}
 	}
@@ -767,12 +802,86 @@ bool input_redirection(char** command)
 	return true;
 	
 }
-
-void piping()
+/*
+void piping(char** command)
 {
+	pid_t pid;
+	int FileID;
+	pid = fork();
+	if(pid == -1)
+	{
+		perror("fork()");
+		_exit(1);
+	}
+	else if(pid == 0)
+	{
+	
+		if((execvp(finale[0],finale)) == -1)
+		{
+			perror("execvp()");
+		}
+		_exit(1);
 
+	}
+	else if(pid > 0)
+	{
+		
+		if(wait(0) == -1)
+		{
+			perror("wait()");
+			_exit(1);
+		}
+		if(close(0) == -1)
+		{
+			perror("close");
+			_exit(1);
+		}
+		if(close(FileID) == -1)
+		{
+			perror("wait");
+			_exit(1);
+		}
+
+	}
 	return;
 }
+void piping_end(char** command)
+{
+	pid_t pid;
+	int FileID;
+	pid = fork();
+	if(pid == -1)
+	{
+		perror("fork()");
+		_exit(1);
+	}
+	else if(pid == 0)
+	{
+	
+		if((execvp(finale[0],finale)) == -1)
+		{
+			perror("execvp()");
+		}
+		_exit(1);
+
+	}
+	else if(pid > 0)
+	{
+		
+		if(wait(0) == -1)
+		{
+			perror("wait()");
+			_exit(1);
+		}
+		if(close(FileID) == -1)
+		{
+			perror("close");
+			_exit(1);
+		}
+	}
+	return;
+}
+*/
 void run_command_with_connectors(char**& final_command,char* command_chara)
 {
         string nextGo = ";";
@@ -819,7 +928,12 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				if(red == "fail")
 				{
 					cerr << "error: passed in io as first/last argument" << endl;
-					//_exit(1);
+				//	_exit(1);
+				}
+				else if(red == "inputfail")
+				{
+					cerr << "error: input redirection is after output redirection" << endl;
+				//	_exit(1);
 				}
 				else if(red == "in")	
 				{ 
@@ -841,6 +955,22 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				{
 					//cerr << "none" << endl;
 					run_command(final_command,did_it_work);
+				}
+				else if(red == "triple")
+				{
+
+				}
+				else if(red == "outpipe")
+				{
+
+				}
+				else if(red == "inpipe")
+				{
+
+				}
+				else if(red == "pipe")
+				{
+
 				}
 				
 			}
@@ -870,8 +1000,36 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			//	cout << "c" << endl;
 	//			cout << "ayy :";
 	//			cout << redirection_parse(final_command) << endl;
+				string red  = redirection(final_command);
+				//cout << red << endl;
+				//cout << "blue" << endl;
+				if(red == "fail")
+				{
+					cerr << "error: passed in io as first/last argument" << endl;
+					//_exit(1);
+				}
+				else if(red == "in")	
+				{ 
+					//cerr << "in" << endl;
+					input_redirection(final_command);
+				}
+				else if(red == "out")
+				{
+					//cerr << "out" << endl;
+					output_redirection(final_command);
 
-				run_command(final_command,did_it_work);
+				}
+				else if(red == "both")
+				{
+					//cerr << " both"  << endl;
+					input_output(final_command);
+				}
+				else if(red == "none")
+				{
+					//cerr << "none" << endl;
+					run_command(final_command,did_it_work);
+				}
+				//run_command(final_command,did_it_work);
 				if(did_it_work == false)
 				{
 					//cout << "d" << endl;
@@ -900,12 +1058,57 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			//cout << "m" << endl;;
 				//cout << "ayy :";
 				//cout << redirection_parse(final_command)<< endl;
-			    run_command(final_command,did_it_work);
-			    if(did_it_work == true)
-			    {
-		//	    	cout << "f" << endl;
-				chained_or = true;
-			    }
+			    //run_command(final_command,did_it_work);
+			   	 string red  = redirection(final_command);
+				//cout << red << endl;
+				//cout << "blue" << endl;
+				if(red == "fail")
+				{
+					cerr << "error: passed in redirection as first/last argument" << endl;
+					//_exit(1);
+				}
+				else if(red == "in")	
+				{ 
+					//cerr << "in" << endl;
+					input_redirection(final_command);
+				}
+				else if(red == "out")
+				{
+					//cerr << "out" << endl;
+					output_redirection(final_command);
+
+				}
+				else if(red == "both")
+				{
+					//cerr << " both"  << endl;
+					input_output(final_command);
+				}
+				else if(red == "none")
+				{
+					//cerr << "none" << endl;
+					run_command(final_command,did_it_work);
+				}
+				else if(red == "triple")
+				{
+
+				}
+				else if(red == "outpipe")
+				{
+
+				}
+				else if(red == "inpipe")
+				{
+
+				}
+				else if(red == "pipe")
+				{
+
+				}
+			    	if(did_it_work == true)
+			    	{
+		//	    		cout << "f" << endl;
+					chained_or = true;
+			    	}
 			}
 		}
 
@@ -922,6 +1125,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 	
 }
 /*
+probably doesn't output error if command < file > something < stuff
 fix command execution ( if statements on when to run)
 piping
 readme
