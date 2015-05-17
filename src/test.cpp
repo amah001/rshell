@@ -306,9 +306,19 @@ string redirection(char** command)
 	string out = "out";
 	string in = "in";
 	string none = "none";
+	string fail = "fail";
 	bool input = false;
 	bool output = false;
 	//cout << "lose " << endl;
+	//cout << "lost: " << command[0] << endl;
+	temp = command[0];
+	if(temp == ">>" 
+	|| temp == "<"
+	|| temp == ">")
+	{
+	//	cout << "fail" << endl;
+		return fail;
+	}
 	while(command[i] != NULL)
 	{
 		temp = command[i];
@@ -799,7 +809,12 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				string red  = redirection(final_command);
 				//cout << red << endl;
 				//cout << "blue" << endl;
-				if(red == "in")	
+				if(red == "fail")
+				{
+					cerr << "error: passed in io as first argument" << endl;
+					_exit(1);
+				}
+				else if(red == "in")	
 				{ 
 					//cerr << "in" << endl;
 					input_redirection(final_command);
