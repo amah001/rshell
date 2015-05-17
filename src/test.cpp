@@ -298,97 +298,6 @@ void run_command(char** command_list, bool &works)
     }
     return;
 }
-/*
-string redirection_parse(char** command)
-{
-	string current_redirect = command[0];
-	char** redirectiongroup = (char**)malloc(BUFSIZ);
-	
-	
-	bool containRedirection = false;
-	string append = ">>";
-	string output_redirect = ">";
-	string input_redirect = "<";
-	string pipe = "|";
-	string current_redirect;
-	size_t neverFound = -1;
-	while(toucanator != NULL && containRedirection == false)
-	{
-		string tempaStringa = command;
-		if(tempaStringa.find("<") != neverFound
-			|| tempaStringa.find("<<") != neverFound
-			|| tempaStringa.find("|") != neverFound)
-		{
-			containRedirection = true;
-		}
-		if(containRedirection == true)
-		{
-
-		}
-		else if(containRedirection == false)
-		{
-
-		}
-	}
-	if(containRedirection = false)
-	{
-		//return;
-	}
-	
-	return current_redirect;
-}
-*/
-/*
-string redirection_parse(char** command_list, char* current_token)
-{
-	bool containsRedirection = false;
-	size_t notFound = -1;
-	int counter = 0;
-	int input_redirect;
-	int output_redirect;
-	int append_redierct;
-	bool inputFind = false;
-	bool outputFind = false;
-	string tempString;
-	while(current_token != NULL && containsRedirection == false)
-	{
-		tempString = current_token;
-		if((append_redirect = tempString.compare(">>")) == 0
-		|| (output_redirect = tempString.compare(">")) == 0
-//		|| (tempString.compare("|") == 0)
-		|| (input_redirect = tempString.compare("<")) == 0)
-		{
-			containsRedirection = true;
-			if(append_redirect == 0 || output_redirect == 0)
-			{
-				output_Find = true;
-			}
-			if(input_redirect == 0)
-			{
-				inputFind = true;
-			}
-		}
-		if(containsRedirection == true)
-		{
-
-		}
-		
-	}
-	if(inputFind == true && outputFind == false)
-	{
-		input_redirection(command_list);
-	}
-	else if(inputFind == false && outputFind == true)
-	{
-		output_redirection(command_list);
-	}
-	else
-	{
-		input_output(command_list);
-	}
-	return tempString;
-}
-*/
 string redirection(char** command)
 {
 	int i = 0;
@@ -510,7 +419,7 @@ bool input_output(char** command)
 			if(i != 0)
 			{
 				finale[finale_position] = command[i];
-			finale_position++;
+				finale_position++;
 			}
 			//finale_position++;
 			//cout << "fin" << finale[finale_position] << endl;
@@ -557,8 +466,16 @@ bool input_output(char** command)
 			perror("open");
 		}
 	}
-	dup2(READ,0);
-	dup2(ID,1);
+	if(dup2(READ,0) ==-1)
+	{
+		perror("dup");
+		_exit(1);
+	}
+	if(dup2(ID,1) == -1)
+	{
+		perror("dup2");
+		_exit(1);
+	}
 	pid_t pid = fork();
 	if(pid == -1)
 	{
@@ -575,14 +492,31 @@ bool input_output(char** command)
 	}
 	else if(pid > 0)
 	{
-		close(READ);
-		close(ID);
+		if(close(READ) ==-1)
+		{
+			perror("close");
+			_exit(1);
+		}
+		if(close(ID) == -1)
+		{
+			perror("close");
+			_exit(1);
+		}
 		if(wait(0) == -1)
 		{
 			perror("wait");
+			_exit(1);
 		}
-		dup2(std_in,0);
-		dup2(std_out,1);
+		if(dup2(std_in,0) == -1)
+		{
+			perror("dup2");
+			_exit(1);
+		}
+		if(dup2(std_out,1) == -1)
+		{
+			perror("dup2");
+			_exit(1);
+		}
 	}
 	free(finale);
 	return true;
@@ -658,12 +592,20 @@ dup2(std_in, 0);
 	finale[end -1] = NULL;
 	if(last_out == ">")
 	{
-		id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664);
+		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
+		{
+			perror("open");
+			_exit(1);
+		}
 	}
 	else if(last_out == ">>")
 	{
 
-		id = open(temp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664);
+		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664)) == -1)
+		{
+			perror("open");
+			_exit(1);
+		}
 	}
 	int pid = fork();
 	if(pid == 0)
@@ -673,7 +615,11 @@ dup2(std_in, 0);
 		{
 			perror("close");
 		}
-		dup(id);
+		if(dup(id) == -1)
+		{
+			perror("dup");
+			_exit(1);
+		}
 		if(execvp(finale[0],finale) == -1)
 		{
 			perror("execvp");
@@ -685,10 +631,12 @@ dup2(std_in, 0);
 		if(wait(0) == -1)
 		{
 			perror("wait");
+			_exit(1);
 		}
 		if(close(id) == -1)
 		{
 			perror("close");
+			_exit(1);
 		}
 	}
 	free(finale);
@@ -748,7 +696,11 @@ bool input_redirection(char** command)
 	//cout << command[i-1];
 	int pid;
 	int FileID;
-	FileID = open(temp.c_str(), O_RDONLY);
+	if((FileID = open(temp.c_str(), O_RDONLY)) == -1)
+		{
+			perror("open");
+			_exit(1);
+		}
 	//int IDhold;
 	
 //	int fd;
@@ -761,8 +713,16 @@ bool input_redirection(char** command)
 	}
 	else if(pid == 0)
 	{
-		close(0);
-		dup(FileID);
+		if(close(0) == -1)
+		{
+			perror("close");
+			_exit(1);
+		}
+		if(dup(FileID) == -1)
+		{
+			perror("dup");
+			_exit(1);
+		}
 		if((execvp(finale[0],finale)) == -1)
 		{
 			perror("execvp()");
@@ -778,7 +738,11 @@ bool input_redirection(char** command)
 			perror("wait()");
 			_exit(1);
 		}
-		close(FileID);
+		if(close(FileID) == -1)
+		{
+			perror("wait");
+			_exit(1);
+		}
 	}
 	free(finale);
 	return true;
@@ -960,8 +924,16 @@ int main(int argc, char**argv) {
 		run_command_with_connectors(finalist_command,command_char);
         	delete[] command_char;
         	free(finalist_command);
-		dup2(std_in, 0);
-		dup2(std_out,1);
+		if(dup2(std_in, 0) == -1)
+		{
+			perror("dup2");
+			_exit(1);
+		}
+		if(dup2(std_out,1) == -1)
+		{
+			perror("dup2");
+			_exit(1);
+		}
     	}
 	return 0;
 }
