@@ -355,12 +355,12 @@ string redirection(char** command)
 	//	cout << "fail" << endl;
 		return fail;
 	}
-	if(last_input > first_output)
+	if(last_input > first_output && first_output != -1)
 	{
 		return "inputfail";
 	}
 	//cout << "hmm" << endl;
-	if(input = true && output == true && pipe == true)
+	if(input == true && output == true && pipe == true)
 	{
 		return "triple";
 	}
@@ -373,7 +373,7 @@ string redirection(char** command)
 	{
 		return "outpipe";
 	}
-	else if(input = true && output == false && pipe == true)
+	else if(input == true && output == false && pipe == true)
 	{
 		return "inpipe";
 	}
@@ -403,13 +403,13 @@ bool input_output(char** command)
 	string inputTemp;
 	string outputTemp;
 	string last_out;;
-	bool stop;
-	int end = 0;
+	//bool stop;
+	//int end = 0;
 	
 	bool first = true;
 	int i = 0;
 	int last_input = 0;
-	int last_output = 0;
+	//int last_output = 0;
 	string last_redirect;
 	int finale_position = 1;
        	char** finale = (char**)malloc(BUFSIZ);
@@ -436,11 +436,11 @@ bool input_output(char** command)
 			//cout << "1" << endl;
 			if(first)
 			{
-				end = i;
+		//		end = i;
 				first = false;
 			}
 			last_out = temp;	
-			last_output = i;
+		//	last_output = i;
 			if(command[i+1] != NULL)
 			{
 				outputTemp = command[i+1];
@@ -456,11 +456,11 @@ bool input_output(char** command)
 			//cout << "2" << endl;
 			if(first)
 			{
-				end = i;
+		//		end = i;
 				first = false;
 			}
 			last_out = temp;
-			last_output = i;
+		//	last_output = i;
 			if(command[i+1] != NULL)
 			{
 				outputTemp = command[i+1];
@@ -704,9 +704,9 @@ bool input_redirection(char** command)
 	string filed;
 	bool input_redirect = false;
 	int last_input = 0;
-	bool chained_input = false;
-	bool chained_append = false;
-	bool chained_output = false;
+	//bool chained_input = false;
+	//bool chained_append = false;
+	//bool chained_output = false;
 	while(command[i] != NULL)
 	{
 		string tempurary = command[i];
@@ -903,7 +903,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 		int nextExecute = current_connect.compare(nextGo);
 		int workExecute = current_connect.compare(workGo);
 		int failExecute = current_connect.compare(failGo);
-		int sized = 0;
+		//int sized = 0;
 		if(exit_check(final_command) == true)
 		{
 		     exit(1);
