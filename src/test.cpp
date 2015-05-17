@@ -592,6 +592,7 @@ dup2(std_in, 0);
 	finale[end -1] = NULL;
 	if(last_out == ">")
 	{
+		cout <<"1" << endl;
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
 		{
 			perror("open");
@@ -600,7 +601,7 @@ dup2(std_in, 0);
 	}
 	else if(last_out == ">>")
 	{
-
+		cout << "1" << endl;
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664)) == -1)
 		{
 			perror("open");
