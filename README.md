@@ -22,9 +22,9 @@ $bin/ls
 ```
 ##Bugs/ Limitations for rshell
 ```
-Commands will run regardless of connectors
-connector cases do not work.
-Empty commands with connectors will give fatal error or segmentation fault.
+piping does not work past one pipe
+Input and Output redirect  do not work with piping
+
 Edge cases do not work.
 ```
 ##Bugs/Limitations for ls
