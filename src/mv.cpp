@@ -21,9 +21,11 @@ int main(int argc, char* argv[])
 	}
 	if(stat(argv[2],&d) == -1)
 	{
-		//perror("file does not exit");
+		//perror in this if statement was originally commented out
+        //perror("file does not exit");
 		link(argv[1],argv[2]);
 		unlink(argv[1]);
+		perror("file does not exit");
 	}
 	//if(!(S_ISDIR(s.st_mode)) && !(S_ISREG(s.st_mode)))
 	//{

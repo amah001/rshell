@@ -637,7 +637,8 @@ bool output_redirection(char** command)
 	}
 	if(output_redirect == false)
 	{
-		return false;
+		free(finale);
+        return false;
 	}
 	temp = command[last_output];
 	//cout << temp << endl;
@@ -649,7 +650,8 @@ bool output_redirection(char** command)
 		{
 			perror("open");
 			//_exit(1);
-			return false;
+			free(finale);
+            return false;
 		}
 	}
 	else if(last_out == ">>")
@@ -658,6 +660,7 @@ bool output_redirection(char** command)
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664)) == -1)
 		{
 			perror("open");
+			free(finale);
 			//_exit(1);
 			return false;
 		}
@@ -762,6 +765,7 @@ bool input_redirection(char** command)
 	if((FileID = open(temp.c_str(), O_RDONLY)) == -1)
 		{
 			perror("open");
+			free(finale);
 		//	_exit(1);
 			return false;
 		}
