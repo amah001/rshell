@@ -298,7 +298,7 @@ void run_command(char** command_list, bool &works)
     }
     return;
 }
-string redirection(char** command)
+string redirection(char** command, int &size)
 {
 	int i = 0;
 	string temp;
@@ -348,6 +348,7 @@ string redirection(char** command)
 		i++;
 
 	}
+	size = i;
 	if(temp == ">>" 
 	|| temp == "<"
 	|| temp == ">")
@@ -413,7 +414,7 @@ bool input_output(char** command)
 	string last_redirect;
 	int finale_position = 1;
        	char** finale = (char**)malloc(BUFSIZ);
-	while(command[i] != NULL)
+	while(command[i] != NULL && strcmp(command[i],"|") != 0)
 	{
 		//cout << command[i] << endl;
 		temp = command[i];
@@ -595,7 +596,7 @@ dup2(std_in, 0);
 	bool first = true;
 	int end = 0;
 	char** finale = (char**)malloc(BUFSIZ);
-	while(command[i] != NULL)
+	while(command[i] != NULL && strcmp(command[i],"|") != 0)
 	{
 		//cout << command[i] << endl;
 		if(temp == ">"
@@ -707,7 +708,7 @@ bool input_redirection(char** command)
 	//bool chained_input = false;
 	//bool chained_append = false;
 	//bool chained_output = false;
-	while(command[i] != NULL)
+	while(command[i] != NULL && strcmp(command[i],"|") != 0)
 	{
 		string tempurary = command[i];
 		if(tempurary == ">>")
@@ -802,12 +803,28 @@ bool input_redirection(char** command)
 	return true;
 	
 }
-/*
-void piping(char** command)
+
+void piping(char** command, int &pipeNum)
 {
+	
+       	char** finale = (char**)malloc(BUFSIZ);
 	pid_t pid;
-	int FileID;
+	int fd[2];
+	if(pipe(fd) == -1)
+	{
+		perror("pipe");
+		_exit(1);
+	}
+	int i = 0;
 	pid = fork();
+	//cout << "med" << endl;
+	while(command[i] != NULL && strcmp(command[i],"|") != 0)
+	{
+		finale[i] = command[i];
+		//cout << finale[i] << endl;
+		i++;
+	}
+	finale[i] = NULL;
 	if(pid == -1)
 	{
 		perror("fork()");
@@ -815,7 +832,21 @@ void piping(char** command)
 	}
 	else if(pid == 0)
 	{
-	
+		if(close(1) == -1)
+		{
+			perror("close");
+			_exit(1);
+		}
+		if(dup(fd[1]) == -1)
+		{
+			perror("dup");
+			_exit(1);
+		}
+		if(close(fd[0]) == -1)
+		{
+			perror("close");
+			_exit(1);
+		}	
 		if((execvp(finale[0],finale)) == -1)
 		{
 			perror("execvp()");
@@ -836,20 +867,48 @@ void piping(char** command)
 			perror("close");
 			_exit(1);
 		}
-		if(close(FileID) == -1)
+		if(dup2(fd[0],0) == -1)
 		{
-			perror("wait");
+			perror("dup2");
+			_exit(1);
+		}
+		if(close(fd[1]) == -1)
+		{
+			perror("close");
 			_exit(1);
 		}
 
 	}
+	//cout << "wed" << endl;
+	//cerr << "nin" << endl;
+	pipeNum = i;
+	
+	free(finale);
 	return;
 }
-void piping_end(char** command)
+void piping_end(char** command,int pipeNum)
 {
+
 	pid_t pid;
-	int FileID;
+	//int fd;
 	pid = fork();
+	char** finale = (char**)malloc(BUFSIZ);
+	//cout << pipeNum << endl;
+	int i = pipeNum + 1;
+	int j = 0;
+	//cout << "led" << endl;
+	//cout << "i: " << i << endl;
+	//cout << "dige" << endl;
+	//cout << command[i] << endl;
+	//cout << "caboose" << endl;
+	while(command[i] != NULL && strcmp(command[i],"|") != 0)
+	{
+		finale[j] = command[i];
+		i++;
+		j++;
+	}
+	//cerr << "doug" << endl;
+	finale[j] = NULL;
 	if(pid == -1)
 	{
 		perror("fork()");
@@ -873,15 +932,18 @@ void piping_end(char** command)
 			perror("wait()");
 			_exit(1);
 		}
-		if(close(FileID) == -1)
+		/*
+		if(close(fd) == -1)
 		{
 			perror("close");
 			_exit(1);
 		}
+		*/
 	}
+	free(finale);
 	return;
 }
-*/
+
 void run_command_with_connectors(char**& final_command,char* command_chara)
 {
         string nextGo = ";";
@@ -892,7 +954,6 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 	//true if not supposed to run through the chain
 	bool chained_or = false;
 	bool chained_and = false;
-
 	string current_connect = ";";
 	while(tempa_token != NULL)
         {
@@ -903,7 +964,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 		int nextExecute = current_connect.compare(nextGo);
 		int workExecute = current_connect.compare(workGo);
 		int failExecute = current_connect.compare(failGo);
-		//int sized = 0;
+		int size = 0;
 		if(exit_check(final_command) == true)
 		{
 		     exit(1);
@@ -922,12 +983,12 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				//cout << "ayy :";
 				//const char** false_command = final_command;
 				//cout << "red" << endl;
-				string red  = redirection(final_command);
+				string red  = redirection(final_command,size);
 				//cout << red << endl;
 				//cout << "blue" << endl;
 				if(red == "fail")
 				{
-					cerr << "error: passed in io as first/last argument" << endl;
+					cerr << "error: passed in redirection as first/last argument" << endl;
 				//	_exit(1);
 				}
 				else if(red == "inputfail")
@@ -970,7 +1031,12 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				}
 				else if(red == "pipe")
 				{
-
+					int pipeNum = 0;
+					//cerr << "read" << endl;
+					piping(final_command,pipeNum);
+					//cout << "hwat" << endl;
+					//cerr << "dpo uo" << endl;
+					piping_end(final_command,pipeNum);
 				}
 				
 			}
@@ -1000,7 +1066,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 			//	cout << "c" << endl;
 	//			cout << "ayy :";
 	//			cout << redirection_parse(final_command) << endl;
-				string red  = redirection(final_command);
+				string red  = redirection(final_command,size);
 				//cout << red << endl;
 				//cout << "blue" << endl;
 				if(red == "fail")
@@ -1059,7 +1125,7 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				//cout << "ayy :";
 				//cout << redirection_parse(final_command)<< endl;
 			    //run_command(final_command,did_it_work);
-			   	 string red  = redirection(final_command);
+			   	 string red  = redirection(final_command,size);
 				//cout << red << endl;
 				//cout << "blue" << endl;
 				if(red == "fail")
@@ -1125,7 +1191,6 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 	
 }
 /*
-probably doesn't output error if command < file > something < stuff
 fix command execution ( if statements on when to run)
 piping
 readme
