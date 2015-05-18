@@ -523,7 +523,7 @@ bool input_output(char** command)
 	}
 	if(dup2(READ,0) ==-1)
 	{
-		perror("dup");
+		perror("dup2");
 		_exit(1);
 	}
 	if(dup2(ID,1) == -1)
@@ -579,11 +579,8 @@ bool input_output(char** command)
 bool output_redirection(char** command)
 {
 /*
-dup2(std_in, 0);
 	cout << std_in << "    " << std_out << endl;
-	dup2(std_out,1);
 	int fd[2];
-	pipe(fd);
 	int id = -1;
 	int i = 0;
 	*/
@@ -667,12 +664,18 @@ dup2(std_in, 0);
 	}
 	cerr << "two" << endl;
 	int pid = fork();
+    if(pid == -1)
+    {
+        perror("fork");
+        _exit(1);
+    }
 	if(pid == 0)
 	{
 		
 		if(close(1) == -1)
 		{
 			perror("close");
+            _exit(1);
 		}
 		if(dup(id) == -1)
 		{
@@ -682,6 +685,7 @@ dup2(std_in, 0);
 		if(execvp(finale[0],finale) == -1)
 		{
 			perror("execvp");
+            _exit(1);
 		}
 		_exit(1);
 	}
@@ -1203,7 +1207,15 @@ readme
 int main(int argc, char**argv) { 
 
 	std_in = dup(0);
+    if(std_in == -1)
+    {
+        perror("dup");
+    }
 	std_out = dup(1);
+    if(std_out == -1)
+    {
+        perror("dup");
+    }
 	//cout << std_in << "    " << std_out << endl;
 	while(1)//endless loop so that it mimics terminal
 	{
