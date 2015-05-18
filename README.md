@@ -17,7 +17,7 @@ Inputs passed in without '-' preceding it will be considered a directory or path
 ```
 $git clone https://github.com/amah001/rshell.git
 $cd rshell
-$git checkout hw1
+$git checkout hw2
 $make
 $bin/rshell
 $bin/ls
