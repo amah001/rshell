@@ -645,12 +645,14 @@ dup2(std_in, 0);
 	temp = command[last_output];
 	//cout << temp << endl;
 	finale[end -1] = NULL;
+	cerr << "uno" << endl;
 	if(last_out == ">")
 	{
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
 		{
 			perror("open");
-			_exit(1);
+			//_exit(1);
+			return false;
 		}
 	}
 	else if(last_out == ">>")
@@ -659,9 +661,11 @@ dup2(std_in, 0);
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0664)) == -1)
 		{
 			perror("open");
-			_exit(1);
+			//_exit(1);
+			return false;
 		}
 	}
+	cerr << "two" << endl;
 	int pid = fork();
 	if(pid == 0)
 	{
@@ -754,7 +758,8 @@ bool input_redirection(char** command)
 	if((FileID = open(temp.c_str(), O_RDONLY)) == -1)
 		{
 			perror("open");
-			_exit(1);
+		//	_exit(1);
+			return false;
 		}
 	//int IDhold;
 	
