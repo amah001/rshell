@@ -1,6 +1,8 @@
 #rshell
 
-Rshell is a custom basic command shell used to mimic the BASH terminal. Rshell is able to run single commands. Rshell is supposed to be able to run commands that use connectors such as ";" which executes the next command always,"&&" which executes the next command if the previous command succeeded, and "||" which executes the next command if the previous command failed.
+Rshell is a custom basic command shell used to mimic the BASH terminal. Rshell is able to run single commands. Rshell is able to run commands that use connectors such as ";" which executes the next command always,"&&" which executes the next command if the previous command succeeded, and "||" which executes the next command if the previous command failed.
+
+It can also do input redirection, output redirection, and piping. Piping however only works once.
 
 #ls
 This is my custom version of ls. There is no color coding nor output management. 
@@ -23,7 +25,12 @@ $bin/ls
 ##Bugs/ Limitations for rshell
 ```
 piping does not work past one pipe
-Input and Output redirect  do not work with piping
+input and output redirection only do the last of their respective chains
+ex: only do d
+    cat < a < b < c < d 
+        means: cat d
+    echo world > a >b > c > d
+        means: world into d
 
 Edge cases do not work.
 ```
