@@ -642,7 +642,7 @@ bool output_redirection(char** command)
 	temp = command[last_output];
 	//cout << temp << endl;
 	finale[end -1] = NULL;
-	cerr << "uno" << endl;
+	//cerr << "uno" << endl;
 	if(last_out == ">")
 	{
 		if((id = open(temp.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
@@ -662,7 +662,7 @@ bool output_redirection(char** command)
 			return false;
 		}
 	}
-	cerr << "two" << endl;
+	//cerr << "two" << endl;
 	int pid = fork();
     if(pid == -1)
     {
