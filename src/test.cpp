@@ -38,8 +38,15 @@ void displayPrompt()
 	{
 		perror("getcwd");
 	}
-
-	cout << login << "@" << host  << ":" << c_w_d << "$";
+	string newCWD = c_w_d;
+	string homer = getenv("HOME");
+	if(newCWD.find(homer) != -1)
+	{
+		//takes out the home stuff
+		newCWD.erase(newCWD.find(homer),homer.size());
+		newCWD = "~" + newCWD;
+	}
+	cout << login << "@" << host  << ":" << newCWD << "$ ";
 
 	
 	return;
@@ -487,7 +494,7 @@ bool input_output(char** command)
 			//finale_position++;
 			//cout << "fin" << finale[finale_position] << endl;
 		}
-		//outputTemp = "penis.txt";
+		//outputTemp = "fun.txt";
 		//cout << "lat: " << outputTemp.c_str() << endl;
 		//cout << "end: " << outputTemp.size() << endl;
 		//temp = command[i];
@@ -971,33 +978,66 @@ void change_direct(char** final_command)
 	char* old_directory;
 	char* home_directory;
 	//change strings to char* so it works with if statements
-	string check; //checks if final_command[1] = - or somethinglike that 
-	if(final_command[1] != NULL)
+	string check = final_command[1]; //checks if final_command[1] = - or somethinglike that 
+	if(final_command[1] != NULL && check != "~")//has path
 	{
-		cerr << "zgmf:path" << endl;
-		old_directory = getenv("PWD");
-		if(old_directory == NULL)
-		{
-			perror("getenv");
-		}
 		
-		
-		new_directory = final_command[1];
-		if(chdir(new_directory) == -1)
+		if(check == "-")
 		{
-			perror("chdir");
+
+			old_directory = getenv("PWD");
+			if(old_directory == NULL)
+			{
+				perror("getenv");
+			}
+			
+			new_directory = getenv("OLDPWD");
+			if(new_directory == NULL)
+			{
+				perror("getenv");
+			}
+			if(chdir(new_directory) == -1)
+			{
+				perror("chdir");
+			}
+			if(setenv("OLDPWD", old_directory,1) == -1)
+			{
+				perror("setenv");
+			}
+			if(setenv("PWD", new_directory,1) == -1)
+			{
+				perror("setenv");
+			}
+			cerr << "zgmf:finder2" << endl;
+
 		}
-		if(setenv("OLDPWD", old_directory,1) == -1)
+		else//normal cd pathing
 		{
-			perror("setenv");
+			cerr << "zgmf:path" << endl;
+			old_directory = getenv("PWD");
+			if(old_directory == NULL)
+			{
+				perror("getenv");
+			}
+			
+			new_directory = final_command[1];
+			if(chdir(new_directory) == -1)
+			{
+				perror("chdir");
+			}
+			if(setenv("OLDPWD", old_directory,1) == -1)
+			{
+				perror("setenv");
+			}
+			if(setenv("PWD", new_directory,1) == -1)
+			{
+				perror("setenv");
+			}
+			cerr << "zgmf:finder" << endl;
 		}
-		if(setenv("PWD", new_directory,1) == -1)
-			perror("setenv");
-		
-		cerr << "zgmf:finder" << endl;
 
 	}
-	else if(final_command[1] == NULL)
+	else if(final_command[1] == NULL || check  == "~")//no path or home
 	{
 		old_directory = getenv("PWD");
 		if(old_directory == NULL)
@@ -1018,7 +1058,9 @@ void change_direct(char** final_command)
 			perror("setenv");
 		}
 		if(setenv("PWD", home_directory,1) == -1)
+		{
 			perror("setenv");
+		}
 	}
 	else
 	{
