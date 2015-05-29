@@ -957,6 +957,41 @@ void piping_end(char** command,int pipeNum)
 	return;
 }
 
+void change_direct(char** final_command)
+{
+	char* new_directory;
+	char* old_directory;
+	//change strings to char* so it works with if statements
+	string check; //checks if final_command[1] = - or somethinglike that 
+	if(final_command[1] != NULL)
+	{
+		cerr << "path" << endl;
+		old_directory = getenv("PWD");
+		if(old_directory == NULL)
+		{
+			perror("getenv");
+		}
+		
+		
+		new_directory = final_command[1];
+		if(chdir(new_directory) == -1)
+		{
+			perror("chdir");
+		}
+		if(setenv("OLDPWD", old_directory,1) == -1)
+		{
+			perror("setenv");
+		}
+		
+		cerr << "finder" << endl;
+
+	}
+	else
+	{
+		cerr << "not just path" << endl;
+	}
+	return;
+}
 void run_command_with_connectors(char**& final_command,char* command_chara)
 {
         string nextGo = ";";
@@ -1027,8 +1062,22 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 				}
 				else if(red == "none")
 				{
+					string cd_check;
 					//cerr << "none" << endl;
-					run_command(final_command,did_it_work);
+					if(final_command[0] != NULL)
+					{
+						cd_check = final_command[0];
+					}
+					if(cd_check != "cd")
+					{
+						run_command(final_command,did_it_work);
+					}
+					else if(cd_check == "cd")
+					{
+						cerr << "zgmf: path check" << endl;
+						change_direct(final_command);
+						cerr << "zgmf: fission mailed" << endl;
+					}
 				}
 				else if(red == "triple")
 				{
@@ -1223,6 +1272,7 @@ int main(int argc, char**argv) {
 	//cout << std_in << "    " << std_out << endl;
 	while(1)//endless loop so that it mimics terminal
 	{
+		cin.clear();
 		displayPrompt();
 		string command_input;
 		getline(cin,command_input);	//takes in input
