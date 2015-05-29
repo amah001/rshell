@@ -19,6 +19,7 @@ void displayPrompt()
 {   
     // shows username and hostname
     // BUFSIZ = BUFFERSIZE
+	unsigned int nope = -1;
 	char login[BUFSIZ];
 	if((getlogin_r(login,BUFSIZ)) != 0)
 	{
@@ -40,7 +41,7 @@ void displayPrompt()
 	}
 	string newCWD = c_w_d;
 	string homer = getenv("HOME");
-	if(newCWD.find(homer) != -1)
+	if(newCWD.find(homer) != nope)
 	{
 		//takes out the home stuff
 		newCWD.erase(newCWD.find(homer),homer.size());
@@ -999,6 +1000,7 @@ void change_direct(char** final_command)
 			if(chdir(new_directory) == -1)
 			{
 				perror("chdir");
+				_exit(1);
 			}
 			if(setenv("OLDPWD", old_directory,1) == -1)
 			{
@@ -1024,6 +1026,7 @@ void change_direct(char** final_command)
 			if(chdir(new_directory) == -1)
 			{
 				perror("chdir");
+				_exit(1);
 			}
 			if(setenv("OLDPWD", old_directory,1) == -1)
 			{
