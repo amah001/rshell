@@ -32,8 +32,16 @@ void displayPrompt()
 		perror("getlogin");
 		_exit(1);
 	}
-    
-	cout << login << "@" << host  << ":$";
+    	
+	char c_w_d[BUFSIZ];
+	if(getcwd(c_w_d,BUFSIZ) == NULL)
+	{
+		perror("getcwd");
+	}
+
+	cout << login << "@" << host  << ":" << c_w_d << "$";
+
+	
 	return;
 }
 
@@ -961,11 +969,12 @@ void change_direct(char** final_command)
 {
 	char* new_directory;
 	char* old_directory;
+	char* home_directory;
 	//change strings to char* so it works with if statements
 	string check; //checks if final_command[1] = - or somethinglike that 
 	if(final_command[1] != NULL)
 	{
-		cerr << "path" << endl;
+		cerr << "zgmf:path" << endl;
 		old_directory = getenv("PWD");
 		if(old_directory == NULL)
 		{
@@ -982,13 +991,38 @@ void change_direct(char** final_command)
 		{
 			perror("setenv");
 		}
+		if(setenv("PWD", new_directory,1) == -1)
+			perror("setenv");
 		
-		cerr << "finder" << endl;
+		cerr << "zgmf:finder" << endl;
 
+	}
+	else if(final_command[1] == NULL)
+	{
+		old_directory = getenv("PWD");
+		if(old_directory == NULL)
+		{
+			perror("getenv");
+		}
+		home_directory = getenv("HOME");
+		if(home_directory == NULL)
+		{
+			perror("getenv");
+		}
+		if(chdir(home_directory)==-1)
+		{
+			perror("chdir");
+		}
+		if(setenv("OLDPWD", old_directory,1) == -1)
+		{
+			perror("setenv");
+		}
+		if(setenv("PWD", home_directory,1) == -1)
+			perror("setenv");
 	}
 	else
 	{
-		cerr << "not just path" << endl;
+		cerr << "zgmf:not just path" << endl;
 	}
 	return;
 }
