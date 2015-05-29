@@ -41,7 +41,7 @@ void displayPrompt()
 	}
 	string newCWD = c_w_d;
 	string homer = getenv("HOME");
-	if(newCWD.find(homer) != nope)
+	if(newCWD.find(homer) != nope && homer.size() <= newCWD.size())
 	{
 		//takes out the home stuff
 		newCWD.erase(newCWD.find(homer),homer.size());
@@ -979,7 +979,17 @@ void change_direct(char** final_command)
 	char* old_directory;
 	char* home_directory;
 	//change strings to char* so it works with if statements
-	string check = final_command[1]; //checks if final_command[1] = - or somethinglike that 
+	cerr << " adaigo" << endl;
+	string check;
+	if(final_command[1] != NULL)
+	{
+		check = final_command[1]; //checks if final_command[1] = - or somethinglike that
+	}
+	else
+	{
+		check = "~";
+	}
+	cerr << "hwat" << endl;
 	if(final_command[1] != NULL && check != "~")//has path
 	{
 		
@@ -990,26 +1000,32 @@ void change_direct(char** final_command)
 			if(old_directory == NULL)
 			{
 				perror("getenv");
+				_exit(1);
 			}
 			
 			new_directory = getenv("OLDPWD");
 			if(new_directory == NULL)
 			{
 				perror("getenv");
+				_exit(1);
 			}
 			if(chdir(new_directory) == -1)
 			{
 				perror("chdir");
-				_exit(1);
+				return;
 			}
 			if(setenv("OLDPWD", old_directory,1) == -1)
 			{
 				perror("setenv");
+				_exit(1);
 			}
 			if(setenv("PWD", new_directory,1) == -1)
 			{
 				perror("setenv");
+				_exit(1);
 			}
+			cout << endl;
+			cout << new_directory << endl;
 			cerr << "zgmf:finder2" << endl;
 
 		}
@@ -1020,21 +1036,30 @@ void change_direct(char** final_command)
 			if(old_directory == NULL)
 			{
 				perror("getenv");
+				_exit(1);
 			}
 			
 			new_directory = final_command[1];
 			if(chdir(new_directory) == -1)
 			{
 				perror("chdir");
+				return;
+			}
+			char c_w_d[BUFSIZ];
+			if(getcwd(c_w_d,BUFSIZ) == NULL)
+			{
+				perror("getcwd");
 				_exit(1);
 			}
 			if(setenv("OLDPWD", old_directory,1) == -1)
 			{
 				perror("setenv");
+				_exit(1);
 			}
-			if(setenv("PWD", new_directory,1) == -1)
+			if(setenv("PWD",c_w_d,1) == -1)
 			{
 				perror("setenv");
+				_exit(1);
 			}
 			cerr << "zgmf:finder" << endl;
 		}
@@ -1358,7 +1383,6 @@ int main(int argc, char**argv) {
 	        //command_input = ';' + command_input;
 		//cout << command_input << endl;
 		separator_parser(command_input);  //puts spaces between everything
-
 		char* command_char = new char[command_input.size()+1];
 		strcpy(command_char,command_input.c_str());
         	//cout << command_char << endl;
