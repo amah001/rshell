@@ -1,0 +1,1215 @@
+Script started on Fri 29 May 2015 10:25:10 PM PDT
+~
+amah001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m (master) [0;36m$[0m cs[K[Kls
+3-4.cpp     Downloads  hwtwo	  Node.h	  SILab4.cc  Videos
+3-4.out     ham2       main.cc	  Pictures	  SILAB5.cc
+a.out	    ham3       main.o	  piping.script   tagstuff
+cs100stuff  hamtwo     Music	  Public	  Templates
+Desktop     hw2        MyList.cc  rshell	  TEST'
+Documents   hw_2       MyList.H   signals.script  teststuff
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m (master) [0;36m$[0m mkdir hw_3
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m (master) [0;36m$[0m cd hw_3
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3[0;95m (master) [0;36m$[0m ls
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3[0;95m (master) [0;36m$[0m git clone https://github.com/amah001/rsh ell.git
+Cloning into 'rshell'...
+remote: Counting objects: 331, done.[K
+remote: Compressing objects:   3% (1/27)   [Kremote: Compressing objects:   7% (2/27)   [Kremote: Compressing objects:  11% (3/27)   [Kremote: Compressing objects:  14% (4/27)   [Kremote: Compressing objects:  18% (5/27)   [Kremote: Compressing objects:  22% (6/27)   [Kremote: Compressing objects:  25% (7/27)   [Kremote: Compressing objects:  29% (8/27)   [Kremote: Compressing objects:  33% (9/27)   [Kremote: Compressing objects:  37% (10/27)   [Kremote: Compressing objects:  40% (11/27)   [Kremote: Compressing objects:  44% (12/27)   [Kremote: Compressing objects:  48% (13/27)   [Kremote: Compressing objects:  51% (14/27)   [Kremote: Compressing objects:  55% (15/27)   [Kremote: Compressing objects:  59% (16/27)   [Kremote: Compressing objects:  62% (17/27)   [Kremote: Compressing objects:  66% (18/27)   [Kremote: Compressing objects:  70% (19/27)   [Kremote: Compressing objects:  74% (20/27)   [Kremote: Compressing objects:  77% (21/27)   [Kremote: Compressing objects:  81% (22/27)   [Kremote: Compressing objects:  85% (23/27)   [Kremote: Compressing objects:  88% (24/27)   [Kremote: Compressing objects:  92% (25/27)   [Kremote: Compressing objects:  96% (26/27)   [Kremote: Compressing objects: 100% (27/27)   [Kremote: Compressing objects: 100% (27/27), done.[K
+Receiving objects:   0% (1/331)   Receiving objects:   1% (4/331)   Receiving objects:   2% (7/331)   Receiving objects:   3% (10/331)   Receiving objects:   4% (14/331)   Receiving objects:   5% (17/331)   Receiving objects:   6% (20/331)   Receiving objects:   7% (24/331)   Receiving objects:   8% (27/331)   Receiving objects:   9% (30/331)   Receiving objects:  10% (34/331)   Receiving objects:  11% (37/331)   Receiving objects:  12% (40/331)   Receiving objects:  13% (44/331)   Receiving objects:  14% (47/331)   Receiving objects:  15% (50/331)   Receiving objects:  16% (53/331)   Receiving objects:  17% (57/331)   Receiving objects:  18% (60/331)   Receiving objects:  19% (63/331)   Receiving objects:  20% (67/331)   Receiving objects:  21% (70/331)   Receiving objects:  22% (73/331)   Receiving objects:  23% (77/331)   Receiving objects:  24% (80/331)   Receiving objects:  25% (83/331)   Receiving objects:  26% (87/331)   Receiving objects:  27% (90/331)   Receiving objects:  28% (93/331)   Receiving objects:  29% (96/331)   Receiving objects:  30% (100/331)   Receiving objects:  31% (103/331)   Receiving objects:  32% (106/331)   Receiving objects:  33% (110/331)   Receiving objects:  34% (113/331)   Receiving objects:  35% (116/331)   Receiving objects:  36% (120/331)   Receiving objects:  37% (123/331)   Receiving objects:  38% (126/331)   Receiving objects:  39% (130/331)   Receiving objects:  40% (133/331)   Receiving objects:  41% (136/331)   Receiving objects:  42% (140/331)   Receiving objects:  43% (143/331)   Receiving objects:  44% (146/331)   Receiving objects:  45% (149/331)   Receiving objects:  46% (153/331)   Receiving objects:  47% (156/331)   Receiving objects:  48% (159/331)   Receiving objects:  49% (163/331)   Receiving objects:  50% (166/331)   Receiving objects:  51% (169/331)   Receiving objects:  52% (173/331)   Receiving objects:  53% (176/331)   Receiving objects:  54% (179/331)   Receiving objects:  55% (183/331)   Receiving objects:  56% (186/331)   Receiving objects:  57% (189/331)   Receiving objects:  58% (192/331)   remote: Total 331 (delta 16), reused 0 (delta 0), pack-reused 304[K
+Receiving objects:  59% (196/331)   Receiving objects:  60% (199/331)   Receiving objects:  61% (202/331)   Receiving objects:  62% (206/331)   Receiving objects:  63% (209/331)   Receiving objects:  64% (212/331)   Receiving objects:  65% (216/331)   Receiving objects:  66% (219/331)   Receiving objects:  67% (222/331)   Receiving objects:  68% (226/331)   Receiving objects:  69% (229/331)   Receiving objects:  70% (232/331)   Receiving objects:  71% (236/331)   Receiving objects:  72% (239/331)   Receiving objects:  73% (242/331)   Receiving objects:  74% (245/331)   Receiving objects:  75% (249/331)   Receiving objects:  76% (252/331)   Receiving objects:  77% (255/331)   Receiving objects:  78% (259/331)   Receiving objects:  79% (262/331)   Receiving objects:  80% (265/331)   Receiving objects:  81% (269/331)   Receiving objects:  82% (272/331)   Receiving objects:  83% (275/331)   Receiving objects:  84% (279/331)   Receiving objects:  85% (282/331)   Receiving objects:  86% (285/331)   Receiving objects:  87% (288/331)   Receiving objects:  88% (292/331)   Receiving objects:  89% (295/331)   Receiving objects:  90% (298/331)   Receiving objects:  91% (302/331)   Receiving objects:  92% (305/331)   Receiving objects:  93% (308/331)   Receiving objects:  94% (312/331)   Receiving objects:  95% (315/331)   Receiving objects:  96% (318/331)   Receiving objects:  97% (322/331)   Receiving objects:  98% (325/331)   Receiving objects:  99% (328/331)   Receiving objects: 100% (331/331)   Receiving objects: 100% (331/331), 73.74 KiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/151)   Resolving deltas:   1% (3/151)   Resolving deltas:   3% (6/151)   Resolving deltas:  13% (21/151)   Resolving deltas:  17% (26/151)   Resolving deltas:  44% (67/151)   Resolving deltas:  47% (71/151)   Resolving deltas:  48% (73/151)   Resolving deltas:  49% (74/151)   Resolving deltas:  54% (83/151)   Resolving deltas:  56% (85/151)   Resolving deltas:  57% (87/151)   Resolving deltas:  64% (97/151)   Resolving deltas:  65% (99/151)   Resolving deltas:  70% (106/151)   Resolving deltas:  73% (111/151)   Resolving deltas:  75% (114/151)   Resolving deltas:  76% (116/151)   Resolving deltas:  80% (122/151)   Resolving deltas:  81% (123/151)   Resolving deltas:  88% (134/151)   Resolving deltas:  92% (140/151)   Resolving deltas:  98% (148/151)   Resolving deltas: 100% (151/151)   Resolving deltas: 100% (151/151), done.
+Checking connectivity... done
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3[0;95m (master) [0;36m$[0m git checko[K[K[K[K[K[K[K[K[K[Kcd rshell
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3/rshell[0;95m (master) [0;36m$[0m git checkout hw3
+Note: checking out 'hw3'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD is now at 7e79234...  updated README
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3/rshell[0;95m ((hw3)) [0;36m$[0m make
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/test.cpp -o ./bin/rshell
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/cp.cpp -o ./bin/cp
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/ls.cpp -o ./bin/ls
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/mv.cpp -o ./bin/mv
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/rm.cpp -o ./bin/rm
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3/rshell[0;95m ((hw3)) [0;36m$[0m bin/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd ..
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd ..
+amah001@hammer.cs.ucr.edu:~$ cd    ls
+3-4.cpp     ham2    main.cc    piping.script   Templates
+3-4.out     ham3    main.o     Public	       TEST'
+a.out	    hamtwo  Music      rshell	       teststuff
+cs100stuff  hw2     MyList.cc  signals.script  Videos
+Desktop     hw_2    MyList.H   SILab4.cc
+Documents   hw_3    Node.h     SILAB5.cc
+Downloads   hwtwo   Pictures   tagstuff
+amah001@hammer.cs.ucr.edu:~$ cd hw_2    teststuff            cd hw_3/rshell/src
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell/src$ cd h ,,  . ../srh   r s    cd..    ..s . /rshell            pwd
+/home/csmajs/amah001/hw_3/rshell/src
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell/src$ cd ... 
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd ..
+amah001@hammer.cs.ucr.edu:~/hw_3$ pwdd 
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd hw_3/rshell/bin          ../s r hw_3/rh shell
+chdir: No such file or directory
+amah001@hammer.cs.ucr.edu:~/hw_3$ ls
+rshell
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd rshell/../../r ch  hw                  pwd
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd hw_3       cd rshell/../../hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd .
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd.
+execvp: No such file or directory
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd..
+execvp: No such file or directory
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd -
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ l cd ../../..           pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd ../../..   /..  
+amah001@hammer.cs.ucr.edu:~$ pwd
+/home/csmajs/amah001
+amah001@hammer.cs.ucr.edu:~$ cd -
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd-
+execvp: No such file or directory
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd /home/csnma    smajs/amah001/hw_3 2
+amah001@hammer.cs.ucr.edu:~/hw_2$ pwd
+/home/csmajs/amah001/hw_2
+amah001@hammer.cs.ucr.edu:~/hw_2$ cd -
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd 
+amah001@hammer.cs.ucr.edu:~$ pwd
+/home/csmajs/amah001
+amah001@hammer.cs.ucr.edu:~$ ls
+3-4.cpp     ham2    main.cc    piping.script   Templates
+3-4.out     ham3    main.o     Public	       TEST'
+a.out	    hamtwo  Music      rshell	       teststuff
+cs100stuff  hw2     MyList.cc  signals.script  Videos
+Desktop     hw_2    MyList.H   SILab4.cc
+Documents   hw_3    Node.h     SILAB5.cc
+Downloads   hwtwo   Pictures   tagstuff
+amah001@hammer.cs.ucr.edu:~$ cd /home/csmajs/amah001/cs100stuff
+amah001@hammer.cs.ucr.edu:~/cs100stuff$ pwd
+/home/csmajs/amah001/cs100stuff
+amah001@hammer.cs.ucr.edu:~/cs100stuff$ ls
+ls  rs	rshell	stuff  ucr-cs100
+amah001@hammer.cs.ucr.edu:~/cs100stuff$ cd    cd    cd -
+/home/csmajs/amah001
+amah001@hammer.cs.ucr.edu:~$ #time to s tests  sgi  ignals
+amah001@hammer.cs.ucr.edu:~$ cd  cd    #jko  one most          few more cd tests
+amah001@hammer.cs.ucr.edu:~$ cd ../.       cd ..
+amah001@hammer.cs.ucr.edu:/home/csmajs$ cd ..
+amah001@hammer.cs.ucr.edu:/home$ cd ..
+amah001@hammer.cs.ucr.edu:/$ cd    pwd
+/
+amah001@hammer.cs.ucr.edu:/$ ls
+bin			    dev    lib64       net   selinux  var
+boot			    etc    lost+found  opt   srv
+cgroup			    extra  media       proc  sys
+class			    home   misc        root  tmp
+C:\nppdf32Log\debuglog.txt  lib    mnt	       sbin  usr
+amah001@hammer.cs.ucr.edu:/$ vim     cd home      /home/c        
+amah001@hammer.cs.ucr.edu:~$ cd hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ l pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd -
+/home/csmajs/amah001
+amah001@hammer.cs.ucr.edu:~$ cd dfafsadfsd
+chdir: No such file or directory
+amah001@hammer.cs.ucr.edu:~$ g cd graph    argg  bage
+chdir: No such file or directory
+amah001@hammer.cs.ucr.edu:~$ cd    pwd
+/home/csmajs/amah001
+amah001@hammer.cs.ucr.edu:~$ ls 
+3-4.cpp     ham2    main.cc    piping.script   Templates
+3-4.out     ham3    main.o     Public	       TEST'
+a.out	    hamtwo  Music      rshell	       teststuff
+cs100stuff  hw2     MyList.cc  signals.script  Videos
+Desktop     hw_2    MyList.H   SILab4.cc
+Documents   hw_3    Node.h     SILAB5.cc
+Downloads   hwtwo   Pictures   tagstuff
+amah001@hammer.cs.ucr.edu:~$ cd hw_3  
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd rshell         pwd
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ ls
+rshell
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd rhs  shell dsfaasd
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ l pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ cd = -
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ pwd
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd ../ /hw_2/rhsell     shell
+amah001@hammer.cs.ucr.edu:~/hw_2/rshell$ pwd
+/home/csmajs/amah001/hw_2/rshell
+amah001@hammer.cs.ucr.edu:~/hw_2/rshell$ cd -
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ pwd
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ #now to co  do ^C
+amah001@hammer.cs.ucr.edu:~/hw_3$ c ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+40565 pts/64   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd    cat
+dsads
+dsads
+dfasdsaf
+dfasdsaf
+^Camah001@hammer.cs.ucr.edu:~/hw_3$ ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+40642 pts/64   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~/hw_3$ ls -Ra
+.:
+.  ..  rshell
+
+./rshell:
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+./rshell/bin:
+.  ..  cp  ls  mv  rm  rshell
+
+./rshell/.git:
+.   branches  description  hooks  info	objects      refs
+..  config    HEAD	   index  logs	packed-refs
+
+./rshell/.git/branches:
+.  ..
+
+./rshell/.git/hooks:
+.		       post-update.sample	  pre-push.sample
+..		       pre-applypatch.sample	  pre-rebase.sample
+applypatch-msg.sample  pre-commit.sample	  update.sample
+commit-msg.sample      prepare-commit-msg.sample
+
+./rshell/.git/info:
+.  ..  exclude
+
+./rshell/.git/logs:
+.  ..  HEAD  refs
+
+./rshell/.git/logs/refs:
+.  ..  heads  remotes
+
+./rshell/.git/logs/refs/heads:
+.  ..  master
+
+./rshell/.git/logs/refs/remotes:
+.  ..  origin
+
+./rshell/.git/logs/refs/remotes/origin:
+.  ..  HEAD
+
+./rshell/.git/objects:
+.  ..  info  pack
+
+./rshell/.git/objects/info:
+.  ..
+
+./rshell/.git/objects/pack:
+.   pack-197679f06e5b3173c5f96743f9a9bd21714567ce.idx
+..  pack-197679f06e5b3173c5f96743f9a9bd21714567ce.pack
+
+./rshell/.git/refs:
+.  ..  heads  remotes  tags
+
+./rshell/.git/refs/heads:
+.  ..  master
+
+./rshell/.git/refs/remotes:
+.  ..  origin
+
+./rshell/.git/refs/remotes/origin:
+.  ..  HEAD
+
+./rshell/.git/refs/tags:
+.  ..
+
+./rshell/src:
+.  ..  cp.cpp  ls.cpp  mv.cpp  rm.cpp  test.cpp  Timer.h
+
+./rshell/tests:
+.  ..  exec.script  ls.script  piping.script
+amah001@hammer.cs.ucr.edu:~/hw_3$ ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+41133 pts/64   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~/hw_3$ grep
+Usage: grep [OPTION]... PATTERN [FILE]...
+Try `grep --help' for more information.
+amah001@hammer.cs.ucr.edu:~/hw_3$ tail
+^Z
+[1]+  Stopped                 bin/rshell
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3/rshell[0;95m ((hw3)) [0;36m$[0m ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+41223 pts/64   00:00:00 tail
+41270 pts/64   00:00:00 ps
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3/rshell[0;95m ((hw3)) [0;36m$[0m fg[K[Kfg
+bin/rshell
+^Camah001@hammer.cs.ucr.edu:~/hw_3$ ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+41386 pts/64   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~/hw_3$ echl /   o      cd ../..  
+amah001@hammer.cs.ucr.edu:~$ pwd
+/home/csmajs/amah001
+amah001@hammer.cs.ucr.edu:~$ ls
+3-4.cpp     ham2    main.cc    piping.script   Templates
+3-4.out     ham3    main.o     Public	       TEST'
+a.out	    hamtwo  Music      rshell	       teststuff
+cs100stuff  hw2     MyList.cc  signals.script  Videos
+Desktop     hw_2    MyList.H   SILab4.cc
+Documents   hw_3    Node.h     SILAB5.cc
+Downloads   hwtwo   Pictures   tagstuff
+amah001@hammer.cs.ucr.edu:~$ cd  ls -Rla
+.:
+total 2804
+drwx------   52 amah001 csmajs  16384 May 29 22:18 .
+drwx--x--x 1263 root    root   200704 May  1 12:20 ..
+-rwx------    1 amah001 csmajs   1861 Apr 15  2014 3-4.cpp
+-rwx------    1 amah001 csmajs  10004 Apr 15  2014 3-4.out
+drwx------    4 amah001 csmajs   4096 Nov  7  2013 .adobe
+-rwx------    1 amah001 csmajs   9960 Apr 28  2014 a.out
+-rwx------    1 amah001 csmajs   1056 May 29 22:17 .bash_history
+-rw-------    1 amah001 csmajs     24 Sep 19  2008 .bash_logout
+-rw-------    1 amah001 csmajs   1270 Sep 19  2008 .bashrc
+drwx------    5 amah001 csmajs   4096 Apr 22  2014 .cache
+drwx------    8 amah001 csmajs   4096 May 27  2014 .config
+drwx------    7 amah001 csmajs   4096 May  2 00:00 cs100stuff
+drwx------    3 amah001 csmajs   4096 Sep 30  2013 .dbus
+drwx------    3 amah001 csmajs   4096 May  4 17:33 Desktop
+-rwx------    1 amah001 csmajs     27 Jun  3  2014 .dmrc
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 Documents
+drwx------    2 amah001 csmajs   4096 Apr 22  2014 Downloads
+drwx------    2 amah001 csmajs   4096 Sep 27  2013 .eggcups
+drwx------    3 amah001 csmajs   4096 Oct  7  2013 .emacs.d
+-rwx------    1 amah001 csmajs     16 Sep 27  2013 .esd_auth
+drwx------    8 amah001 csmajs   4096 Mar 12  2014 .evolution
+-rwx------    1 amah001 csmajs   4096 May 27  2014 .execooohkrV64
+-rwx------    1 amah001 csmajs   4096 May 27  2014 .execoooPtjd9t
+drwx------    2 amah001 csmajs   8192 May 20  2014 .fontconfig
+drwx------    4 amah001 csmajs   4096 Jun  3  2014 .gconf
+drwx------    2 amah001 csmajs   4096 Jun  3  2014 .gconfd
+drwx------    7 amah001 csmajs   4096 May 18 00:27 .git
+-rw-------    1 amah001 csmajs     49 Apr 18 03:24 .gitconfig
+drwx------    3 amah001 csmajs   4096 Apr 12 20:37 .gitlearn
+drwx------    3 amah001 csmajs   4096 Sep 27  2013 .gnome
+drwx------    9 amah001 csmajs  24576 May 13  2014 .gnome2
+drwx------    2 amah001 csmajs   4096 Sep 27  2013 .gnome2_private
+drwx------    3 amah001 csmajs   4096 Sep 30  2013 .gnote
+drwx------    2 amah001 csmajs   4096 May 29 20:48 .gnupg
+-rwx------    1 amah001 csmajs   2945 Apr 15  2014 .goutputstream-079FEX
+-rwx------    1 amah001 csmajs   1458 Apr 15  2014 .goutputstream-0861DX
+-rwx------    1 amah001 csmajs   2942 Apr 15  2014 .goutputstream-0BVBEX
+-rwx------    1 amah001 csmajs   1568 Apr 15  2014 .goutputstream-0D98DX
+-rwx------    1 amah001 csmajs   3124 Apr 15  2014 .goutputstream-0PCFEX
+-rwx------    1 amah001 csmajs   1552 Apr 15  2014 .goutputstream-12CWDX
+-rwx------    1 amah001 csmajs   1356 Apr 15  2014 .goutputstream-15A9DX
+-rwx------    1 amah001 csmajs   1778 Apr 15  2014 .goutputstream-19IWDX
+-rwx------    1 amah001 csmajs   2828 Apr 15  2014 .goutputstream-1AKBEX
+-rwx------    1 amah001 csmajs   3598 Apr 15  2014 .goutputstream-1KK6DX
+-rwx------    1 amah001 csmajs   1565 Apr 15  2014 .goutputstream-2MVUDX
+-rwx------    1 amah001 csmajs   1479 Apr 15  2014 .goutputstream-2VDBEX
+-rwx------    1 amah001 csmajs   3686 Apr 15  2014 .goutputstream-32DCEX
+-rwx------    1 amah001 csmajs   1508 Apr 15  2014 .goutputstream-35Y8DX
+-rwx------    1 amah001 csmajs   2880 Apr 15  2014 .goutputstream-3KPFEX
+-rwx------    1 amah001 csmajs   1673 Apr 15  2014 .goutputstream-3OZ8DX
+-rwx------    1 amah001 csmajs   1569 Apr 15  2014 .goutputstream-3PSGEX
+-rwx------    1 amah001 csmajs   1475 Apr 15  2014 .goutputstream-4247DX
+-rwx------    1 amah001 csmajs   2848 Apr 15  2014 .goutputstream-4E5UDX
+-rwx------    1 amah001 csmajs   2885 Apr 15  2014 .goutputstream-4IJGEX
+-rwx------    1 amah001 csmajs    706 Apr 15  2014 .goutputstream-4IMUDX
+-rwx------    1 amah001 csmajs   4177 Apr 15  2014 .goutputstream-50L5DX
+-rwx------    1 amah001 csmajs   2857 Apr 15  2014 .goutputstream-5JMWDX
+-rwx------    1 amah001 csmajs   1378 Apr 15  2014 .goutputstream-6V4AEX
+-rwx------    1 amah001 csmajs   1782 Apr 15  2014 .goutputstream-6YSEEX
+-rwx------    1 amah001 csmajs   1451 Apr 15  2014 .goutputstream-7BYEEX
+-rwx------    1 amah001 csmajs   2874 Apr 15  2014 .goutputstream-7CN4DX
+-rwx------    1 amah001 csmajs   3686 Apr 15  2014 .goutputstream-8C72DX
+-rwx------    1 amah001 csmajs   1458 Apr 15  2014 .goutputstream-8SGDEX
+-rwx------    1 amah001 csmajs   1377 Apr 15  2014 .goutputstream-8WB3DX
+-rwx------    1 amah001 csmajs   2882 Apr 15  2014 .goutputstream-8XYFEX
+-rwx------    1 amah001 csmajs   2840 Apr 15  2014 .goutputstream-9FKUDX
+-rwx------    1 amah001 csmajs   1546 Apr 15  2014 .goutputstream-9WWZDX
+-rwx------    1 amah001 csmajs   1565 Apr 15  2014 .goutputstream-AFQBEX
+-rwx------    1 amah001 csmajs    783 Apr 15  2014 .goutputstream-AO87DX
+-rwx------    1 amah001 csmajs   1471 Apr 15  2014 .goutputstream-AT56DX
+-rwx------    1 amah001 csmajs   1782 Apr 15  2014 .goutputstream-B36FEX
+-rwx------    1 amah001 csmajs   1798 Apr 15  2014 .goutputstream-BZW0DX
+-rwx------    1 amah001 csmajs   1549 Apr 15  2014 .goutputstream-CFZWDX
+-rwx------    1 amah001 csmajs   2941 Apr 15  2014 .goutputstream-CPICEX
+-rwx------    1 amah001 csmajs   2839 Apr 15  2014 .goutputstream-CPN4DX
+-rwx------    1 amah001 csmajs   1718 Apr 15  2014 .goutputstream-D0C8DX
+-rwx------    1 amah001 csmajs   1552 Apr 15  2014 .goutputstream-D74ZDX
+-rwx------    1 amah001 csmajs   1780 Apr 15  2014 .goutputstream-DG7AEX
+-rwx------    1 amah001 csmajs   1699 Apr 15  2014 .goutputstream-DQI1DX
+-rwx------    1 amah001 csmajs   3760 Apr 15  2014 .goutputstream-DSD3DX
+-rwx------    1 amah001 csmajs   2940 Apr 15  2014 .goutputstream-EFMVDX
+-rwx------    1 amah001 csmajs   1559 Apr 15  2014 .goutputstream-F3P1DX
+-rwx------    1 amah001 csmajs   1861 Apr 15  2014 .goutputstream-F8C5DX
+-rwx------    1 amah001 csmajs    754 Apr 15  2014 .goutputstream-FCSCEX
+-rwx------    1 amah001 csmajs   1510 Apr 15  2014 .goutputstream-FGP4DX
+-rwx------    1 amah001 csmajs   4211 Apr 15  2014 .goutputstream-FZD2DX
+-rwx------    1 amah001 csmajs   2940 Apr 15  2014 .goutputstream-G7NFEX
+-rwx------    1 amah001 csmajs   2886 Apr 15  2014 .goutputstream-GHT0DX
+-rwx------    1 amah001 csmajs   2969 Apr 15  2014 .goutputstream-GI71DX
+-rwx------    1 amah001 csmajs   1672 Apr 15  2014 .goutputstream-GP3UDX
+-rwx------    1 amah001 csmajs   3686 Apr 15  2014 .goutputstream-HFD7DX
+-rwx------    1 amah001 csmajs   2883 Apr 15  2014 .goutputstream-HHX6DX
+-rwx------    1 amah001 csmajs   3457 Apr 15  2014 .goutputstream-HOFVDX
+-rwx------    1 amah001 csmajs   2878 Apr 15  2014 .goutputstream-HQQ1DX
+-rwx------    1 amah001 csmajs   1702 Apr 15  2014 .goutputstream-HW57DX
+-rwx------    1 amah001 csmajs   1702 Apr 15  2014 .goutputstream-HWEAEX
+-rwx------    1 amah001 csmajs   1518 Apr 15  2014 .goutputstream-HXIUDX
+-rwx------    1 amah001 csmajs   1546 Apr 15  2014 .goutputstream-IIACEX
+-rwx------    1 amah001 csmajs   3704 Apr 15  2014 .goutputstream-IIU5DX
+-rwx------    1 amah001 csmajs   2882 Apr 15  2014 .goutputstream-IVZ4DX
+-rwx------    1 amah001 csmajs   3679 Apr 15  2014 .goutputstream-J8U1DX
+-rwx------    1 amah001 csmajs   2849 Apr 15  2014 .goutputstream-JJ46DX
+-rwx------    1 amah001 csmajs   1782 Apr 15  2014 .goutputstream-JN22DX
+-rwx------    1 amah001 csmajs   1457 Apr 15  2014 .goutputstream-JQ96DX
+-rwx------    1 amah001 csmajs   4076 Apr 15  2014 .goutputstream-JQL2DX
+-rwx------    1 amah001 csmajs   1557 Apr 15  2014 .goutputstream-KSNUDX
+-rwx------    1 amah001 csmajs   1703 Apr 15  2014 .goutputstream-L4T7DX
+-rwx------    1 amah001 csmajs   4081 Apr 15  2014 .goutputstream-LDJ6DX
+-rwx------    1 amah001 csmajs   2880 Apr 15  2014 .goutputstream-LNKCEX
+-rwx------    1 amah001 csmajs   2885 Apr 15  2014 .goutputstream-MJ19DX
+-rwx------    1 amah001 csmajs   1523 Apr 15  2014 .goutputstream-MJP0DX
+-rwx------    1 amah001 csmajs   2881 Apr 15  2014 .goutputstream-MQG0DX
+-rwx------    1 amah001 csmajs   1511 Apr 15  2014 .goutputstream-MS52DX
+-rwx------    1 amah001 csmajs   2958 Apr 15  2014 .goutputstream-MTH9DX
+-rwx------    1 amah001 csmajs   2884 Apr 15  2014 .goutputstream-MYA0DX
+-rwx------    1 amah001 csmajs   2849 Apr 15  2014 .goutputstream-ON46DX
+-rwx------    1 amah001 csmajs   1377 Apr 15  2014 .goutputstream-OQE6DX
+-rwx------    1 amah001 csmajs   1475 Apr 15  2014 .goutputstream-OW5CEX
+-rwx------    1 amah001 csmajs    757 Apr 15  2014 .goutputstream-OXY1DX
+-rwx------    1 amah001 csmajs   1673 Apr 15  2014 .goutputstream-PC94DX
+-rwx------    1 amah001 csmajs   1815 Apr 15  2014 .goutputstream-PCQ8DX
+-rwx------    1 amah001 csmajs   2885 Apr 15  2014 .goutputstream-PT0CEX
+-rwx------    1 amah001 csmajs   3678 Apr 15  2014 .goutputstream-Q77YDX
+-rwx------    1 amah001 csmajs   1567 Apr 15  2014 .goutputstream-Q9REEX
+-rwx------    1 amah001 csmajs   1512 Apr 15  2014 .goutputstream-QCV8DX
+-rwx------    1 amah001 csmajs   1714 Apr 15  2014 .goutputstream-QKU3DX
+-rwx------    1 amah001 csmajs    756 Apr 15  2014 .goutputstream-QW0ZDX
+-rwx------    1 amah001 csmajs    738 Apr 15  2014 .goutputstream-RGP2DX
+-rwx------    1 amah001 csmajs   1555 Apr 15  2014 .goutputstream-RI1EEX
+-rwx------    1 amah001 csmajs   1702 Apr 15  2014 .goutputstream-RIS7DX
+-rwx------    1 amah001 csmajs   1694 Apr 15  2014 .goutputstream-SHP7DX
+-rwx------    1 amah001 csmajs   1826 Apr 15  2014 .goutputstream-SS2CEX
+-rwx------    1 amah001 csmajs   1548 Apr 15  2014 .goutputstream-U2Z7DX
+-rwx------    1 amah001 csmajs   1561 Apr 15  2014 .goutputstream-U6YAEX
+-rwx------    1 amah001 csmajs   1582 Apr 15  2014 .goutputstream-UEGZDX
+-rwx------    1 amah001 csmajs   1780 Apr 15  2014 .goutputstream-UKGVDX
+-rwx------    1 amah001 csmajs   1781 Apr 15  2014 .goutputstream-UQYBEX
+-rwx------    1 amah001 csmajs   2883 Apr 15  2014 .goutputstream-UXLFEX
+-rwx------    1 amah001 csmajs   3684 Apr 15  2014 .goutputstream-V94CEX
+-rwx------    1 amah001 csmajs    783 Apr 15  2014 .goutputstream-VS4EEX
+-rwx------    1 amah001 csmajs   3082 Apr 15  2014 .goutputstream-W4Z6DX
+-rwx------    1 amah001 csmajs   4077 Apr 15  2014 .goutputstream-X2O1DX
+-rwx------    1 amah001 csmajs   1554 Apr 15  2014 .goutputstream-XVA7DX
+-rwx------    1 amah001 csmajs   3125 Apr 15  2014 .goutputstream-YDJ9DX
+-rwx------    1 amah001 csmajs   1797 Apr 15  2014 .goutputstream-Z460DX
+-rwx------    1 amah001 csmajs   2876 Apr 15  2014 .goutputstream-ZG04DX
+-rwx------    1 amah001 csmajs   1513 Apr 15  2014 .goutputstream-ZH16DX
+drwx------    2 amah001 csmajs   4096 May 20  2014 .gstreamer-0.10
+-rwx------    1 amah001 csmajs    144 Jun  3  2014 .gtk-bookmarks
+-rwx------    1 amah001 csmajs     96 Sep 27  2013 .gtkrc-1.2-gnome2
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 .gvfs
+drwx------    3 amah001 csmajs   4096 May 18 16:24 ham2
+drwx------    3 amah001 csmajs   4096 May 29 22:05 ham3
+drwx------    3 amah001 csmajs   4096 May 18 21:50 hamtwo
+drwx------    3 amah001 csmajs   4096 May 17 23:07 hw2
+drwx------    3 amah001 csmajs   4096 May 18 00:06 hw_2
+drwx------    3 amah001 csmajs   4096 May 29 22:18 hw_3
+drwx------    3 amah001 csmajs   4096 May 18 00:27 hwtwo
+-rwx------    1 amah001 csmajs   8124 Jun  3  2014 .ICEauthority
+-rwx------    1 amah001 csmajs    653 Jun  3  2014 .imsettings.log
+drwx------    3 amah001 csmajs   4096 Sep 30  2013 .local
+drwx------    3 amah001 csmajs   4096 Sep 27  2013 .macromedia
+-rwx------    1 amah001 csmajs    783 Apr 15  2014 main.cc
+-rwx------    1 amah001 csmajs   8621 Apr 15  2014 main.o
+drwx------    3 amah001 csmajs   4096 Sep 27  2013 .metacity
+drwx------    4 amah001 csmajs   4096 Sep 27  2013 .mozilla
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 Music
+-rwx------    1 amah001 csmajs   4211 Apr 15  2014 MyList.cc
+-rwx------    1 amah001 csmajs   1378 Apr 15  2014 MyList.H
+drwx------    3 amah001 csmajs   4096 Apr 28  2014 .nautilus
+-rwx------    1 amah001 csmajs   1815 Apr 15  2014 Node.h
+drwx------    3 amah001 csmajs   4096 Sep 30  2013 .nv
+drwx------    4 amah001 csmajs   4096 Apr 16  2014 .nx
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 Pictures
+-rw-------    1 amah001 csmajs   2249 May 17 23:23 piping.script
+drwx------    3 amah001 csmajs   4096 Apr  6 15:42 .pki
+-rwx------    1 amah001 csmajs     86 Sep 22  2013 .procmailrc
+-rw-------    1 amah001 csmajs    965 Sep 19  2008 .profile
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 Public
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 .pulse
+-rwx------    1 amah001 csmajs    256 Sep 30  2013 .pulse-cookie
+-rwx------    1 amah001 csmajs   2210 May  6  2014 .recently-used.xbel
+drwx------    3 amah001 csmajs   4096 Sep 27  2013 .redhat
+drwx------    6 amah001 csmajs   4096 Apr 20 00:34 rshell
+-rw-------    1 amah001 csmajs      0 May 29 22:18 signals.script
+-rwx------    1 amah001 csmajs   1089 Apr 21  2014 SILab4.cc
+-rwx------    1 amah001 csmajs   1173 Apr 28  2014 SILAB5.cc
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 .ssh
+drwx------    3 amah001 csmajs   4096 May  4 00:42 tagstuff
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 Templates
+-rw-------    1 amah001 csmajs    512 Mar 30 15:01 TEST'
+drwx------    2 amah001 csmajs   4096 Apr 20 00:33 teststuff
+drwx------    2 amah001 csmajs   8192 Mar 12  2014 .Trash
+drwx------    2 amah001 csmajs   4096 Sep 30  2013 Videos
+-rwx------    1 amah001 csmajs   9013 May 18 16:34 .viminfo
+-rw-------    1 amah001 csmajs    551 Mar 30 16:38 .vimrc
+-rw-------    1 amah001 csmajs    115 Apr 16  2014 .Xauthority
+-rwx------    1 amah001 csmajs 855040 Jun  3  2014 .xsession-errors
+-rwx------    1 amah001 csmajs 926352 May 27  2014 .xsession-errors.old
+
+./.adobe:
+total 28
+drwx------  4 amah001 csmajs  4096 Nov  7  2013 .
+drwx------ 52 amah001 csmajs 16384 May 29 22:18 ..
+drwx------  3 amah001 csmajs  4096 Nov  7  2013 Acrobat
+drwx------  3 amah001 csmajs  4096 Sep 27  2013 Flash_Player
+
+./.adobe/Acrobat:
+total 12
+drwx------ 3 amah001 csmajs 4096 Nov  7  2013 .
+drwx------ 4 amah001 csmajs 4096 Nov  7  2013 ..
+drwx------ 7 amah001 csmajs 4096 May  6  2014 9.0
+
+./.adobe/Acrobat/9.0:
+total 72
+drwx------ 7 amah001 csmajs  4096 May  6  2014 .
+drwx------ 3 amah001 csmajs  4096 Nov  7  2013 ..
+-rwx------ 1 amah001 csmajs   807 Nov  7  2013 AdobeCMapFnt09.lst
+drwx------ 2 amah001 csmajs  4096 May  6  2014 Cache
+drwx------ 2 amah001 csmajs  4096 May  6  2014 Cert
+drwx------ 3 amah001 csmajs  4096 Nov  7  2013 Collab
+drwx------ 2 amah001 csmajs  4096 Nov  7  2013 Forms
+drwx------ 3 amah001 csmajs  4096 May  6  2014 Preferences
+-rwx------ 1 amah001 csmajs  3072 May  6  2014 SharedDataEvents
+-rwx------ 1 amah001 csmajs 33321 May  6  2014 UserCache.bin
+
+./.adobe/Acrobat/9.0/Cache:
+total 100
+drwx------ 2 amah001 csmajs  4096 May  6  2014 .
+drwx------ 7 amah001 csmajs  4096 May  6  2014 ..
+-rwx------ 1 amah001 csmajs     0 May  6  2014 cookies.txt
+-rwx------ 1 amah001 csmajs 87271 Nov  7  2013 UnixFnt09.lst
+
+./.adobe/Acrobat/9.0/Cert:
+total 8
+drwx------ 2 amah001 csmajs 4096 May  6  2014 .
+drwx------ 7 amah001 csmajs 4096 May  6  2014 ..
+
+./.adobe/Acrobat/9.0/Collab:
+total 12
+drwx------ 3 amah001 csmajs 4096 Nov  7  2013 .
+drwx------ 7 amah001 csmajs 4096 May  6  2014 ..
+drwx------ 2 amah001 csmajs 4096 Nov  7  2013 Temp
+
+./.adobe/Acrobat/9.0/Collab/Temp:
+total 8
+drwx------ 2 amah001 csmajs 4096 Nov  7  2013 .
+drwx------ 3 amah001 csmajs 4096 Nov  7  2013 ..
+
+./.adobe/Acrobat/9.0/Forms:
+total 8
+drwx------ 2 amah001 csmajs 4096 Nov  7  2013 .
+drwx------ 7 amah001 csmajs 4096 May  6  2014 ..
+
+./.adobe/Acrobat/9.0/Preferences:
+total 16
+drwx------ 3 amah001 csmajs 4096 May  6  2014 .
+drwx------ 7 amah001 csmajs 4096 May  6  2014 ..
+drwx------ 2 amah001 csmajs 4096 May  6  2014 mozilla
+-rwx------ 1 amah001 csmajs 3064 May  6  2014 reader_prefs
+
+./.adobe/Acrobat/9.0/Preferences/mozilla:
+total 12
+drwx------ 2 amah001 csmajs 4096 May  6  2014 .
+drwx------ 3 amah001 csmajs 4096 May  6  2014 ..
+-rwx------ 1 amah001 csmajs  893 May  6  2014 prefs.js
+
+./.adobe/Flash_Player:
+total 12
+drwx------ 3 amah001 csmajs 4096 Sep 27  2013 .
+drwx------ 4 amah001 csmajs 4096 Nov  7  2013 ..
+drwx------ 3 amah001 csmajs 4096 Sep 27  2013 AssetCache
+
+./.adobe/Flash_Player/AssetCache:
+total 12
+drwx------ 3 amah001 csmajs 4096 Sep 27  2013 .
+drwx------ 3 amah001 csmajs 4096 Sep 27  2013 ..
+drwx------ 2 amah001 csmajs 4096 Sep 27  2013 XDU8N4CU
+
+./.adobe/Flash_Player/AssetCache/XDU8N4CU:
+total 8
+drwx------ 2 amah001 csmajs 4096 Sep 27  2013 .
+drwx------ 3 amah001 csmajs 4096 Sep 27  2013 ..
+
+./.cache:
+total 32
+drwx------  5 amah001 csmajs  4096 Apr 22  2014 .
+drwx------ 52 amah001 csmajs 16384 May 29 22:18 ..
+drwx------  2 amah001 csmajs  4096 Apr  1  2014 evolution
+drwx------  2 amah001 csmajs  4096 Apr 22  2014 gedit
+drwx------  3 amah001 csmajs  4096 Jan  8  2014 mozilla
+
+./.cache/evolution:
+total 8
+drwx------ 2 amah001 csmajs 4096 Apr  1  2014 .
+drwx------ 5 amah001 csmajs 4096 Apr 22  2014 ..
+
+./.cache/gedit:
+total 12
+drwx------ 2 amah001 csmajs 4096 Apr 22  2014 .
+drwx------ 5 amah001 csmajs 4096 Apr 22  2014 ..
+-rwx------ 1 amah001 csmajs  185 Apr 22  2014 gedit-metadata.xml
+
+./.cache/mozilla:
+total 12
+drwx------ 3 amah001 csmajs 4096 Jan  8  2014 .
+drwx------ 5 amah001 csmajs 4096 Apr 22  2014 ..
+drwx------ 2 amah001 csmajs 4096 Jan  8  2014 firefox
+
+./.cache/mozilla/firefox:
+total 8
+drwx------ 2 amah001 csmajs 4096 Jan  8  2014 .
+drwx------ 3 amah001 csmajs 4096 Jan  8  2014 ..
+
+./.config:
+total 48
+drwx------  8 amah001 csmajs  4096 May 27  2014 .
+drwx------ 52 amah001 csmajs 16384 May 29 22:18 ..
+drwx------  6 amah001 csmajs  4096 Jan  8  2014 geany
+drwx------  3 amah001 csmajs  4096 Sep 30  2013 gnome-disk-utility
+drwx------  3 amah001 csmajs  4096 Sep 30  2013 gnome-session
+drwx------  2 amah001 csmajs  4096 Apr 28  2014 gtk-2.0
+drwx------  3 amah001 csmajs  4096 Sep 30  2013 ibus
+drwx------  3 amah001 csmajs  4096 May 27  2014 libreoffice
+-rwx------  1 amah001 csmajs   632 Sep 30  2013 user-dirs.dirs
+-rwx------  1 amah001 csmajs     5 Sep 30  2013 user-dirs.locale
+
+./.config/geany:
+total 32
+drwx------ 6 amah001 csmajs 4096 Jan  8  2014 .
+drwx------ 8 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 Jan  8  2014 colorschemes
+drwx------ 2 amah001 csmajs 4096 Dec  2  2013 filedefs
+-rwx------ 1 amah001 csmajs 5411 Apr 28  2014 geany.conf
+-rwx------ 1 amah001 csmajs    0 Dec  2  2013 keybindings.conf
+drwx------ 2 amah001 csmajs 4096 Dec  2  2013 tags
+drwx------ 3 amah001 csmajs 4096 Dec  2  2013 templates
+
+./.config/geany/colorschemes:
+total 8
+drwx------ 2 amah001 csmajs 4096 Jan  8  2014 .
+drwx------ 6 amah001 csmajs 4096 Jan  8  2014 ..
+
+./.config/geany/filedefs:
+total 12
+drwx------ 2 amah001 csmajs 4096 Dec  2  2013 .
+drwx------ 6 amah001 csmajs 4096 Jan  8  2014 ..
+-rwx------ 1 amah001 csmajs  248 Dec  2  2013 filetypes.README
+
+./.config/geany/tags:
+total 8
+drwx------ 2 amah001 csmajs 4096 Dec  2  2013 .
+drwx------ 6 amah001 csmajs 4096 Jan  8  2014 ..
+
+./.config/geany/templates:
+total 16
+drwx------ 3 amah001 csmajs 4096 Dec  2  2013 .
+drwx------ 6 amah001 csmajs 4096 Jan  8  2014 ..
+drwx------ 2 amah001 csmajs 4096 Dec  2  2013 files
+-rwx------ 1 amah001 csmajs  212 Dec  2  2013 templates.README
+
+./.config/geany/templates/files:
+total 8
+drwx------ 2 amah001 csmajs 4096 Dec  2  2013 .
+drwx------ 3 amah001 csmajs 4096 Dec  2  2013 ..
+
+./.config/gnome-disk-utility:
+total 12
+drwx------ 3 amah001 csmajs 4096 Sep 30  2013 .
+drwx------ 8 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 Sep 30  2013 ata-smart-ignore
+
+./.config/gnome-disk-utility/ata-smart-ignore:
+total 8
+drwx------ 2 amah001 csmajs 4096 Sep 30  2013 .
+drwx------ 3 amah001 csmajs 4096 Sep 30  2013 ..
+
+./.config/gnome-session:
+total 12
+drwx------ 3 amah001 csmajs 4096 Sep 30  2013 .
+drwx------ 8 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 Sep 30  2013 saved-session
+
+./.config/gnome-session/saved-session:
+total 8
+drwx------ 2 amah001 csmajs 4096 Sep 30  2013 .
+drwx------ 3 amah001 csmajs 4096 Sep 30  2013 ..
+
+./.config/gtk-2.0:
+total 16
+drwx------ 2 amah001 csmajs 4096 Apr 28  2014 .
+drwx------ 8 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs   96 Apr 28  2014 gtkfilechooser
+-rwx------ 1 amah001 csmajs  200 Apr 15  2014 gtkfilechooser.ini
+
+./.config/ibus:
+total 12
+drwx------ 3 amah001 csmajs 4096 Sep 30  2013 .
+drwx------ 8 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 Sep 30  2013 bus
+
+./.config/ibus/bus:
+total 8
+drwx------ 2 amah001 csmajs 4096 Sep 30  2013 .
+drwx------ 3 amah001 csmajs 4096 Sep 30  2013 ..
+
+./.config/libreoffice:
+total 12
+drwx------ 3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 8 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 3 amah001 csmajs 4096 May 27  2014 4
+
+./.config/libreoffice/4:
+total 12
+drwx------  3 amah001 csmajs 4096 May 27  2014 .
+drwx------  3 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 17 amah001 csmajs 4096 May 27  2014 user
+
+./.config/libreoffice/4/user:
+total 108
+drwx------ 17 amah001 csmajs  4096 May 27  2014 .
+drwx------  3 amah001 csmajs  4096 May 27  2014 ..
+drwx------  2 amah001 csmajs  4096 May 27  2014 autocorr
+drwx------  2 amah001 csmajs  4096 May 27  2014 autotext
+drwx------  2 amah001 csmajs  4096 May 27  2014 backup
+drwx------  3 amah001 csmajs  4096 May 27  2014 basic
+drwx------  3 amah001 csmajs  4096 May 27  2014 config
+drwx------  3 amah001 csmajs  4096 May 27  2014 database
+drwx------  4 amah001 csmajs  4096 May 27  2014 extensions
+drwx------  2 amah001 csmajs  4096 May 27  2014 gallery
+drwx------  4 amah001 csmajs  4096 May 27  2014 psprint
+-rwx------  1 amah001 csmajs 38160 May 27  2014 registrymodifications.xcu
+drwx------  2 amah001 csmajs  4096 May 27  2014 Scripts
+drwx------  2 amah001 csmajs  4096 May 27  2014 store
+drwx------  2 amah001 csmajs  4096 May 27  2014 temp
+drwx------  2 amah001 csmajs  4096 May 27  2014 template
+drwx------  3 amah001 csmajs  4096 May 27  2014 uno_packages
+drwx------  2 amah001 csmajs  4096 May 27  2014 wordbook
+
+./.config/libreoffice/4/user/autocorr:
+total 8
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/autotext:
+total 12
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+-rwx------  1 amah001 csmajs  567 Nov 23  2013 mytexts.bau
+
+./.config/libreoffice/4/user/backup:
+total 8
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/basic:
+total 20
+drwx------  3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+-rwx------  1 amah001 csmajs  339 Nov 23  2013 dialog.xlc
+-rwx------  1 amah001 csmajs  339 Nov 23  2013 script.xlc
+drwx------  2 amah001 csmajs 4096 May 27  2014 Standard
+
+./.config/libreoffice/4/user/basic/Standard:
+total 20
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  288 Nov 23  2013 dialog.xlb
+-rwx------ 1 amah001 csmajs 1124 Nov 23  2013 Module1.xba
+-rwx------ 1 amah001 csmajs  349 Nov 23  2013 script.xlb
+
+./.config/libreoffice/4/user/config:
+total 416
+drwx------  3 amah001 csmajs   4096 May 27  2014 .
+drwx------ 17 amah001 csmajs   4096 May 27  2014 ..
+-rwx------  1 amah001 csmajs   4308 Nov 23  2013 arrowhd.soe
+-rwx------  1 amah001 csmajs  48408 Nov 23  2013 autotbl.fmt
+-rwx------  1 amah001 csmajs  30852 Nov 23  2013 classic.sog
+-rwx------  1 amah001 csmajs  13132 Nov 23  2013 cmyk.soc
+-rwx------  1 amah001 csmajs   4408 Nov 23  2013 gallery.soc
+-rwx------  1 amah001 csmajs   5238 Nov 23  2013 hatching.soh
+-rwx------  1 amah001 csmajs  10766 Nov 23  2013 html.soc
+-rwx------  1 amah001 csmajs   2080 May 27  2014 javasettings_Linux_X86_64.xml
+-rwx------  1 amah001 csmajs   2334 Nov 23  2013 libreoffice.soc
+-rwx------  1 amah001 csmajs   6840 Nov 23  2013 modern.sog
+-rwx------  1 amah001 csmajs   5271 Nov 23  2013 palette.soc
+-rwx------  1 amah001 csmajs  31320 Nov 23  2013 scribus.soc
+drwx------  3 amah001 csmajs   4096 May 27  2014 soffice.cfg
+-rwx------  1 amah001 csmajs 155895 Nov 23  2013 standard.sob
+-rwx------  1 amah001 csmajs   7009 Nov 23  2013 standard.soc
+-rwx------  1 amah001 csmajs   2426 Nov 23  2013 standard.sod
+-rwx------  1 amah001 csmajs   4972 Nov 23  2013 standard.soe
+-rwx------  1 amah001 csmajs   4154 Nov 23  2013 standard.sog
+-rwx------  1 amah001 csmajs   2171 Nov 23  2013 standard.soh
+-rwx------  1 amah001 csmajs   1708 Nov 23  2013 styles.sod
+-rwx------  1 amah001 csmajs   2331 Nov 23  2013 tango.soc
+-rwx------  1 amah001 csmajs  14420 Nov 23  2013 web.soc
+
+./.config/libreoffice/4/user/config/soffice.cfg:
+total 12
+drwx------ 3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 3 amah001 csmajs 4096 May 27  2014 modules
+
+./.config/libreoffice/4/user/config/soffice.cfg/modules:
+total 12
+drwx------ 3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 6 amah001 csmajs 4096 May 27  2014 swriter
+
+./.config/libreoffice/4/user/config/soffice.cfg/modules/swriter:
+total 24
+drwx------ 6 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 3 amah001 csmajs 4096 May 27  2014 images
+drwx------ 2 amah001 csmajs 4096 May 27  2014 menubar
+drwx------ 2 amah001 csmajs 4096 May 27  2014 statusbar
+drwx------ 2 amah001 csmajs 4096 May 27  2014 toolbar
+
+./.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/images:
+total 12
+drwx------ 3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 6 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 May 27  2014 Bitmaps
+
+./.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/images/Bitmaps:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/menubar:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 6 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/statusbar:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 6 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/toolbar:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 6 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/database:
+total 20
+drwx------  3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+drwx------  2 amah001 csmajs 4096 May 27  2014 biblio
+-rwx------  1 amah001 csmajs 2687 Nov 23  2013 biblio.odb
+-rwx------  1 amah001 csmajs 3759 Nov 23  2013 evolocal.odb
+
+./.config/libreoffice/4/user/database/biblio:
+total 1028
+drwx------ 2 amah001 csmajs   4096 May 27  2014 .
+drwx------ 3 amah001 csmajs   4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs 418450 Nov 23  2013 biblio.dbf
+-rwx------ 1 amah001 csmajs 610825 Nov 23  2013 biblio.dbt
+
+./.config/libreoffice/4/user/extensions:
+total 16
+drwx------  4 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+-rwx------  1 amah001 csmajs   14 May 27  2014 buildid
+drwx------  3 amah001 csmajs 4096 May 27  2014 bundled
+drwx------  3 amah001 csmajs 4096 May 27  2014 shared
+
+./.config/libreoffice/4/user/extensions/bundled:
+total 12
+drwx------ 3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 4 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs    1 May 27  2014 lastsynchronized
+drwx------ 9 amah001 csmajs 4096 May 27  2014 registry
+
+./.config/libreoffice/4/user/extensions/bundled/registry:
+total 36
+drwx------ 9 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.bundle.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.component.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.configuration.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.executable.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.help.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.script.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.sfwk.PackageRegistryBackend
+
+./.config/libreoffice/4/user/extensions/bundled/registry/com.sun.star.comp.deployment.bundle.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/bundled/registry/com.sun.star.comp.deployment.component.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/bundled/registry/com.sun.star.comp.deployment.configuration.PackageRegistryBackend:
+total 12
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  135 May 27  2014 backenddb.xml
+
+./.config/libreoffice/4/user/extensions/bundled/registry/com.sun.star.comp.deployment.executable.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/bundled/registry/com.sun.star.comp.deployment.help.PackageRegistryBackend:
+total 12
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  117 May 27  2014 backenddb.xml
+
+./.config/libreoffice/4/user/extensions/bundled/registry/com.sun.star.comp.deployment.script.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/bundled/registry/com.sun.star.comp.deployment.sfwk.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/shared:
+total 12
+drwx------ 3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 4 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs    1 May 27  2014 lastsynchronized
+drwx------ 9 amah001 csmajs 4096 May 27  2014 registry
+
+./.config/libreoffice/4/user/extensions/shared/registry:
+total 36
+drwx------ 9 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.bundle.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.component.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.configuration.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.executable.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.help.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.script.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.sfwk.PackageRegistryBackend
+
+./.config/libreoffice/4/user/extensions/shared/registry/com.sun.star.comp.deployment.bundle.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/shared/registry/com.sun.star.comp.deployment.component.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/shared/registry/com.sun.star.comp.deployment.configuration.PackageRegistryBackend:
+total 12
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  135 May 27  2014 backenddb.xml
+
+./.config/libreoffice/4/user/extensions/shared/registry/com.sun.star.comp.deployment.executable.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/shared/registry/com.sun.star.comp.deployment.help.PackageRegistryBackend:
+total 12
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  117 May 27  2014 backenddb.xml
+
+./.config/libreoffice/4/user/extensions/shared/registry/com.sun.star.comp.deployment.script.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/extensions/shared/registry/com.sun.star.comp.deployment.sfwk.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/gallery:
+total 24
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+-rwx------  1 amah001 csmajs 2048 Nov 23  2013 sg100.sdv
+-rwx------  1 amah001 csmajs  538 Nov 23  2013 sg100.thm
+-rwx------  1 amah001 csmajs 2048 Nov 23  2013 sg30.sdv
+-rwx------  1 amah001 csmajs  565 Nov 23  2013 sg30.thm
+
+./.config/libreoffice/4/user/psprint:
+total 44
+drwx------  4 amah001 csmajs  4096 May 27  2014 .
+drwx------ 17 amah001 csmajs  4096 May 27  2014 ..
+drwx------  2 amah001 csmajs  4096 May 27  2014 driver
+drwx------  2 amah001 csmajs  4096 May 27  2014 fontmetric
+-rwx------  1 amah001 csmajs 26488 May 27  2014 pspfontcache
+
+./.config/libreoffice/4/user/psprint/driver:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 4 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/psprint/fontmetric:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 4 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/Scripts:
+total 8
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/store:
+total 8
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/temp:
+total 8
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/template:
+total 8
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/uno_packages:
+total 12
+drwx------  3 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+drwx------  4 amah001 csmajs 4096 May 27  2014 cache
+
+./.config/libreoffice/4/user/uno_packages/cache:
+total 20
+drwx------ 4 amah001 csmajs 4096 May 27  2014 .
+drwx------ 3 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  144 May 27  2014 log.txt
+drwx------ 9 amah001 csmajs 4096 May 27  2014 registry
+drwx------ 2 amah001 csmajs 4096 May 27  2014 uno_packages
+
+./.config/libreoffice/4/user/uno_packages/cache/registry:
+total 36
+drwx------ 9 amah001 csmajs 4096 May 27  2014 .
+drwx------ 4 amah001 csmajs 4096 May 27  2014 ..
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.bundle.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.component.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.configuration.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.executable.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.help.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.script.PackageRegistryBackend
+drwx------ 2 amah001 csmajs 4096 May 27  2014 com.sun.star.comp.deployment.sfwk.PackageRegistryBackend
+
+./.config/libreoffice/4/user/uno_packages/cache/registry/com.sun.star.comp.deployment.bundle.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/uno_packages/cache/registry/com.sun.star.comp.deployment.component.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/uno_packages/cache/registry/com.sun.star.comp.deployment.configuration.PackageRegistryBackend:
+total 12
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  135 May 27  2014 backenddb.xml
+
+./.config/libreoffice/4/user/uno_packages/cache/registry/com.sun.star.comp.deployment.executable.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/uno_packages/cache/registry/com.sun.star.comp.deployment.help.PackageRegistryBackend:
+total 12
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+-rwx------ 1 amah001 csmajs  117 May 27  2014 backenddb.xml
+
+./.config/libreoffice/4/user/uno_packages/cache/registry/com.sun.star.comp.deployment.script.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/uno_packages/cache/registry/com.sun.star.comp.deployment.sfwk.PackageRegistryBackend:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 9 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/uno_packages/cache/uno_packages:
+total 8
+drwx------ 2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 4 amah001 csmajs 4096 May 27  2014 ..
+
+./.config/libreoffice/4/user/wordbook:
+total 8
+drwx------  2 amah001 csmajs 4096 May 27  2014 .
+drwx------ 17 amah001 csmajs 4096 May 27  2014 ..
+-rwx------  1 amah001 csmajs   45 May 27  2014 standard.dic
+
+./cs100stuff:
+total 40
+drwx------  7 amah001 csmajs  4096 May  2 00:00 .
+drwx------ 52 amah001 csmajs 16384 May 29 22:18 ..
+drwx------  3 amah001 csmajs  4096 May  1 23:55 ls
+drwx------  4 amah001 csmajs  4096 Apr 19 23:53 rs
+drwx------  6 amah001 csmajs  4096 May  2 00:00 rshell
+drwx------  3 amah001 csmajs  4096 May 11 15:57 stuff
+drwx------  9 amah001 csmajs  4096 Apr  6 15:42 ucr-cs100
+
+./cs100stuff/ls:
+total 12
+drwx------ 3 amah001 csmajs 4096 May  1 23:55 .
+drwx------ 7 amah001 csmajs 4096 May  2 00:00 ..
+drwx------ 5 amah001 csmajs 4096 May  1 23:55 rshell
+
+./cs100stuff/ls/rshell:
+total 48
+drwx------ 5 amah001 csmajs  4096 May  1 23:55 .
+drwx------ 3 amah001 csmajs  4096 May  1 23:55 ..
+drwx------ 8 amah001 csmajs  4096 May  1 23:57 .git
+-rw------- 1 amah001 csmajs 18047 May  1 23:55 LICENSE
+-rw------- 1 amah001 csmajs   298 May  1 23:55 Makefile
+-rw------- 1 amah001 csmajs  1302 May  1 23:55 README.md
+drwx------ 2 amah001 csmajs  4096 May  1 23:55 src
+drwx------ 2 amah001 csmajs  4096 May  1 23:55 tests
+
+./cs100stuff/ls/rshell/.git:
+total 52
+drwx------ 8 amah001 csmajs 4096 May  1 23:57 .
+drwx------ 5 amah001 csmajs 4096 May  1 23:55 ..
+drwx------ 2 amah001 csmajs 4096 May  1 23:55 branches
+-rw------- 1 amah001 csmajs  262 May  1 23:55 config
+-rw------- 1 amah001 csmajs   73 May  1 23:55 description
+-rw------- 1 amah001 csmajs   91 May  1 23:57 FETCH_HEAD
+-rw------- 1 amah001 csmajs   23 May  1 23:55 HEAD
+drwx------ 2 amah001 csmajs 4096 May  1 23:55 hooks
+-rw------- 1 amah001 csmajs  728 May  1 23:55 index
+drwx------ 2 amah001 csmajs 4096 May  1 23:55 info
+drwx------ 3 amah001 csmajs 4096 May  1 23:55 logs
+drwx------ 4 amah001 csmajs 4096 May  1 23:55 objects
+-rw------- 1 amah001 csmajs   41 May  1 23:57 ORIG_HEAD
+-rw------- 1 amah001 csmajs  334 May  1 23:55 packed-refs
+drwx------ 5 amah001 csmajs 4096 May  1 23:55 refs
+
+./cs100stuff/ls/rshell/.git/branches:
+^Camah001@hammer.cs.ucr.edu:~$ ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+41954 pts/64   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~$ ls  c ls  pwd
+/home/csmajs/amah001
+amah001@hammer.cs.ucr.edu:~$ l cd ..  hw_# 3/rshell/
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ pwd
+/home/csmajs/amah001/hw_3/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ bin/rshell
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+42405 pts/64   00:00:00 rshell
+42406 pts/64   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ ^Camah001@hammer.cs.ucr.edu:~/hw_3/rshell$ ps
+  PID TTY          TIME CMD
+36320 pts/64   00:00:00 bash
+36916 pts/64   00:00:00 rshell
+42480 pts/64   00:00:00 ps
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell$ bin/                cd .. .. ..
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd ......
+chdir: No such file or directory
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd ../../   dsafasd
+chdir: No such file or directory
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd     cd -             ----------- 
+chdir: No such file or directory
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd                                           cd   cd
+amah001@hammer.cs.ucr.edu:~$ cd               ..  hw_# 3
+amah001@hammer.cs.ucr.edu:~/hw_3$ cd             rshel     cd rshell/src
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell/src$ pwd
+/home/csmajs/amah001/hw_3/rshell/src
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell/src$ cd             cd         -
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$ pwd
+/home/csmajs/amah001/hw_3
+amah001@hammer.cs.ucr.edu:~/hw_3$             cd     -           sadfdf
+/home/csmajs/amah001/hw_3/rshell/src
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell/src$ ls  pwd   pwd
+/home/csmajs/amah001/hw_3/rshell/src
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell/src$ #imdone
+amah001@hammer.cs.ucr.edu:~/hw_3/rshell/src$ exit
+[s%%%%%%%%%%[u[0;32mamah001[0;36m@[0;32mcs100[0;36m:[0;32m~/hw_3/rshell[0;95m ((hw3)) [0;36m$[0m exit
+exit
+~
+amah001@hammer $ exit
+exit
+
+Script done on Fri 29 May 2015 10:47:45 PM PDT
