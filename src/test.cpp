@@ -10,10 +10,12 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <signal.h>
 
 using namespace std;
 int std_in;
 int std_out;
+pid_t s_PID;
 
 void displayPrompt()
 {   
@@ -279,6 +281,7 @@ void run_command(char** command_list, bool &works)
     //cout << "ran: " << command_list[0] << endl;
     //cout << command_list[1] << endl;
     pid_t pid = fork();
+    s_PID = pid;
     int worked = 0;
     //cout << "running" << endl;
     if(pid ==-1)
@@ -298,7 +301,10 @@ void run_command(char** command_list, bool &works)
     }
     else if(pid > 0)
     {
-    	int a = waitpid(pid, &worked,0);
+    	int a;
+	do{
+		a = waitpid(pid, &worked,WUNTRACED);
+	}while(a == -1 && errno == EINTR);
         if(a == -1)
         {
 	    perror("wait()");
@@ -548,6 +554,7 @@ bool input_output(char** command)
 		_exit(1);
 	}
 	pid_t pid = fork();
+	s_PID = pid;
 	if(pid == -1)
 	{
 		perror("fork");
@@ -682,12 +689,13 @@ bool output_redirection(char** command)
 		}
 	}
 	//cerr << "two" << endl;
-	int pid = fork();
-    if(pid == -1)
-    {
-        perror("fork");
-        _exit(1);
-    }
+	pid_t pid = fork();
+	s_PID = pid;
+	if(pid == -1)
+	{
+		perror("fork");
+		_exit(1);
+	}
 	if(pid == 0)
 	{
 		
@@ -776,7 +784,7 @@ bool input_redirection(char** command)
 	finale[1] = command[last_input];
 	finale[2] = NULL;
 	//cout << command[i-1];
-	int pid;
+	pid_t pid;
 	int FileID;
 	if((FileID = open(temp.c_str(), O_RDONLY)) == -1)
 		{
@@ -790,6 +798,7 @@ bool input_redirection(char** command)
 //	int fd;
 	
 	pid = fork();
+	s_PID = pid;
 	if(pid == -1)
 	{
 		perror("fork()");
@@ -846,11 +855,12 @@ void piping(char** command, int &pipeNum)
 	}
 	int i = 0;
 	pid = fork();
-	//cout << "med" << endl;
+	s_PID = pid;
+	//cerr << "med" << endl;
 	while(command[i] != NULL && strcmp(command[i],"|") != 0)
 	{
 		finale[i] = command[i];
-		//cout << finale[i] << endl;
+		//cerr << finale[i] << endl;
 		i++;
 	}
 	finale[i] = NULL;
@@ -921,6 +931,7 @@ void piping_end(char** command,int pipeNum)
 	pid_t pid;
 	//int fd;
 	pid = fork();
+	s_PID = pid;
 	char** finale = (char**)malloc(BUFSIZ);
 	//cout << pipeNum << endl;
 	int i = pipeNum + 1;
@@ -979,7 +990,6 @@ void change_direct(char** final_command)
 	char* old_directory;
 	char* home_directory;
 	//change strings to char* so it works with if statements
-	cerr << " adaigo" << endl;
 	string check;
 	if(final_command[1] != NULL)
 	{
@@ -989,7 +999,6 @@ void change_direct(char** final_command)
 	{
 		check = "~";
 	}
-	cerr << "hwat" << endl;
 	if(final_command[1] != NULL && check != "~")//has path
 	{
 		
@@ -1024,14 +1033,13 @@ void change_direct(char** final_command)
 				perror("setenv");
 				_exit(1);
 			}
-			cout << endl;
 			cout << new_directory << endl;
-			cerr << "zgmf:finder2" << endl;
+			//cerr << "zgmf:finder2" << endl;
 
 		}
 		else//normal cd pathing
 		{
-			cerr << "zgmf:path" << endl;
+			//cerr << "zgmf:path" << endl;
 			old_directory = getenv("PWD");
 			if(old_directory == NULL)
 			{
@@ -1061,7 +1069,7 @@ void change_direct(char** final_command)
 				perror("setenv");
 				_exit(1);
 			}
-			cerr << "zgmf:finder" << endl;
+			//cerr << "zgmf:finder" << endl;
 		}
 
 	}
@@ -1178,9 +1186,9 @@ void run_command_with_connectors(char**& final_command,char* command_chara)
 					}
 					else if(cd_check == "cd")
 					{
-						cerr << "zgmf: path check" << endl;
+						//cerr << "zgmf: path check" << endl;
 						change_direct(final_command);
-						cerr << "zgmf: fission mailed" << endl;
+						//cerr << "zgmf: fission mailed" << endl;
 					}
 				}
 				else if(red == "triple")
@@ -1361,18 +1369,56 @@ fix command execution ( if statements on when to run)
 piping
 readme
 */
-int main(int argc, char**argv) { 
-
+static void c_handler(int signo, siginfo_t *siginfo, void *context)
+{
+	//cerr << "zgmf: catch" << endl;
+	if(signo == SIGINT)
+	{
+		if(s_PID == 0)
+		{
+			//don't kill shell
+		}
+		else if(s_PID != 0)
+		{
+			//cerr << s_PID << endl;
+			kill(s_PID, SIGKILL);
+			s_PID = 0;
+		}
+	}
+	return;
+}
+int main(int argc, char**argv) {
+	
+	struct sigaction uno;
+	memset(&uno, '\0', sizeof(uno));
+	//uno.sa_handler = c_handler;
+	uno.sa_sigaction = &c_handler;
+	uno.sa_flags = SA_SIGINFO;
+	if(sigaction(SIGINT, &uno, NULL) == -1)
+	{
+		perror("sigaction");
+		exit(1);
+	}
+	/*
+	if(uno.sa_handler != SIG_IGN)
+	{
+		if(sigaction(SIGINT, &uno, NULL) == -1)
+		{
+			perror("sigaction");
+			exit(1);
+		}
+	}
+	*/
 	std_in = dup(0);
-    if(std_in == -1)
-    {
-        perror("dup");
-    }
+    	if(std_in == -1)
+    	{
+		perror("dup");
+    	}
 	std_out = dup(1);
-    if(std_out == -1)
-    {
-        perror("dup");
-    }
+	if(std_out == -1)
+	{
+		perror("dup");
+	}
 	//cout << std_in << "    " << std_out << endl;
 	while(1)//endless loop so that it mimics terminal
 	{
