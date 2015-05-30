@@ -1,8 +1,14 @@
 #rshell
 
-Rshell is a custom basic command shell used to mimic the BASH terminal. Rshell is able to run single commands. Rshell is able to run commands that use connectors such as ";" which executes the next command always,"&&" which executes the next command if the previous command succeeded, and "||" which executes the next command if the previous command failed.
+Rshell is a custom basic command shell used to mimic the BASH terminal. 
+Rshell is able to run single commands. 
+Rshell is able to run commands that use connectors such as ";" which executes the next command always,"&&" which executes the next command if the previous command succeeded, and "||" which executes the next command if the previous command failed.
 
-It can also do input redirection, output redirection, and piping. Piping however only works once.
+It can also do input redirection, output redirection, and piping. 
+Piping however only works once.
+
+
+It is able to change directories and breaks only the command being ran and not Rshell.
 
 #ls
 This is my custom version of ls. There is no color coding nor output management. 
@@ -17,7 +23,7 @@ Inputs passed in without '-' preceding it will be considered a directory or path
 ```
 $git clone https://github.com/amah001/rshell.git
 $cd rshell
-$git checkout hw2
+$git checkout hw3
 $make
 $bin/rshell
 $bin/ls
