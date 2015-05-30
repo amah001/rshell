@@ -7,8 +7,9 @@ Rshell is able to run commands that use connectors such as ";" which executes th
 It can also do input redirection, output redirection, and piping. 
 Piping however only works once.
 
-
 It is able to change directories and breaks only the command being ran and not Rshell.
+
+Can also handle the ^C signal just like bash does.
 
 #ls
 This is my custom version of ls. There is no color coding nor output management. 
